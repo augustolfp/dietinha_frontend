@@ -21,6 +21,7 @@ export default function Register() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    disabled={isLoading}
                 />
                 <br />
                 Password:
@@ -29,9 +30,12 @@ export default function Register() {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    disabled={isLoading}
                 />
                 <br />
-                <button type="submit">Register</button>
+                <button type="submit" disabled={isLoading}>
+                    {isLoading ? "loading..." : "Register"}
+                </button>
             </form>
         </>
     );

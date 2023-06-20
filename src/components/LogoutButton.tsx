@@ -9,7 +9,7 @@ export default function LogoutButton() {
 
     return (
         <button disabled={isLoading} onClick={handleSignout}>
-            Signout
+            {isLoading ? "loading..." : "Signout"}
         </button>
     );
 }

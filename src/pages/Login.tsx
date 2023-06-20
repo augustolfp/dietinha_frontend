@@ -21,6 +21,7 @@ export default function Login() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    disabled={isLoading}
                 />
                 <br />
                 Password:
@@ -29,9 +30,12 @@ export default function Login() {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    disabled={isLoading}
                 />
                 <br />
-                <button type="submit">Log In</button>
+                <button type="submit" disabled={isLoading}>
+                    {isLoading ? "loading..." : "Log In"}
+                </button>
             </form>
         </>
     );

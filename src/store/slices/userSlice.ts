@@ -12,9 +12,6 @@ const userSlice = createSlice({
     },
     reducers: {
         setUser: (state: any, action) => {
-            console.log(
-                `User is being set to : ${JSON.stringify(action.payload)}`
-            );
             state.user = action.payload;
         },
         clearUserData: (state: any, action) => {
