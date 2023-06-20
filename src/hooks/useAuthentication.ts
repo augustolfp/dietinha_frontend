@@ -38,7 +38,7 @@ export default function useAuthentication() {
                 email,
                 password
             );
-            console.log(user);
+
             dispatch(
                 setUser({
                     email: user.email,

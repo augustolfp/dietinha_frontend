@@ -9,7 +9,7 @@ export default function GuestGuard({ children }: Props) {
     const user = useSelector((state: any) => {
         return state.user;
     });
-    console.log(`GuestGuard pegou o user: ${JSON.stringify(user)}`);
+
     if (user.user.email) {
         return <Navigate to="/dashboard" />;
     }
