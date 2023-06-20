@@ -22,7 +22,14 @@ export default function useAuthentication() {
                 password
             );
 
-            dispatch(setUser(user));
+            dispatch(
+                setUser({
+                    email: user.email,
+                    uid: user.uid,
+                    displayName: user.displayName,
+                    photoURL: user.photoURL,
+                })
+            );
         } catch (err) {
             console.log(err);
         } finally {
