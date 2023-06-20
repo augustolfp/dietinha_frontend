@@ -1,12 +1,14 @@
 import { useState } from "react";
+import useAuthentication from "../hooks/useAuthentication";
 
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const { isLoading, signInCall } = useAuthentication();
 
-    const handleLogin = (e: any) => {
+    const handleLogin = async (e: any) => {
         e.preventDefault();
-        console.log("Login routine triggered!");
+        await signInCall({ email, password });
     };
 
     return (

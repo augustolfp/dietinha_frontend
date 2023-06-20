@@ -21,6 +21,7 @@ export default function useAuthentication() {
                 email,
                 password
             );
+
             dispatch(setUser(user));
         } catch (err) {
             console.log(err);
@@ -37,7 +38,15 @@ export default function useAuthentication() {
                 email,
                 password
             );
-            dispatch(setUser(user));
+            console.log(user);
+            dispatch(
+                setUser({
+                    email: user.email,
+                    uid: user.uid,
+                    displayName: user.displayName,
+                    photoURL: user.photoURL,
+                })
+            );
         } catch (err) {
             console.log(err);
         } finally {

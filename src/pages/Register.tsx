@@ -1,12 +1,14 @@
 import { useState } from "react";
+import useAuthentication from "../hooks/useAuthentication";
 
 export default function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const { isLoading, signUpCall } = useAuthentication();
 
-    const handleRegister = (e: any) => {
+    const handleRegister = async (e: any) => {
         e.preventDefault();
-        console.log("Register routine triggered!");
+        await signUpCall({ email, password });
     };
 
     return (
