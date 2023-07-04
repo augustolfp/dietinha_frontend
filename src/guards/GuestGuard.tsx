@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 type Props = {
-    children: any;
+    children?: React.ReactNode;
 };
 
 export default function GuestGuard({ children }: Props) {
