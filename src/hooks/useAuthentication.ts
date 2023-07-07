@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "./typedReduxHooks";
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
@@ -8,12 +8,22 @@ import {
 import { clearUserData, setUser } from "../store";
 import { auth } from "../config/firebase";
 
+interface SignInCredentials {
+    email: string;
+    password: string;
+}
+
+interface SignUpCredentials {
+    email: string;
+    password: string;
+}
+
 export default function useAuthentication() {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const signInCall = async ({ email, password }: any) => {
+    const signInCall = async ({ email, password }: SignInCredentials) => {
         setIsLoading(true);
         try {
             const { user } = await signInWithEmailAndPassword(
@@ -37,7 +47,7 @@ export default function useAuthentication() {
         }
     };
 
-    const signUpCall = async ({ email, password }: any) => {
+    const signUpCall = async ({ email, password }: SignUpCredentials) => {
         setIsLoading(true);
         try {
             const { user } = await createUserWithEmailAndPassword(
@@ -65,7 +75,7 @@ export default function useAuthentication() {
         setIsLoading(true);
         try {
             await signOut(auth);
-            dispatch(clearUserData(null));
+            dispatch(clearUserData());
         } catch (err) {
             console.log(err);
         } finally {

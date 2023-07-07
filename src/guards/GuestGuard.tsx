@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../hooks/typedReduxHooks";
 import { Navigate } from "react-router-dom";
 
 type Props = {
@@ -6,7 +6,7 @@ type Props = {
 };
 
 export default function GuestGuard({ children }: Props) {
-    const user = useSelector((state: any) => {
+    const user = useAppSelector((state) => {
         return state.user;
     });
 
