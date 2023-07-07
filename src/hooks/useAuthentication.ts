@@ -4,9 +4,13 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
+    GoogleAuthProvider,
+    signInWithPopup,
 } from "@firebase/auth";
 import { clearUserData, setUser } from "../store";
 import { auth } from "../config/firebase";
+
+const googleProvider = new GoogleAuthProvider();
 
 interface SignInCredentials {
     email: string;
@@ -31,6 +35,26 @@ export default function useAuthentication() {
                 email,
                 password
             );
+
+            dispatch(
+                setUser({
+                    email: user.email,
+                    uid: user.uid,
+                    displayName: user.displayName,
+                    photoURL: user.photoURL,
+                })
+            );
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const googleSignInCall = async () => {
+        setIsLoading(true);
+        try {
+            const { user } = await signInWithPopup(auth, googleProvider);
 
             dispatch(
                 setUser({
@@ -83,5 +107,5 @@ export default function useAuthentication() {
         }
     };
 
-    return { isLoading, signInCall, signUpCall, signOutCall };
+    return { isLoading, signInCall, googleSignInCall, signUpCall, signOutCall };
 }

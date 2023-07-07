@@ -4,11 +4,16 @@ import useAuthentication from "../hooks/useAuthentication";
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { isLoading, signInCall } = useAuthentication();
+    const { isLoading, signInCall, googleSignInCall } = useAuthentication();
 
     const handleLogin = async (e: any) => {
         e.preventDefault();
         await signInCall({ email, password });
+    };
+
+    const handleGoogleLogin = async (e: any) => {
+        e.preventDefault();
+        await googleSignInCall();
     };
 
     return (
@@ -37,6 +42,9 @@ export default function Login() {
                     {isLoading ? "loading..." : "Log In"}
                 </button>
             </form>
+            <button disabled={isLoading} onClick={handleGoogleLogin}>
+                Sign in with google!
+            </button>
         </>
     );
 }
