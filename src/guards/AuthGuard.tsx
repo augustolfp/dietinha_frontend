@@ -11,7 +11,7 @@ export default function AuthGuard({ children }: Props) {
     });
 
     if (!user.user.email) {
-        return <Navigate to="/login" />;
+        return <Navigate to="/" />;
     }
 
     return <>{children}</>;

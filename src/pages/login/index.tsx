@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import useAuthentication from "../../hooks/useAuthentication";
 
@@ -56,6 +57,11 @@ export default function Login() {
                 >
                     Sign in with google!
                 </button>
+                <div className="text-pink-600 text-center hover:text-pink-400">
+                    <Link to="/register">
+                        Ainda não tem uma conta? Cadastre-se!
+                    </Link>
+                </div>
             </div>
         </div>
     );
