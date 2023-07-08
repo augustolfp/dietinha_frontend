@@ -1,4 +1,4 @@
-import { useAppSelector } from "../hooks/typedReduxHooks";
+import useAuthentication from "../hooks/useAuthentication";
 import { Navigate } from "react-router-dom";
 
 type Props = {
@@ -6,11 +6,10 @@ type Props = {
 };
 
 export default function AuthGuard({ children }: Props) {
-    const user = useAppSelector((state) => {
-        return state.user;
-    });
+    const { isLoggedIn } = useAuthentication();
+    const logged = isLoggedIn();
 
-    if (!user.user.email) {
+    if (!logged) {
         return <Navigate to="/" />;
     }
 

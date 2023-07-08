@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAppDispatch } from "./typedReduxHooks";
+import { useAppDispatch, useAppSelector } from "./typedReduxHooks";
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
@@ -26,6 +26,17 @@ export default function useAuthentication() {
     const dispatch = useAppDispatch();
 
     const [isLoading, setIsLoading] = useState(false);
+
+    const isLoggedIn = () => {
+        const user = useAppSelector((state) => {
+            return state.user;
+        });
+
+        if (user.user.email) {
+            return true;
+        }
+        return false;
+    };
 
     const signInCall = async ({ email, password }: SignInCredentials) => {
         setIsLoading(true);
@@ -107,5 +118,12 @@ export default function useAuthentication() {
         }
     };
 
-    return { isLoading, signInCall, googleSignInCall, signUpCall, signOutCall };
+    return {
+        isLoading,
+        isLoggedIn,
+        signInCall,
+        googleSignInCall,
+        signUpCall,
+        signOutCall,
+    };
 }
