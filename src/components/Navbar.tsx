@@ -3,8 +3,12 @@ import { FaGithub } from "react-icons/fa";
 import useAuthentication from "../hooks/useAuthentication";
 
 export default function Navbar() {
-    const { isLoggedIn } = useAuthentication();
+    const { isLoggedIn, isLoading, signOutCall } = useAuthentication();
     const logged = isLoggedIn();
+
+    const handleSignout = async () => {
+        await signOutCall();
+    };
 
     return (
         <div className="flex justify-between items-center absolute top-0 w-screen bg-white shadow-md p-4">
@@ -12,7 +16,11 @@ export default function Navbar() {
             <div className="flex">
                 <div className="navbar-icon m-4">Sobre</div>
                 <NavbarIcon icon={FaGithub} />
-                {logged ? <div>LOGADO</div> : <div>DESLOGADO</div>}
+                {logged && (
+                    <button disabled={isLoading} onClick={handleSignout}>
+                        Sair
+                    </button>
+                )}
             </div>
         </div>
     );
