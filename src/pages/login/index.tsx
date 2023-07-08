@@ -18,12 +18,13 @@ export default function Login() {
 
     return (
         <div className="flex flex-col items-center">
-            <div className=" bg-white rounded-xl shadow-lg">
-                <h1>Login</h1>
+            <div className=" bg-white rounded-xl shadow-lg p-6">
+                <div className="text-center">Login</div>
                 <form onSubmit={handleLogin}>
                     Email:
                     <br />
                     <input
+                        className="auth-input"
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -33,17 +34,26 @@ export default function Login() {
                     Password:
                     <br />
                     <input
+                        className="auth-input"
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         disabled={isLoading}
                     />
                     <br />
-                    <button type="submit" disabled={isLoading}>
+                    <button
+                        className="auth-button"
+                        type="submit"
+                        disabled={isLoading}
+                    >
                         {isLoading ? "loading..." : "Log In"}
                     </button>
                 </form>
-                <button disabled={isLoading} onClick={handleGoogleLogin}>
+                <button
+                    className="auth-button"
+                    disabled={isLoading}
+                    onClick={handleGoogleLogin}
+                >
                     Sign in with google!
                 </button>
             </div>
