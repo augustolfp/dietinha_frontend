@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useAuthentication from "../hooks/useAuthentication";
+import useAuthentication from "../../hooks/useAuthentication";
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -17,7 +17,7 @@ export default function Login() {
     };
 
     return (
-        <div className="flex flex-col items-center bg-slate-100">
+        <div className="flex flex-col items-center">
             <div className=" bg-white rounded-xl shadow-lg">
                 <h1>Login</h1>
                 <form onSubmit={handleLogin}>
