@@ -1,8 +1,10 @@
+import { BiSolidShow } from "react-icons/bi";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import useAuthentication from "../../hooks/useAuthentication";
 import { Button } from "../../components/Button";
+import { Input } from "../../components/Input";
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -26,8 +28,7 @@ export default function Login() {
                 <form onSubmit={handleLogin}>
                     Email:
                     <br />
-                    <input
-                        className="auth-input"
+                    <Input.Root
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -36,13 +37,16 @@ export default function Login() {
                     <br />
                     Password:
                     <br />
-                    <input
-                        className="auth-input"
+                    <Input.Root
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         disabled={isLoading}
-                    />
+                    >
+                        <Input.RightActions>
+                            <Input.RightAction icon={BiSolidShow} />
+                        </Input.RightActions>
+                    </Input.Root>
                     <br />
                     <Button.Root
                         className="auth-button"
