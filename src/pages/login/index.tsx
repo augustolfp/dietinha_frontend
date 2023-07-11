@@ -1,7 +1,7 @@
 import { BiSolidShow } from "react-icons/bi";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, SyntheticEvent } from "react";
 import useAuthentication from "../../hooks/useAuthentication";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
@@ -11,12 +11,12 @@ export default function Login() {
     const [password, setPassword] = useState("");
     const { isLoading, signInCall, googleSignInCall } = useAuthentication();
 
-    const handleLogin = async (e: any) => {
+    const handleLogin = async (e: SyntheticEvent) => {
         e.preventDefault();
         await signInCall({ email, password });
     };
 
-    const handleGoogleLogin = async (e: any) => {
+    const handleGoogleLogin = async (e: SyntheticEvent) => {
         e.preventDefault();
         await googleSignInCall();
     };
@@ -48,11 +48,7 @@ export default function Login() {
                         </Input.RightActions>
                     </Input.Root>
                     <br />
-                    <Button.Root
-                        className="auth-button"
-                        type="submit"
-                        disabled={isLoading}
-                    >
+                    <Button.Root type="submit" disabled={isLoading}>
                         Entrar
                     </Button.Root>
                 </form>
