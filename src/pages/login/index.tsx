@@ -1,6 +1,8 @@
+import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import useAuthentication from "../../hooks/useAuthentication";
+import { Button } from "../../components/Button";
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -42,21 +44,22 @@ export default function Login() {
                         disabled={isLoading}
                     />
                     <br />
-                    <button
+                    <Button.Root
                         className="auth-button"
                         type="submit"
                         disabled={isLoading}
                     >
-                        {isLoading ? "loading..." : "Log In"}
-                    </button>
+                        Entrar
+                    </Button.Root>
                 </form>
-                <button
-                    className="auth-button"
+                <Button.Root
+                    className="auth-button bg-slate-200 text-zinc-700"
                     disabled={isLoading}
                     onClick={handleGoogleLogin}
                 >
-                    Sign in with google!
-                </button>
+                    <FcGoogle />
+                    <span>Logar com o Google</span>
+                </Button.Root>
                 <div className="text-pink-600 text-center hover:text-pink-400">
                     <Link to="/register">
                         Ainda não tem uma conta? Cadastre-se!
