@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "./typedReduxHooks";
 import { createUserWithEmailAndPassword, signOut } from "@firebase/auth";
-import { clearUserData, setUser } from "../store";
+import { setUser } from "../store";
 import { auth } from "../config/firebase";
 
 interface SignUpCredentials {
@@ -49,22 +49,9 @@ export default function useAuthentication() {
         }
     };
 
-    const signOutCall = async () => {
-        setIsLoading(true);
-        try {
-            await signOut(auth);
-            dispatch(clearUserData());
-        } catch (err) {
-            console.log(err);
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
     return {
         isLoading,
         isLoggedIn,
         signUpCall,
-        signOutCall,
     };
 }
