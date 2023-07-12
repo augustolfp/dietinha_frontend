@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import useAuthentication from "../../hooks/useAuthentication";
+import { SyntheticEvent, useState } from "react";
+import useSignUp from "../../hooks/authHooks/useSignUp";
 
 export default function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { isLoading, signUpCall } = useAuthentication();
+    const { isLoading, signUp } = useSignUp();
 
-    const handleRegister = async (e: any) => {
+    const handleRegister = async (e: SyntheticEvent) => {
         e.preventDefault();
-        await signUpCall({ email, password });
+        await signUp({ email, password });
     };
 
     return (
