@@ -1,21 +1,8 @@
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "./typedReduxHooks";
-import {
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    signOut,
-    GoogleAuthProvider,
-    signInWithPopup,
-} from "@firebase/auth";
+import { createUserWithEmailAndPassword, signOut } from "@firebase/auth";
 import { clearUserData, setUser } from "../store";
 import { auth } from "../config/firebase";
-
-const googleProvider = new GoogleAuthProvider();
-
-interface SignInCredentials {
-    email: string;
-    password: string;
-}
 
 interface SignUpCredentials {
     email: string;
@@ -36,50 +23,6 @@ export default function useAuthentication() {
             return true;
         }
         return false;
-    };
-
-    const signInCall = async ({ email, password }: SignInCredentials) => {
-        setIsLoading(true);
-        try {
-            const { user } = await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
-
-            dispatch(
-                setUser({
-                    email: user.email,
-                    uid: user.uid,
-                    displayName: user.displayName,
-                    photoURL: user.photoURL,
-                })
-            );
-        } catch (err) {
-            console.log(err);
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    const googleSignInCall = async () => {
-        setIsLoading(true);
-        try {
-            const { user } = await signInWithPopup(auth, googleProvider);
-
-            dispatch(
-                setUser({
-                    email: user.email,
-                    uid: user.uid,
-                    displayName: user.displayName,
-                    photoURL: user.photoURL,
-                })
-            );
-        } catch (err) {
-            console.log(err);
-        } finally {
-            setIsLoading(false);
-        }
     };
 
     const signUpCall = async ({ email, password }: SignUpCredentials) => {
@@ -121,8 +64,6 @@ export default function useAuthentication() {
     return {
         isLoading,
         isLoggedIn,
-        signInCall,
-        googleSignInCall,
         signUpCall,
         signOutCall,
     };

@@ -1,14 +1,14 @@
 import { FcGoogle } from "react-icons/fc";
 import { SyntheticEvent } from "react";
 import { Button } from "../../components/Button";
-import useAuthentication from "../../hooks/useAuthentication";
+import useGoogleAuth from "../../hooks/authHooks/useGoogleAuth";
 
 export default function LoginWithGoogle() {
-    const { isLoading, googleSignInCall } = useAuthentication();
+    const { isLoading, googleAuth } = useGoogleAuth();
 
     const handleGoogleLogin = async (e: SyntheticEvent) => {
         e.preventDefault();
-        await googleSignInCall();
+        await googleAuth();
     };
 
     return (

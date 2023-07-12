@@ -1,17 +1,17 @@
 import { useState, SyntheticEvent } from "react";
 import { BiSolidShow } from "react-icons/bi";
-import useAuthentication from "../../hooks/useAuthentication";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
+import useSignIn from "../../hooks/authHooks/useSignIn";
 
 export default function LoginForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { isLoading, signInCall } = useAuthentication();
+    const { isLoading, signIn } = useSignIn();
 
     const handleLogin = async (e: SyntheticEvent) => {
         e.preventDefault();
-        await signInCall({ email, password });
+        await signIn({ email, password });
     };
     return (
         <form onSubmit={handleLogin}>
