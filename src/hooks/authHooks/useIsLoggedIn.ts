@@ -1,6 +1,6 @@
-import { useAppSelector } from "./typedReduxHooks";
+import { useAppSelector } from "../typedReduxHooks";
 
-export default function useAuthentication() {
+export default function useIsLoggedIn() {
     const isLoggedIn = () => {
         const user = useAppSelector((state) => {
             return state.user;

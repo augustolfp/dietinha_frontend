@@ -1,12 +1,12 @@
-import useAuthentication from "../hooks/useAuthentication";
 import { Navigate } from "react-router-dom";
+import useIsLoggedIn from "../hooks/authHooks/useIsLoggedIn";
 
 type Props = {
     children?: React.ReactNode;
 };
 
 export default function AuthGuard({ children }: Props) {
-    const { isLoggedIn } = useAuthentication();
+    const { isLoggedIn } = useIsLoggedIn();
     const logged = isLoggedIn();
 
     if (!logged) {

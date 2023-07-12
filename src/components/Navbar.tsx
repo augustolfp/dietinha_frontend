@@ -1,10 +1,10 @@
 import { IconType } from "react-icons";
 import { FaGithub } from "react-icons/fa";
-import useAuthentication from "../hooks/useAuthentication";
 import useSignOut from "../hooks/authHooks/useSignOut";
+import useIsLoggedIn from "../hooks/authHooks/useIsLoggedIn";
 
 export default function Navbar() {
-    const { isLoggedIn } = useAuthentication();
+    const { isLoggedIn } = useIsLoggedIn();
     const { isLoading, signOut } = useSignOut();
     const logged = isLoggedIn();
 
