@@ -6,7 +6,7 @@ export default function Register() {
     return (
         <div className="flex items-center justify-center">
             <div className="w-[360px] flex flex-col gap-4">
-                <div className="font-bold text-center text-xl">Login</div>
+                <div className="font-bold text-center text-xl">Cadastro</div>
                 <RegisterForm />
                 <RegisterWithGoogle />
                 <Link

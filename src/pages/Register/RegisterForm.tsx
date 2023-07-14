@@ -1,11 +1,7 @@
 import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-// import { useState, SyntheticEvent } from "react";
 import { DotWave } from "@uiball/loaders";
-// import { BiSolidShow, BiSolidHide } from "react-icons/bi";
 import useSignUp from "../../hooks/authHooks/useSignUp";
-// import { Button } from "../../components/Button";
-// import { Input } from "../../components/Input";
 import { registerFormSchema } from "../../schemas/credentialsSchemas";
 import PasswordInput from "../../components/PasswordInput";
 
@@ -16,10 +12,7 @@ type Inputs = {
 };
 
 export default function RegisterForm() {
-    // const [email, setEmail] = useState("");
-    // const [password, setPassword] = useState("");
     const { isLoading, signUp } = useSignUp();
-    // const [passwordVisible, setPasswordVisible] = useState(false);
 
     const registerUserForm = useForm<Inputs>({
         resolver: zodResolver(registerFormSchema),
@@ -31,10 +24,6 @@ export default function RegisterForm() {
         setError,
         formState: { errors },
     } = registerUserForm;
-    // const handleRegister = async (e: SyntheticEvent) => {
-    //     e.preventDefault();
-    //     await signUp({ email, password });
-    // };
 
     const onSubmit: SubmitHandler<Inputs> = async ({
         name,
@@ -50,11 +39,6 @@ export default function RegisterForm() {
             });
         }
     };
-
-    // const togglePasswordVisibility = (e: SyntheticEvent) => {
-    //     e.preventDefault();
-    //     setPasswordVisible(!passwordVisible);
-    // };
 
     return (
         <FormProvider {...registerUserForm}>
