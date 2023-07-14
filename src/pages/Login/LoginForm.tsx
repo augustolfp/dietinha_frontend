@@ -39,8 +39,8 @@ export default function LoginForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <div>
+        <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
+            <div className="flex flex-col gap-1">
                 <label htmlFor="email">E-mail</label>
                 <input
                     id="email"
@@ -55,7 +55,7 @@ export default function LoginForm() {
                     </p>
                 )}
             </div>
-            <div>
+            <div className="flex flex-col gap-1">
                 <label htmlFor="password">Password</label>
                 <input
                     id="password"

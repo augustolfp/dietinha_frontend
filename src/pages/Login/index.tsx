@@ -4,17 +4,16 @@ import LoginForm from "./LoginForm";
 
 export default function Login() {
     return (
-        <div className="flex flex-col items-center">
-            <div className=" bg-white rounded-xl shadow-lg p-6">
-                <div className="text-center">Login</div>
-                <LoginForm />
-                <LoginWithGoogle />
-                <div className="text-pink-600 text-center hover:text-pink-400">
-                    <Link to="/register">
-                        Ainda não tem uma conta? Cadastre-se!
-                    </Link>
-                </div>
-            </div>
+        <div className="flex flex-col gap-4 items-center justify-center">
+            <div className="font-bold">Login</div>
+            <LoginForm />
+            <LoginWithGoogle />
+            <Link
+                className=" text-xs text-pink-600 hover:text-pink-400"
+                to="/register"
+            >
+                Ainda não tem uma conta? Cadastre-se!
+            </Link>
         </div>
     );
 }
