@@ -18,6 +18,7 @@ export default function LoginForm() {
     const {
         register,
         handleSubmit,
+        setError,
         formState: { errors },
     } = useForm<Inputs>({ resolver: zodResolver(loginFormSchema) });
 
@@ -25,7 +26,10 @@ export default function LoginForm() {
         try {
             await signIn({ email, password });
         } catch (err) {
-            console.log("Ocorreu um erro no Login!");
+            setError("root.serverError", {
+                message:
+                    "Ocorreu um erro no Login. Verifique suas credenciais.",
+            });
         }
     };
 
@@ -78,6 +82,11 @@ export default function LoginForm() {
             >
                 {isLoading ? <DotWave /> : "Entrar"}
             </button>
+            {errors.root && (
+                <p role="alert" className="text-xs text-red-700">
+                    {errors.root.serverError.message}
+                </p>
+            )}
         </form>
     );
 }
