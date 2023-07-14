@@ -31,7 +31,7 @@ export default function useSignIn() {
                 })
             );
         } catch (err) {
-            console.log(err);
+            throw err;
         } finally {
             setIsLoading(false);
         }

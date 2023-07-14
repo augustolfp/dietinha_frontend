@@ -25,7 +25,7 @@ export default function LoginForm() {
         try {
             await signIn({ email, password });
         } catch (err) {
-            console.log(JSON.stringify(err));
+            console.log("Ocorreu um erro no Login!");
         }
     };
 
