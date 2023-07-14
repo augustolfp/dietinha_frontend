@@ -1,4 +1,5 @@
 import { useState, SyntheticEvent } from "react";
+import { DotWave } from "@uiball/loaders";
 import { BiSolidShow } from "react-icons/bi";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
@@ -38,7 +39,7 @@ export default function LoginForm() {
             </Input.Root>
             <br />
             <Button.Root type="submit" disabled={isLoading}>
-                Entrar
+                {isLoading ? <DotWave /> : "Entrar"}
             </Button.Root>
         </form>
     );
