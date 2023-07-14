@@ -4,7 +4,7 @@ import { useState, SyntheticEvent } from "react";
 import { DotWave } from "@uiball/loaders";
 import { BiSolidShow, BiSolidHide } from "react-icons/bi";
 import useSignIn from "../../hooks/authHooks/useSignIn";
-import { loginFormSchema } from "../../schemas/loginFormSchema";
+import { loginFormSchema } from "../../schemas/credentialsSchemas";
 
 type Inputs = {
     email: string;

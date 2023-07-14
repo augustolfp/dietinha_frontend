@@ -4,14 +4,17 @@ import RegisterForm from "./RegisterForm";
 
 export default function Register() {
     return (
-        <div className="flex flex-col items-center">
-            <div className=" bg-white rounded-xl shadow-lg p-6">
-                <div className="text-center">Cadastro</div>
+        <div className="flex items-center justify-center">
+            <div className="w-[360px] flex flex-col gap-4">
+                <div className="font-bold text-center text-xl">Login</div>
                 <RegisterForm />
                 <RegisterWithGoogle />
-                <div className="text-pink-600 text-center hover:text-pink-400">
-                    <Link to="/">Já tem uma conta? Faça login!</Link>
-                </div>
+                <Link
+                    className=" text-xs text-center text-pink-600 hover:text-pink-400"
+                    to="/"
+                >
+                    Já tem uma conta? Faça login!
+                </Link>
             </div>
         </div>
     );
