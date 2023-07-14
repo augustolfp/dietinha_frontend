@@ -1,6 +1,6 @@
 import { useState, SyntheticEvent } from "react";
 import { DotWave } from "@uiball/loaders";
-import { BiSolidShow } from "react-icons/bi";
+import { BiSolidShow, BiSolidHide } from "react-icons/bi";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import useSignIn from "../../hooks/authHooks/useSignIn";
@@ -9,11 +9,18 @@ export default function LoginForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { isLoading, signIn } = useSignIn();
+    const [passwordVisible, setPasswordVisible] = useState(false);
 
     const handleLogin = async (e: SyntheticEvent) => {
         e.preventDefault();
         await signIn({ email, password });
     };
+
+    const togglePasswordVisibility = (e: SyntheticEvent) => {
+        e.preventDefault();
+        setPasswordVisible(!passwordVisible);
+    };
+
     return (
         <form onSubmit={handleLogin}>
             Email:
@@ -28,13 +35,16 @@ export default function LoginForm() {
             Password:
             <br />
             <Input.Root
-                type="password"
+                type={passwordVisible ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={isLoading}
             >
                 <Input.RightActions>
-                    <Input.RightAction icon={BiSolidShow} />
+                    <Input.RightAction
+                        onClick={togglePasswordVisibility}
+                        icon={passwordVisible ? BiSolidHide : BiSolidShow}
+                    />
                 </Input.RightActions>
             </Input.Root>
             <br />
