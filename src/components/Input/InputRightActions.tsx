@@ -5,5 +5,5 @@ interface Props {
 }
 
 export default function InputRightActions({ children }: Props) {
-    return <div className="flex gap-1">{children}</div>;
+    return <div>{children}</div>;
 }
