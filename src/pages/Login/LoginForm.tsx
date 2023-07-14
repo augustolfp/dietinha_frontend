@@ -57,16 +57,22 @@ export default function LoginForm() {
             </div>
             <div className="flex flex-col gap-1">
                 <label htmlFor="password">Password</label>
-                <input
-                    id="password"
-                    type={passwordVisible ? "text" : "password"}
-                    {...register("password")}
-                    aria-invalid={errors.password ? "true" : "false"}
-                    disabled={isLoading}
-                />
-                <button onClick={togglePasswordVisibility}>
-                    {passwordVisible ? <BiSolidHide /> : <BiSolidShow />}
-                </button>
+                <div className="flex items-center relative">
+                    <input
+                        className="w-full"
+                        id="password"
+                        type={passwordVisible ? "text" : "password"}
+                        {...register("password")}
+                        aria-invalid={errors.password ? "true" : "false"}
+                        disabled={isLoading}
+                    />
+                    <div
+                        className="absolute right-2"
+                        onClick={togglePasswordVisibility}
+                    >
+                        {passwordVisible ? <BiSolidHide /> : <BiSolidShow />}
+                    </div>
+                </div>
 
                 {errors.password && (
                     <p role="alert" className="text-xs text-red-700">
@@ -77,7 +83,7 @@ export default function LoginForm() {
 
             <button
                 type="submit"
-                className="p-2 bg-pink-500"
+                className="p-2 bg-pink-500 flex items-center justify-center"
                 disabled={isLoading}
             >
                 {isLoading ? <DotWave /> : "Entrar"}
