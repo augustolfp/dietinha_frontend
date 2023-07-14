@@ -56,7 +56,7 @@ export default function LoginForm() {
                 )}
             </div>
             <div className="flex flex-col gap-1">
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password">Senha</label>
                 <div className="flex items-center relative">
                     <input
                         className="w-full"

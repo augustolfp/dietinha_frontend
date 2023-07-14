@@ -12,13 +12,13 @@ export default function LoginWithGoogle() {
     };
 
     return (
-        <Button.Root
-            className="auth-button bg-slate-200 text-zinc-700"
+        <button
+            className="border border-black text-zinc-700 p-2 flex items-center justify-center"
             disabled={isLoading}
             onClick={handleGoogleLogin}
         >
             <FcGoogle />
             <span>Logar com o Google</span>
-        </Button.Root>
+        </button>
     );
 }
