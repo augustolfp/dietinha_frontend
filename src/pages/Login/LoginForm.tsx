@@ -48,9 +48,7 @@ export default function LoginForm() {
                         disabled={isLoading}
                     />
                     {errors.email && (
-                        <p role="alert" className="text-xs text-red-700">
-                            {errors.email.message}
-                        </p>
+                        <AuthForm.ErrorMessage message={errors.email.message} />
                     )}
                 </AuthForm.InputWrapper>
 
@@ -62,9 +60,9 @@ export default function LoginForm() {
                     />
 
                     {errors.password && (
-                        <p role="alert" className="text-xs text-red-700">
-                            {errors.password.message}
-                        </p>
+                        <AuthForm.ErrorMessage
+                            message={errors.password.message}
+                        />
                     )}
                 </AuthForm.InputWrapper>
 
@@ -72,9 +70,9 @@ export default function LoginForm() {
                     Entrar
                 </AuthForm.SubmitButton>
                 {errors.root && (
-                    <p role="alert" className="text-xs text-red-700">
-                        {errors.root.serverError.message}
-                    </p>
+                    <AuthForm.ErrorMessage
+                        message={errors.root.serverError.message}
+                    />
                 )}
             </form>
         </FormProvider>
