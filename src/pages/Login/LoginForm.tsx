@@ -1,9 +1,8 @@
 import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { DotWave } from "@uiball/loaders";
 import useSignIn from "../../hooks/authHooks/useSignIn";
 import { loginFormSchema } from "../../schemas/credentialsSchemas";
-import PasswordInput from "../../components/PasswordInput";
+import { AuthForm } from "../../components/AuthForm";
 
 type Inputs = {
     email: string;
@@ -18,7 +17,6 @@ export default function LoginForm() {
     });
 
     const {
-        register,
         handleSubmit,
         setError,
         formState: { errors },
@@ -41,12 +39,11 @@ export default function LoginForm() {
                 className="flex flex-col gap-3"
                 onSubmit={handleSubmit(onSubmit)}
             >
-                <div className="flex flex-col gap-1">
-                    <label htmlFor="email">E-mail</label>
-                    <input
-                        id="email"
+                <AuthForm.InputWrapper>
+                    <AuthForm.Label htmlFor="email">E-mail</AuthForm.Label>
+                    <AuthForm.Input
+                        name="email"
                         type="text"
-                        {...register("email")}
                         aria-invalid={errors.email ? "true" : "false"}
                         disabled={isLoading}
                     />
@@ -55,10 +52,11 @@ export default function LoginForm() {
                             {errors.email.message}
                         </p>
                     )}
-                </div>
-                <div className="flex flex-col gap-1">
-                    <label htmlFor="password">Senha</label>
-                    <PasswordInput
+                </AuthForm.InputWrapper>
+
+                <AuthForm.InputWrapper>
+                    <AuthForm.Label htmlFor="password">Senha</AuthForm.Label>
+                    <AuthForm.PasswordInput
                         aria-invalid={errors.password ? "true" : "false"}
                         disabled={isLoading}
                     />
@@ -68,15 +66,11 @@ export default function LoginForm() {
                             {errors.password.message}
                         </p>
                     )}
-                </div>
+                </AuthForm.InputWrapper>
 
-                <button
-                    type="submit"
-                    className="p-2 bg-pink-500 flex items-center justify-center"
-                    disabled={isLoading}
-                >
-                    {isLoading ? <DotWave /> : "Entrar"}
-                </button>
+                <AuthForm.SubmitButton disabled={isLoading}>
+                    Entrar
+                </AuthForm.SubmitButton>
                 {errors.root && (
                     <p role="alert" className="text-xs text-red-700">
                         {errors.root.serverError.message}
