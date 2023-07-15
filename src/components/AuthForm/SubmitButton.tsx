@@ -12,7 +12,7 @@ export default function SubmitButton({ disabled, children, ...rest }: Props) {
             className="p-2 bg-pink-500 flex items-center justify-center"
             {...rest}
         >
-            {disabled ? <DotWave /> : <>{children}</>}
+            {disabled ? <DotWave /> : children}
         </button>
     );
 }
