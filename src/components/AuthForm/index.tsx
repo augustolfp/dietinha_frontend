@@ -4,6 +4,7 @@ import Label from "./Label";
 import SubmitButton from "./SubmitButton";
 import InputWrapper from "./InputWrapper";
 import ErrorMessage from "./ErrorMessage";
+import GoogleButton from "./GoogleButton";
 
 export const AuthForm = {
     Input,
@@ -11,5 +12,6 @@ export const AuthForm = {
     InputWrapper,
     Label,
     SubmitButton,
+    GoogleButton,
     ErrorMessage,
 };

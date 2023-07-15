@@ -1,7 +1,6 @@
-import { FcGoogle } from "react-icons/fc";
 import { SyntheticEvent } from "react";
-import { Button } from "../../components/Button";
 import useGoogleAuth from "../../hooks/authHooks/useGoogleAuth";
+import { AuthForm } from "../../components/AuthForm";
 
 export default function LoginWithGoogle() {
     const { isLoading, googleAuth } = useGoogleAuth();
@@ -12,13 +11,8 @@ export default function LoginWithGoogle() {
     };
 
     return (
-        <button
-            className="border border-black text-zinc-700 p-2 flex items-center justify-center"
-            disabled={isLoading}
-            onClick={handleGoogleLogin}
-        >
-            <FcGoogle />
-            <span>Logar com o Google</span>
-        </button>
+        <AuthForm.GoogleButton disabled={isLoading} onClick={handleGoogleLogin}>
+            Logar com o Google
+        </AuthForm.GoogleButton>
     );
 }

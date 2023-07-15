@@ -1,7 +1,6 @@
-import { FcGoogle } from "react-icons/fc";
 import { SyntheticEvent } from "react";
-import { Button } from "../../components/Button";
 import useGoogleAuth from "../../hooks/authHooks/useGoogleAuth";
+import { AuthForm } from "../../components/AuthForm";
 
 export default function RegisterWithGoogle() {
     const { isLoading, googleAuth } = useGoogleAuth();
@@ -12,13 +11,11 @@ export default function RegisterWithGoogle() {
     };
 
     return (
-        <Button.Root
-            className="auth-button bg-slate-200 text-zinc-700"
+        <AuthForm.GoogleButton
             disabled={isLoading}
             onClick={handleGoogleRegister}
         >
-            <FcGoogle />
-            <span>Cadastre-se com o Google</span>
-        </Button.Root>
+            Cadastre-se com o Google
+        </AuthForm.GoogleButton>
     );
 }
