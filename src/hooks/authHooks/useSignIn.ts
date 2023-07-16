@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { auth } from "../../config/firebase";
-import { setUser } from "../../store";
-import { useAppDispatch } from "../typedReduxHooks";
 import { signInWithEmailAndPassword } from "@firebase/auth";
 
 interface SignInCredentials {
@@ -10,26 +8,12 @@ interface SignInCredentials {
 }
 
 export default function useSignIn() {
-    const dispatch = useAppDispatch();
     const [isLoading, setIsLoading] = useState(false);
 
     const signIn = async ({ email, password }: SignInCredentials) => {
         setIsLoading(true);
         try {
-            const { user } = await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
-
-            dispatch(
-                setUser({
-                    email: user.email,
-                    uid: user.uid,
-                    displayName: user.displayName,
-                    photoURL: user.photoURL,
-                })
-            );
+            await signInWithEmailAndPassword(auth, email, password);
         } catch (err) {
             throw err;
         } finally {
