@@ -1,15 +1,14 @@
 import { Navigate } from "react-router-dom";
-import useIsLoggedIn from "../hooks/authHooks/useIsLoggedIn";
+import useUser from "../hooks/authHooks/useUser";
 
 type Props = {
     children?: React.ReactNode;
 };
 
 export default function GuestGuard({ children }: Props) {
-    const { isLoggedIn } = useIsLoggedIn();
-    const logged = isLoggedIn();
+    const { isLoggedIn } = useUser();
 
-    if (logged) {
+    if (isLoggedIn) {
         return <Navigate to="/dashboard" />;
     }
 

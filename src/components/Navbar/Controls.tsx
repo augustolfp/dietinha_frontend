@@ -1,11 +1,10 @@
 import { FaGithub } from "react-icons/fa";
 import useSignOut from "../../hooks/authHooks/useSignOut";
-import useIsLoggedIn from "../../hooks/authHooks/useIsLoggedIn";
+import useUser from "../../hooks/authHooks/useUser";
 
 export default function Controls() {
-    const { isLoggedIn } = useIsLoggedIn();
+    const { isLoggedIn } = useUser();
     const { isLoading, signOut } = useSignOut();
-    const logged = isLoggedIn();
 
     const handleSignout = async () => {
         await signOut();
@@ -15,7 +14,7 @@ export default function Controls() {
         <div className="flex items-center gap-3 text-pink-700">
             <div>Sobre</div>
             <FaGithub />
-            {logged && (
+            {isLoggedIn && (
                 <button disabled={isLoading} onClick={handleSignout}>
                     Sair
                 </button>
