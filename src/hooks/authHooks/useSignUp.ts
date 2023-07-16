@@ -1,19 +1,21 @@
 import { useState } from "react";
 import { auth } from "../../config/firebase";
-import { setUser } from "../../store";
-import { useAppDispatch } from "../typedReduxHooks";
-import { createUserWithEmailAndPassword } from "@firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "@firebase/auth";
 
 interface SignUpCredentials {
+    displayName: string;
     email: string;
     password: string;
 }
 
 export default function useSignUp() {
-    const dispatch = useAppDispatch();
     const [isLoading, setIsLoading] = useState(false);
 
-    const signUp = async ({ email, password }: SignUpCredentials) => {
+    const signUp = async ({
+        displayName,
+        email,
+        password,
+    }: SignUpCredentials) => {
         setIsLoading(true);
         try {
             const { user } = await createUserWithEmailAndPassword(
@@ -22,14 +24,9 @@ export default function useSignUp() {
                 password
             );
 
-            dispatch(
-                setUser({
-                    email: user.email,
-                    uid: user.uid,
-                    displayName: user.displayName,
-                    photoURL: user.photoURL,
-                })
-            );
+            await updateProfile(user, {
+                displayName: displayName,
+            });
         } catch (err) {
             throw err;
         } finally {

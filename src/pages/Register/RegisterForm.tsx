@@ -5,7 +5,7 @@ import { registerFormSchema } from "../../schemas/credentialsSchemas";
 import { AuthForm } from "../../components/AuthForm";
 
 type Inputs = {
-    name: string;
+    displayName: string;
     email: string;
     password: string;
 };
@@ -24,12 +24,12 @@ export default function RegisterForm() {
     } = registerUserForm;
 
     const onSubmit: SubmitHandler<Inputs> = async ({
-        name,
+        displayName,
         email,
         password,
     }) => {
         try {
-            await signUp({ email, password });
+            await signUp({ email, password, displayName });
         } catch (err) {
             setError("root.serverError", {
                 message:
@@ -45,17 +45,19 @@ export default function RegisterForm() {
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <AuthForm.InputWrapper>
-                    <AuthForm.Label htmlFor="name">
+                    <AuthForm.Label htmlFor="displayName">
                         Nome completo
                     </AuthForm.Label>
                     <AuthForm.Input
-                        name="name"
+                        name="displayName"
                         type="text"
-                        aria-invalid={errors.name ? "true" : "false"}
+                        aria-invalid={errors.displayName ? "true" : "false"}
                         disabled={isLoading}
                     />
-                    {errors.name && (
-                        <AuthForm.ErrorMessage message={errors.name.message} />
+                    {errors.displayName && (
+                        <AuthForm.ErrorMessage
+                            message={errors.displayName.message}
+                        />
                     )}
                 </AuthForm.InputWrapper>
 

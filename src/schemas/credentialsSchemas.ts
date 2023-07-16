@@ -9,7 +9,7 @@ export const loginFormSchema = z.object({
 });
 
 export const registerFormSchema = z.object({
-    name: z
+    displayName: z
         .string()
         .nonempty("O nome é obrigatório")
         .transform((name) => {
