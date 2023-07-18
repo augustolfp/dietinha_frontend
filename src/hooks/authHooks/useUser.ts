@@ -1,8 +1,11 @@
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useState } from "react";
+import { useIdToken } from "react-firebase-hooks/auth";
 import { auth } from "../../config/firebase";
 
 export default function useUser() {
-    const [user, loading, error] = useAuthState(auth);
+    const [accessToken, setAccessToken] = useState("");
+    const [user, loading, error] = useIdToken(auth);
+
     const logged = () => {
         if (user) {
             return true;
@@ -12,8 +15,16 @@ export default function useUser() {
 
     const isLoggedIn = logged();
 
+    if (user) {
+        const getToken = user.getIdToken();
+        getToken.then((token) => {
+            setAccessToken(token);
+        });
+    }
+
     return {
         isLoggedIn,
         user,
+        accessToken,
     };
 }
