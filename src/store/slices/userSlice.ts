@@ -9,11 +9,16 @@ interface SignInCredentials {
     password: string;
 }
 
+interface LoginResponse {
+    displayName: string;
+    accessToken: string;
+}
+
 interface User {
     displayName: string | null;
     accessToken: string | null;
     status: "idle" | "loading" | "suceeded" | "failed";
-    error: string | null;
+    error: string | null | undefined;
 }
 
 const initialUserState: User = {
@@ -31,7 +36,11 @@ export const signInUser = createAsyncThunk(
             email,
             password
         );
-        return response.user;
+        const accessToken = await response.user.getIdToken();
+        return {
+            displayName: response.user.displayName,
+            accessToken: accessToken,
+        };
     }
 );
 
@@ -47,6 +56,22 @@ const userSlice = createSlice({
         clearUserData: (state) => {
             state.user = initialUserState;
         },
+    },
+    extraReducers(builder) {
+        builder
+            .addCase(signInUser.pending, (state, action) => {
+                state.user.status = "loading";
+            })
+            .addCase(signInUser.fulfilled, (state, action: any) => {
+                state.user.status = "suceeded";
+
+                state.user.displayName = action.payload.displayName;
+                state.user.accessToken = action.payload.accessToken;
+            })
+            .addCase(signInUser.rejected, (state, action) => {
+                state.user.status = "failed";
+                state.user.error = action.error.message;
+            });
     },
 });
 
