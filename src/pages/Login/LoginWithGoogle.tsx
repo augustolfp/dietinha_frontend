@@ -1,17 +1,22 @@
 import { SyntheticEvent } from "react";
-import useGoogleAuth from "../../hooks/authHooks/useGoogleAuth";
 import { AuthForm } from "../../components/AuthForm";
+import { useAppDispatch, useAppSelector } from "../../hooks/typedReduxHooks";
+import { googleAuth } from "../../store/slices/userSlice";
 
 export default function LoginWithGoogle() {
-    const { isLoading, googleAuth } = useGoogleAuth();
+    const dispatch = useAppDispatch();
+    const { status, error } = useAppSelector((state) => state.user.user);
 
     const handleGoogleLogin = async (e: SyntheticEvent) => {
         e.preventDefault();
-        await googleAuth();
+        dispatch(googleAuth());
     };
 
     return (
-        <AuthForm.GoogleButton disabled={isLoading} onClick={handleGoogleLogin}>
+        <AuthForm.GoogleButton
+            disabled={status === "loading"}
+            onClick={handleGoogleLogin}
+        >
             Logar com o Google
         </AuthForm.GoogleButton>
     );
