@@ -1,19 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "..";
 
 interface User {
-    email: string | null;
-    uid: string | null;
     displayName: string | null;
-    photoURL: string | null;
+    accessToken: string | null;
 }
 
 const initialUserState: User = {
-    email: null,
-    uid: null,
     displayName: null,
-    photoURL: null,
+    accessToken: null,
 };
 
 const userSlice = createSlice({
@@ -26,12 +21,7 @@ const userSlice = createSlice({
             state.user = action.payload;
         },
         clearUserData: (state) => {
-            state.user = {
-                email: null,
-                uid: null,
-                displayName: null,
-                photoURL: null,
-            };
+            state.user = initialUserState;
         },
     },
 });
