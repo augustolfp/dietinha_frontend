@@ -7,6 +7,8 @@ import {
     createUserWithEmailAndPassword,
     signOut,
     updateProfile,
+    GoogleAuthProvider,
+    signInWithPopup,
 } from "firebase/auth";
 
 interface SignInCredentials {
@@ -33,6 +35,8 @@ const initialUserState: User = {
     status: "idle",
     error: null,
 };
+
+const provider = new GoogleAuthProvider();
 
 export const signInUser = createAsyncThunk(
     "user/signInUser",
@@ -71,6 +75,15 @@ export const signUpUser = createAsyncThunk(
 
 export const signOutUser = createAsyncThunk("user/signOutUser", async () => {
     return await signOut(auth);
+});
+
+export const googleAuth = createAsyncThunk("user/googleAuth", async () => {
+    const response = await signInWithPopup(auth, provider);
+    const accessToken = await response.user.getIdToken();
+    return {
+        displayName: response.user.displayName,
+        accessToken: accessToken,
+    };
 });
 
 const userSlice = createSlice({
@@ -121,6 +134,19 @@ const userSlice = createSlice({
                 state.user.accessToken = action.payload.accessToken;
             })
             .addCase(signUpUser.rejected, (state, action) => {
+                state.user.status = "failed";
+                state.user.error = action.error.message;
+            })
+            .addCase(googleAuth.pending, (state, action) => {
+                state.user.status = "loading";
+            })
+            .addCase(googleAuth.fulfilled, (state, action) => {
+                state.user.status = "suceeded";
+
+                state.user.displayName = action.payload.displayName;
+                state.user.accessToken = action.payload.accessToken;
+            })
+            .addCase(googleAuth.rejected, (state, action) => {
                 state.user.status = "failed";
                 state.user.error = action.error.message;
             });
