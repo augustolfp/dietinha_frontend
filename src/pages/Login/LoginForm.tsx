@@ -3,6 +3,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import useSignIn from "../../hooks/authHooks/useSignIn";
 import { loginFormSchema } from "../../schemas/credentialsSchemas";
 import { AuthForm } from "../../components/AuthForm";
+import { useAppDispatch } from "../../hooks/typedReduxHooks";
+import { signInUser } from "../../store/slices/userSlice";
 
 type Inputs = {
     email: string;
@@ -10,6 +12,7 @@ type Inputs = {
 };
 
 export default function LoginForm() {
+    const dispatch = useAppDispatch();
     const { isLoading, signIn } = useSignIn();
 
     const createUserForm = useForm<Inputs>({
@@ -22,15 +25,18 @@ export default function LoginForm() {
         formState: { errors },
     } = createUserForm;
 
-    const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
-        try {
-            await signIn({ email, password });
-        } catch (err) {
-            setError("root.serverError", {
-                message:
-                    "Ocorreu um erro no Login. Verifique suas credenciais.",
-            });
-        }
+    // const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
+    //     try {
+    //         await signIn({ email, password });
+    //     } catch (err) {
+    //         setError("root.serverError", {
+    //             message:
+    //                 "Ocorreu um erro no Login. Verifique suas credenciais.",
+    //         });
+    //     }
+    // };
+    const onSubmit: SubmitHandler<Inputs> = ({ email, password }) => {
+        dispatch(signInUser({ email, password }));
     };
 
     return (
