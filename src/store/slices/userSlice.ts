@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { auth } from "../../config/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 interface SignInCredentials {
     email: string;
@@ -44,6 +44,10 @@ export const signInUser = createAsyncThunk(
     }
 );
 
+export const signOutUser = createAsyncThunk("user/signOutUser", async () => {
+    return await signOut(auth);
+});
+
 const userSlice = createSlice({
     name: "user",
     initialState: {
@@ -69,6 +73,16 @@ const userSlice = createSlice({
                 state.user.accessToken = action.payload.accessToken;
             })
             .addCase(signInUser.rejected, (state, action) => {
+                state.user.status = "failed";
+                state.user.error = action.error.message;
+            })
+            .addCase(signOutUser.fulfilled, (state, action) => {
+                state.user = initialUserState;
+            })
+            .addCase(signOutUser.pending, (state, action) => {
+                state.user.status = "loading";
+            })
+            .addCase(signOutUser.rejected, (state, action) => {
                 state.user.status = "failed";
                 state.user.error = action.error.message;
             });
