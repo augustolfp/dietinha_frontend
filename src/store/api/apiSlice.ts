@@ -13,13 +13,7 @@ export const apiSlice = createApi({
                 headers: { Authorization: `Bearer ${token}` },
                 method: "GET",
             }),
-            providesTags: (result = [], error, arg) => [
-                "CountedDay",
-                ...result.map(({ id }: { id: string }) => ({
-                    type: "CountedDay",
-                    id,
-                })),
-            ],
+            providesTags: ["CountedDay"],
         }),
     }),
 });
