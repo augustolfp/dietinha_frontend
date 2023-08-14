@@ -18,12 +18,19 @@ export const apiSlice = createApi({
         getCountedDays: builder.query({
             query: () => ({
                 url: "/get-days-data",
-                // headers: { Authorization: `Bearer ${token}` },
                 method: "GET",
             }),
             providesTags: ["CountedDay"],
         }),
+        addCountedDay: builder.mutation({
+            query: (newCountedDay) => ({
+                url: "/add-counted-day",
+                method: "POST",
+                body: newCountedDay,
+            }),
+            invalidatesTags: ["CountedDay"],
+        }),
     }),
 });
 
-export const { useGetCountedDaysQuery } = apiSlice;
+export const { useGetCountedDaysQuery, useAddCountedDayMutation } = apiSlice;
