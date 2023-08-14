@@ -3,10 +3,9 @@ import { useGetCountedDaysQuery } from "../store/api/apiSlice";
 
 export default function Dashboard() {
     const { accessToken } = useUser();
-    const { data, isFetching, isSuccess } = useGetCountedDaysQuery(
-        accessToken,
-        { skip: !Boolean(accessToken) }
-    );
+    const { data, isFetching, isSuccess } = useGetCountedDaysQuery(null, {
+        skip: !Boolean(accessToken),
+    });
 
     let content;
     if (isFetching) {
