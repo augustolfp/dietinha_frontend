@@ -1,10 +1,10 @@
 import useUser from "../hooks/authHooks/useUser";
-import { useGetCountedDaysQuery } from "../store/api/apiSlice";
-import NewCountedDayForm from "../components/NewCountedDayForm";
+import { useGetDailyLogsQuery } from "../store/api/apiSlice";
+import NewDailyLogForm from "../components/NewDailyLogForm";
 
 export default function Dashboard() {
     const { accessToken } = useUser();
-    const { data, isFetching, isSuccess } = useGetCountedDaysQuery(null, {
+    const { data, isFetching, isSuccess } = useGetDailyLogsQuery(null, {
         skip: !Boolean(accessToken),
     });
 
@@ -18,7 +18,7 @@ export default function Dashboard() {
     return (
         <div className="flex flex-col items-center">
             <h2>Bem vindo a Dashboard!</h2>
-            <NewCountedDayForm />
+            <NewDailyLogForm />
             <div className="bg-purple-300 p-4 m-4">
                 <h3 className="font-semibold">Access Token:</h3>
                 <p className="break-all">{accessToken}</p>

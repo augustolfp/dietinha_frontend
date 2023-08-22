@@ -13,24 +13,24 @@ export const apiSlice = createApi({
             return headers;
         },
     }),
-    tagTypes: ["CountedDay"],
+    tagTypes: ["DailyLog"],
     endpoints: (builder) => ({
-        getCountedDays: builder.query({
+        getDailyLogs: builder.query({
             query: () => ({
-                url: "/get-days-data",
+                url: "/daily-log",
                 method: "GET",
             }),
-            providesTags: ["CountedDay"],
+            providesTags: ["DailyLog"],
         }),
-        addCountedDay: builder.mutation({
-            query: (newCountedDay) => ({
-                url: "/add-counted-day",
+        addDailyLog: builder.mutation({
+            query: (newDailyLog) => ({
+                url: "/daily-log",
                 method: "POST",
-                body: newCountedDay,
+                body: newDailyLog,
             }),
-            invalidatesTags: ["CountedDay"],
+            invalidatesTags: ["DailyLog"],
         }),
     }),
 });
 
-export const { useGetCountedDaysQuery, useAddCountedDayMutation } = apiSlice;
+export const { useGetDailyLogsQuery, useAddDailyLogMutation } = apiSlice;
