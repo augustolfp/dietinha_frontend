@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { dailyLogFormSchema } from "../../schemas/dailyLogSchemas";
-import { Form } from "../Form";
+import { Form } from "../../components/Form";
 import { useAddDailyLogMutation } from "../../store/api/apiSlice";
 
 type Inputs = {
@@ -11,7 +11,7 @@ type Inputs = {
     proteinsTarget: number;
 };
 
-export default function NewDailyLogForm() {
+export default function DailyLogForm() {
     const [addDailyLog, { isLoading }] = useAddDailyLogMutation();
 
     const createDailyLogForm = useForm<Inputs>({

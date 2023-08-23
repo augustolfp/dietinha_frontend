@@ -1,7 +1,7 @@
-import useUser from "../hooks/authHooks/useUser";
-import { useGetDailyLogsQuery } from "../store/api/apiSlice";
-import NewDailyLogForm from "../components/NewDailyLogForm";
-import DashboardCard from "../components/DashboardCard";
+import useUser from "../../hooks/authHooks/useUser";
+import { useGetDailyLogsQuery } from "../../store/api/apiSlice";
+import DailyLogForm from "./DailyLogForm";
+import DashboardCard from "./DashboardCard";
 
 export default function Dashboard() {
     const { accessToken } = useUser();
@@ -30,7 +30,7 @@ export default function Dashboard() {
                 <p className="break-all">{accessToken}</p>
             </div>
             <div className="flex flex-wrap gap-4 m-4">
-                <NewDailyLogForm />
+                <DailyLogForm />
                 {content}
             </div>
         </div>
