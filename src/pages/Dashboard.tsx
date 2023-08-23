@@ -1,6 +1,7 @@
 import useUser from "../hooks/authHooks/useUser";
 import { useGetDailyLogsQuery } from "../store/api/apiSlice";
 import NewDailyLogForm from "../components/NewDailyLogForm";
+import DashboardCard from "../components/DashboardCard";
 
 export default function Dashboard() {
     const { accessToken } = useUser();
@@ -12,18 +13,26 @@ export default function Dashboard() {
     if (isFetching) {
         content = <div>Loading....</div>;
     } else if (isSuccess) {
-        content = <div>{JSON.stringify(data)}</div>;
+        content = (
+            <>
+                {data.map((dailyLog: any) => (
+                    <DashboardCard {...dailyLog} />
+                ))}
+            </>
+        );
     }
 
     return (
-        <div className="flex flex-col items-center">
+        <div className="m-6">
             <h2>Bem vindo a Dashboard!</h2>
-            <NewDailyLogForm />
             <div className="bg-purple-300 p-4 m-4">
                 <h3 className="font-semibold">Access Token:</h3>
                 <p className="break-all">{accessToken}</p>
             </div>
-            <div className="bg-purple-300 m-4 p-4">{content}</div>
+            <div className="flex flex-wrap gap-4 m-4">
+                <NewDailyLogForm />
+                {content}
+            </div>
         </div>
     );
 }
