@@ -5,9 +5,12 @@ import DashboardCard from "./DashboardCard";
 
 export default function Dashboard() {
     const { accessToken } = useUser();
-    const { data, isFetching, isSuccess } = useGetDailyLogsQuery(null, {
-        skip: !Boolean(accessToken),
-    });
+    const { data, isFetching, isSuccess } = useGetDailyLogsQuery(
+        "required_arg",
+        {
+            skip: !Boolean(accessToken),
+        }
+    );
 
     let content;
     if (isFetching) {
@@ -15,8 +18,8 @@ export default function Dashboard() {
     } else if (isSuccess) {
         content = (
             <>
-                {data.map((dailyLog: any) => (
-                    <DashboardCard {...dailyLog} />
+                {data.map((dailyLog) => (
+                    <DashboardCard key={dailyLog.id} dailyLog={dailyLog} />
                 ))}
             </>
         );
