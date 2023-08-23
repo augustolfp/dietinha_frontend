@@ -6,7 +6,7 @@ import InputWrapper from "./InputWrapper";
 import ErrorMessage from "./ErrorMessage";
 import GoogleButton from "./GoogleButton";
 
-export const AuthForm = {
+export const Form = {
     Input,
     PasswordInput,
     InputWrapper,

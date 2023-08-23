@@ -2,7 +2,7 @@ import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useSignIn from "../../hooks/authHooks/useSignIn";
 import { loginFormSchema } from "../../schemas/credentialsSchemas";
-import { AuthForm } from "../../components/AuthForm";
+import { Form } from "../../components/Form";
 
 type Inputs = {
     email: string;
@@ -39,38 +39,36 @@ export default function LoginForm() {
                 className="flex flex-col gap-3"
                 onSubmit={handleSubmit(onSubmit)}
             >
-                <AuthForm.InputWrapper>
-                    <AuthForm.Label htmlFor="email">E-mail</AuthForm.Label>
-                    <AuthForm.Input
+                <Form.InputWrapper>
+                    <Form.Label htmlFor="email">E-mail</Form.Label>
+                    <Form.Input
                         name="email"
                         type="text"
                         aria-invalid={errors.email ? "true" : "false"}
                         disabled={isLoading}
                     />
                     {errors.email && (
-                        <AuthForm.ErrorMessage message={errors.email.message} />
+                        <Form.ErrorMessage message={errors.email.message} />
                     )}
-                </AuthForm.InputWrapper>
+                </Form.InputWrapper>
 
-                <AuthForm.InputWrapper>
-                    <AuthForm.Label htmlFor="password">Senha</AuthForm.Label>
-                    <AuthForm.PasswordInput
+                <Form.InputWrapper>
+                    <Form.Label htmlFor="password">Senha</Form.Label>
+                    <Form.PasswordInput
                         aria-invalid={errors.password ? "true" : "false"}
                         disabled={isLoading}
                     />
 
                     {errors.password && (
-                        <AuthForm.ErrorMessage
-                            message={errors.password.message}
-                        />
+                        <Form.ErrorMessage message={errors.password.message} />
                     )}
-                </AuthForm.InputWrapper>
+                </Form.InputWrapper>
 
-                <AuthForm.SubmitButton disabled={isLoading}>
+                <Form.SubmitButton disabled={isLoading}>
                     Entrar
-                </AuthForm.SubmitButton>
+                </Form.SubmitButton>
                 {errors.root && (
-                    <AuthForm.ErrorMessage
+                    <Form.ErrorMessage
                         message={errors.root.serverError.message}
                     />
                 )}

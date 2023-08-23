@@ -1,6 +1,6 @@
 import { SyntheticEvent } from "react";
 import useGoogleAuth from "../../hooks/authHooks/useGoogleAuth";
-import { AuthForm } from "../../components/AuthForm";
+import { Form } from "../../components/Form";
 
 export default function LoginWithGoogle() {
     const { isLoading, googleAuth } = useGoogleAuth();
@@ -11,8 +11,8 @@ export default function LoginWithGoogle() {
     };
 
     return (
-        <AuthForm.GoogleButton disabled={isLoading} onClick={handleGoogleLogin}>
+        <Form.GoogleButton disabled={isLoading} onClick={handleGoogleLogin}>
             Logar com o Google
-        </AuthForm.GoogleButton>
+        </Form.GoogleButton>
     );
 }

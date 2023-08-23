@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { dailyLogFormSchema } from "../../schemas/dailyLogSchemas";
-import { AuthForm } from "../AuthForm";
+import { Form } from "../Form";
 import { useAddDailyLogMutation } from "../../store/api/apiSlice";
 
 type Inputs = {
@@ -63,43 +63,37 @@ export default function NewDailyLogForm() {
                     className="flex flex-col gap-3"
                     onSubmit={handleSubmit(onSubmit)}
                 >
-                    <AuthForm.InputWrapper>
-                        <AuthForm.Label htmlFor="date">Data</AuthForm.Label>
-                        <AuthForm.Input
+                    <Form.InputWrapper>
+                        <Form.Label htmlFor="date">Data</Form.Label>
+                        <Form.Input
                             name="date"
                             type="text"
                             aria-invalid={errors.date ? "true" : "false"}
                             disabled={isLoading}
                         />
                         {errors.date && (
-                            <AuthForm.ErrorMessage
-                                message={errors.date.message}
-                            />
+                            <Form.ErrorMessage message={errors.date.message} />
                         )}
-                    </AuthForm.InputWrapper>
+                    </Form.InputWrapper>
 
-                    <AuthForm.InputWrapper>
-                        <AuthForm.Label htmlFor="notes">
-                            Anotações
-                        </AuthForm.Label>
-                        <AuthForm.Input
+                    <Form.InputWrapper>
+                        <Form.Label htmlFor="notes">Anotações</Form.Label>
+                        <Form.Input
                             name="notes"
                             type="text"
                             aria-invalid={errors.notes ? "true" : "false"}
                             disabled={isLoading}
                         />
                         {errors.notes && (
-                            <AuthForm.ErrorMessage
-                                message={errors.notes.message}
-                            />
+                            <Form.ErrorMessage message={errors.notes.message} />
                         )}
-                    </AuthForm.InputWrapper>
+                    </Form.InputWrapper>
 
-                    <AuthForm.InputWrapper>
-                        <AuthForm.Label htmlFor="proteinsTarget">
+                    <Form.InputWrapper>
+                        <Form.Label htmlFor="proteinsTarget">
                             Alvo de proteinas
-                        </AuthForm.Label>
-                        <AuthForm.Input
+                        </Form.Label>
+                        <Form.Input
                             name="proteinsTarget"
                             type="number"
                             aria-invalid={
@@ -108,17 +102,17 @@ export default function NewDailyLogForm() {
                             disabled={isLoading}
                         />
                         {errors.proteinsTarget && (
-                            <AuthForm.ErrorMessage
+                            <Form.ErrorMessage
                                 message={errors.proteinsTarget.message}
                             />
                         )}
-                    </AuthForm.InputWrapper>
+                    </Form.InputWrapper>
 
-                    <AuthForm.InputWrapper>
-                        <AuthForm.Label htmlFor="caloriesTarget">
+                    <Form.InputWrapper>
+                        <Form.Label htmlFor="caloriesTarget">
                             Alvo de calorias
-                        </AuthForm.Label>
-                        <AuthForm.Input
+                        </Form.Label>
+                        <Form.Input
                             name="caloriesTarget"
                             type="number"
                             aria-invalid={
@@ -127,17 +121,17 @@ export default function NewDailyLogForm() {
                             disabled={isLoading}
                         />
                         {errors.caloriesTarget && (
-                            <AuthForm.ErrorMessage
+                            <Form.ErrorMessage
                                 message={errors.caloriesTarget.message}
                             />
                         )}
-                    </AuthForm.InputWrapper>
+                    </Form.InputWrapper>
 
-                    <AuthForm.SubmitButton disabled={isLoading}>
+                    <Form.SubmitButton disabled={isLoading}>
                         Adicionar Daily-log
-                    </AuthForm.SubmitButton>
+                    </Form.SubmitButton>
                     {errors.root && (
-                        <AuthForm.ErrorMessage
+                        <Form.ErrorMessage
                             message={errors.root.serverError.message}
                         />
                     )}

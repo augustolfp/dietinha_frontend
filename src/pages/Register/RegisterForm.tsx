@@ -2,7 +2,7 @@ import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useSignUp from "../../hooks/authHooks/useSignUp";
 import { registerFormSchema } from "../../schemas/credentialsSchemas";
-import { AuthForm } from "../../components/AuthForm";
+import { Form } from "../../components/Form";
 
 type Inputs = {
     displayName: string;
@@ -44,54 +44,50 @@ export default function RegisterForm() {
                 className="flex flex-col gap-3"
                 onSubmit={handleSubmit(onSubmit)}
             >
-                <AuthForm.InputWrapper>
-                    <AuthForm.Label htmlFor="displayName">
-                        Nome completo
-                    </AuthForm.Label>
-                    <AuthForm.Input
+                <Form.InputWrapper>
+                    <Form.Label htmlFor="displayName">Nome completo</Form.Label>
+                    <Form.Input
                         name="displayName"
                         type="text"
                         aria-invalid={errors.displayName ? "true" : "false"}
                         disabled={isLoading}
                     />
                     {errors.displayName && (
-                        <AuthForm.ErrorMessage
+                        <Form.ErrorMessage
                             message={errors.displayName.message}
                         />
                     )}
-                </AuthForm.InputWrapper>
+                </Form.InputWrapper>
 
-                <AuthForm.InputWrapper>
-                    <AuthForm.Label htmlFor="email">E-mail</AuthForm.Label>
-                    <AuthForm.Input
+                <Form.InputWrapper>
+                    <Form.Label htmlFor="email">E-mail</Form.Label>
+                    <Form.Input
                         name="email"
                         type="text"
                         aria-invalid={errors.email ? "true" : "false"}
                         disabled={isLoading}
                     />
                     {errors.email && (
-                        <AuthForm.ErrorMessage message={errors.email.message} />
+                        <Form.ErrorMessage message={errors.email.message} />
                     )}
-                </AuthForm.InputWrapper>
+                </Form.InputWrapper>
 
-                <AuthForm.InputWrapper>
-                    <AuthForm.Label htmlFor="password">Senha</AuthForm.Label>
-                    <AuthForm.PasswordInput
+                <Form.InputWrapper>
+                    <Form.Label htmlFor="password">Senha</Form.Label>
+                    <Form.PasswordInput
                         aria-invalid={errors.password ? "true" : "false"}
                         disabled={isLoading}
                     />
                     {errors.password && (
-                        <AuthForm.ErrorMessage
-                            message={errors.password.message}
-                        />
+                        <Form.ErrorMessage message={errors.password.message} />
                     )}
-                </AuthForm.InputWrapper>
+                </Form.InputWrapper>
 
-                <AuthForm.SubmitButton disabled={isLoading}>
+                <Form.SubmitButton disabled={isLoading}>
                     Cadastrar
-                </AuthForm.SubmitButton>
+                </Form.SubmitButton>
                 {errors.root && (
-                    <AuthForm.ErrorMessage
+                    <Form.ErrorMessage
                         message={errors.root.serverError.message}
                     />
                 )}
