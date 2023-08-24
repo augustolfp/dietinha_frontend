@@ -3,6 +3,7 @@ import { useGetDailyLogByIdQuery } from "../../store/api/apiSlice";
 import { useParams } from "react-router-dom";
 import Header from "./Header";
 import Meal from "./Meal";
+import MealForm from "./MealForm";
 
 export default function DailyLog() {
     const { dailyLogId } = useParams();
@@ -31,6 +32,7 @@ export default function DailyLog() {
                     proteins={data.proteins}
                     kcals={data.kcals}
                 />
+                <MealForm dailyLogId={dailyLogId!} />
                 <div className="bg-purple-300 p-4 m-4">
                     <h2 className="font-semibold text-lg">Refeições: </h2>
                     <div className="m-4">

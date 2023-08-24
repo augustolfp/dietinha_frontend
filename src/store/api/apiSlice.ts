@@ -4,6 +4,8 @@ import type {
     DailyLog,
     AddDailyLog,
     DetailedDailyLog,
+    Meal,
+    AddMeal,
 } from "../../types/DailyLogTypes";
 
 export const apiSlice = createApi({
@@ -42,6 +44,14 @@ export const apiSlice = createApi({
             }),
             providesTags: ["DetailedDailyLog"],
         }),
+        addMeal: builder.mutation<Partial<Meal>, AddMeal>({
+            query: (newMeal) => ({
+                url: "/meal",
+                method: "POST",
+                body: newMeal,
+            }),
+            invalidatesTags: ["DailyLog", "DetailedDailyLog"],
+        }),
     }),
 });
 
@@ -49,4 +59,5 @@ export const {
     useGetDailyLogsQuery,
     useGetDailyLogByIdQuery,
     useAddDailyLogMutation,
+    useAddMealMutation,
 } = apiSlice;

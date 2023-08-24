@@ -28,6 +28,8 @@ export type Meal = {
     kcals: number;
 };
 
+export type AddMeal = Pick<Meal, "name" | "description" | "dailyLogId">;
+
 export type Ingredient = {
     id: string;
     name: string;
