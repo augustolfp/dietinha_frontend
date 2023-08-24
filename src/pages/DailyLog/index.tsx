@@ -20,7 +20,7 @@ export default function DailyLog() {
         content = <div>Loading....</div>;
     } else if (isSuccess) {
         content = (
-            <div>
+            <>
                 <Header
                     date={data.date}
                     notes={data.notes}
@@ -31,30 +31,26 @@ export default function DailyLog() {
                     proteins={data.proteins}
                     kcals={data.kcals}
                 />
-                <div>
-                    <h2 className="font-semibold text-xl">Refeições: </h2>
-                    {data.mealsList.map((meal) => (
-                        <Meal
-                            key={meal.id}
-                            name={meal.name}
-                            description={meal.description}
-                            carbs={meal.carbs}
-                            fats={meal.fats}
-                            proteins={meal.proteins}
-                            kcals={meal.kcals}
-                            ingredientsList={meal.ingredientsList}
-                        />
-                    ))}
+                <div className="bg-purple-300 p-4 m-4">
+                    <h2 className="font-semibold text-lg">Refeições: </h2>
+                    <div className="m-4">
+                        {data.mealsList.map((meal) => (
+                            <Meal
+                                key={meal.id}
+                                name={meal.name}
+                                description={meal.description}
+                                carbs={meal.carbs}
+                                fats={meal.fats}
+                                proteins={meal.proteins}
+                                kcals={meal.kcals}
+                                ingredientsList={meal.ingredientsList}
+                            />
+                        ))}
+                    </div>
                 </div>
-            </div>
+            </>
         );
     }
 
-    return (
-        <div>
-            <h1>Daily-log page!</h1>
-            <h2>daily-log id is: {dailyLogId}</h2>
-            {content}
-        </div>
-    );
+    return <div>{content}</div>;
 }

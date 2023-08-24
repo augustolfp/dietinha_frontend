@@ -4,8 +4,8 @@ interface Props extends Omit<Ingredient, "id" | "mealId"> {}
 
 export default function Ingredient(props: Props) {
     return (
-        <div>
-            <h3 className="font-semibold text-lg">{props.name}</h3>
+        <div className="bg-pink-300 p-4 m-4">
+            <h5 className="font-semibold text-xs">{props.name}</h5>
             <ul className="m-4">
                 <li>
                     <strong>Quantidade: </strong>

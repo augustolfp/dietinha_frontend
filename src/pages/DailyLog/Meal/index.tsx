@@ -5,8 +5,8 @@ interface Props extends Omit<DetailedMeal, "id" | "createdAt" | "dailyLogId"> {}
 
 export default function Meal(props: Props) {
     return (
-        <div className="bg-purple-200 p-4">
-            <h3 className="font-semibold text-lg">{props.name}</h3>
+        <div className="bg-purple-200 p-4 m-4">
+            <h3 className="font-semibold text-md">{props.name}</h3>
             <ul className="m-4">
                 <li>
                     <strong>Descrição: </strong>
@@ -29,18 +29,20 @@ export default function Meal(props: Props) {
                     {props.kcals} kcal
                 </li>
             </ul>
-            <h4>Ingredientes: </h4>
-            {props.ingredientsList.map((ing) => (
-                <Ingredient
-                    key={ing.id}
-                    name={ing.name}
-                    weight={ing.weight}
-                    carbs={ing.carbs}
-                    fats={ing.fats}
-                    proteins={ing.proteins}
-                    kcals={ing.kcals}
-                />
-            ))}
+            <h4 className="font-semibold text-sm">Ingredientes: </h4>
+            <div className="bg-purple-100 p-4 m-4">
+                {props.ingredientsList.map((ing) => (
+                    <Ingredient
+                        key={ing.id}
+                        name={ing.name}
+                        weight={ing.weight}
+                        carbs={ing.carbs}
+                        fats={ing.fats}
+                        proteins={ing.proteins}
+                        kcals={ing.kcals}
+                    />
+                ))}
+            </div>
         </div>
     );
 }
