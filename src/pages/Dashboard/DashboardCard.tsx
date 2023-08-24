@@ -32,7 +32,7 @@ export default function DashboardCard({ dailyLog }: Props) {
                 <h4>Calorias consumidas:</h4>
                 <span>{dailyLog.kcals}</span>
             </div>
-            <Link to="/daily-log">Ver detalhes</Link>
+            <Link to={`/daily-log/${dailyLog.id}`}>Ver detalhes</Link>
         </div>
     );
 }

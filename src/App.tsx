@@ -26,7 +26,10 @@ function App() {
                     </Route>
 
                     <Route element={<AuthGuard />}>
-                        <Route path="/daily-log" element={<DailyLog />} />
+                        <Route
+                            path="/daily-log/:dailyLogId"
+                            element={<DailyLog />}
+                        />
                     </Route>
                 </Routes>
             </Router>
