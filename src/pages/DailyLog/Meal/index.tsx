@@ -1,7 +1,8 @@
 import type { DetailedMeal } from "../../../types/DailyLogTypes";
 import Ingredient from "./Ingredient";
+import IngredientForm from "./IngredientForm";
 
-interface Props extends Omit<DetailedMeal, "id" | "createdAt" | "dailyLogId"> {}
+interface Props extends Omit<DetailedMeal, "createdAt" | "dailyLogId"> {}
 
 export default function Meal(props: Props) {
     return (
@@ -29,6 +30,9 @@ export default function Meal(props: Props) {
                     {props.kcals} kcal
                 </li>
             </ul>
+
+            <IngredientForm mealId={props.id} />
+
             <h4 className="font-semibold text-sm">Ingredientes: </h4>
             <div className="bg-purple-100 p-4 m-4">
                 {props.ingredientsList.map((ing) => (

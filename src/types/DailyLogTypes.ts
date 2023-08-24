@@ -41,6 +41,8 @@ export type Ingredient = {
     kcals: number;
 };
 
+export type AddIngredient = Omit<Ingredient, "id">;
+
 export type DetailedMeal = Meal & {
     ingredientsList: Ingredient[];
 };

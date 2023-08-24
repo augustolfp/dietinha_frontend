@@ -39,6 +39,7 @@ export default function DailyLog() {
                         {data.mealsList.map((meal) => (
                             <Meal
                                 key={meal.id}
+                                id={meal.id}
                                 name={meal.name}
                                 description={meal.description}
                                 carbs={meal.carbs}
