@@ -15,3 +15,34 @@ export type AddDailyLog = Omit<
     DailyLog,
     "id" | "userId" | "carbs" | "fats" | "proteins" | "kcals"
 >;
+
+export type Meal = {
+    id: string;
+    name: string;
+    description?: string;
+    createdAt: string;
+    dailyLogId: string;
+    carbs: number;
+    fats: number;
+    proteins: number;
+    kcals: number;
+};
+
+export type Ingredient = {
+    id: string;
+    name: string;
+    mealId: string;
+    weight: number;
+    carbs: number;
+    fats: number;
+    proteins: number;
+    kcals: number;
+};
+
+export type DetailedMeal = Meal & {
+    ingredientsList: Ingredient[];
+};
+
+export type DetailedDailyLog = DailyLog & {
+    mealsList: DetailedMeal[];
+};
