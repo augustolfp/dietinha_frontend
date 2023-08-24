@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import AuthGuard from "./guards/AuthGuard";
 import GuestGuard from "./guards/GuestGuard";
 import Navbar from "./components/Navbar";
+import DailyLog from "./pages/DailyLog";
 
 function App() {
     return (
@@ -12,30 +13,19 @@ function App() {
             <Navbar />
             <Router>
                 <Routes>
-                    <Route
-                        path="/"
-                        element={
-                            <GuestGuard>
-                                <Login />
-                            </GuestGuard>
-                        }
-                    />
-                    <Route
-                        path="/register"
-                        element={
-                            <GuestGuard>
-                                <Register />
-                            </GuestGuard>
-                        }
-                    />
-                    <Route
-                        path="/dashboard"
-                        element={
-                            <AuthGuard>
-                                <Dashboard />
-                            </AuthGuard>
-                        }
-                    />
+                    <Route element={<GuestGuard />}>
+                        <Route path="/" element={<Login />} />
+                    </Route>
+
+                    <Route element={<GuestGuard />}>
+                        <Route path="/register" element={<Register />} />
+                    </Route>
+
+                    <Route element={<AuthGuard />}>
+                        <Route path="/dashboard" element={<Dashboard />} />
+                    </Route>
+
+                    <Route path="/daily-log" element={<DailyLog />} />
                 </Routes>
             </Router>
         </div>

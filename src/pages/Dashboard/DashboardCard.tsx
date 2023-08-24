@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { DailyLog } from "../../types/DailyLogTypes";
 
 interface Props {
@@ -31,6 +32,7 @@ export default function DashboardCard({ dailyLog }: Props) {
                 <h4>Calorias consumidas:</h4>
                 <span>{dailyLog.kcals}</span>
             </div>
+            <Link to="/daily-log">Ver detalhes</Link>
         </div>
     );
 }

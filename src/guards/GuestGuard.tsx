@@ -1,16 +1,10 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import useUser from "../hooks/authHooks/useUser";
 
-type Props = {
-    children?: React.ReactNode;
-};
-
-export default function GuestGuard({ children }: Props) {
+export default function GuestGuard() {
     const { isLoggedIn } = useUser();
 
-    if (isLoggedIn) {
-        return <Navigate to="/dashboard" />;
-    }
-
-    return <>{children}</>;
+    return (
+        <>{isLoggedIn ? <Navigate to="/dashboard" replace /> : <Outlet />}</>
+    );
 }
