@@ -1,4 +1,4 @@
-import { DailyLog } from "../../types/DailyLogTypes";
+import type { DailyLog } from "../../types/DailyLogTypes";
 
 interface Props extends Omit<DailyLog, "id" | "userId"> {}
 

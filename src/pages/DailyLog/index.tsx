@@ -2,6 +2,7 @@ import useUser from "../../hooks/authHooks/useUser";
 import { useGetDailyLogByIdQuery } from "../../store/api/apiSlice";
 import { useParams } from "react-router-dom";
 import Header from "./Header";
+import Meal from "./Meal";
 
 export default function DailyLog() {
     const { dailyLogId } = useParams();
@@ -30,6 +31,21 @@ export default function DailyLog() {
                     proteins={data.proteins}
                     kcals={data.kcals}
                 />
+                <div>
+                    <h2 className="font-semibold text-xl">Refeições: </h2>
+                    {data.mealsList.map((meal) => (
+                        <Meal
+                            key={meal.id}
+                            name={meal.name}
+                            description={meal.description}
+                            carbs={meal.carbs}
+                            fats={meal.fats}
+                            proteins={meal.proteins}
+                            kcals={meal.kcals}
+                            ingredientsList={meal.ingredientsList}
+                        />
+                    ))}
+                </div>
             </div>
         );
     }
