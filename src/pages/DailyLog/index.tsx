@@ -1,6 +1,7 @@
 import useUser from "../../hooks/authHooks/useUser";
 import { useGetDailyLogByIdQuery } from "../../store/api/apiSlice";
 import { useParams } from "react-router-dom";
+import Header from "./Header";
 
 export default function DailyLog() {
     const { dailyLogId } = useParams();
@@ -17,7 +18,20 @@ export default function DailyLog() {
     if (isFetching) {
         content = <div>Loading....</div>;
     } else if (isSuccess) {
-        content = <div>{JSON.stringify(data)}</div>;
+        content = (
+            <div>
+                <Header
+                    date={data.date}
+                    notes={data.notes}
+                    caloriesTarget={data.caloriesTarget}
+                    proteinsTarget={data.proteinsTarget}
+                    carbs={data.carbs}
+                    fats={data.fats}
+                    proteins={data.proteins}
+                    kcals={data.kcals}
+                />
+            </div>
+        );
     }
 
     return (
