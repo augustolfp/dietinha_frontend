@@ -1,4 +1,5 @@
 import type { DetailedMeal } from "../../../types/DailyLogTypes";
+import Ingredient from "./Ingredient";
 
 interface Props extends Omit<DetailedMeal, "id" | "createdAt" | "dailyLogId"> {}
 
@@ -28,6 +29,18 @@ export default function Meal(props: Props) {
                     {props.kcals} kcal
                 </li>
             </ul>
+            <h4>Ingredientes: </h4>
+            {props.ingredientsList.map((ing) => (
+                <Ingredient
+                    key={ing.id}
+                    name={ing.name}
+                    weight={ing.weight}
+                    carbs={ing.carbs}
+                    fats={ing.fats}
+                    proteins={ing.proteins}
+                    kcals={ing.kcals}
+                />
+            ))}
         </div>
     );
 }
