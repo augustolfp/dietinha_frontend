@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { useIdToken } from "react-firebase-hooks/auth";
+import { useState, useEffect } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../config/firebase";
 
 export default function useUser() {
     const [accessToken, setAccessToken] = useState("");
-    const [user, loading, error] = useIdToken(auth);
+    const [user] = useAuthState(auth);
 
     const logged = () => {
         if (user) {
@@ -15,12 +15,14 @@ export default function useUser() {
 
     const isLoggedIn = logged();
 
-    if (user) {
-        const getToken = user.getIdToken();
-        getToken.then((token) => {
-            setAccessToken(token);
-        });
-    }
+    useEffect(() => {
+        if (user) {
+            const getToken = user.getIdToken();
+            getToken.then((token) => {
+                setAccessToken(token);
+            });
+        }
+    }, [user]);
 
     return {
         isLoggedIn,

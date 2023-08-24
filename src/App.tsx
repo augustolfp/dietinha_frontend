@@ -25,7 +25,9 @@ function App() {
                         <Route path="/dashboard" element={<Dashboard />} />
                     </Route>
 
-                    <Route path="/daily-log" element={<DailyLog />} />
+                    <Route element={<AuthGuard />}>
+                        <Route path="/daily-log" element={<DailyLog />} />
+                    </Route>
                 </Routes>
             </Router>
         </div>
