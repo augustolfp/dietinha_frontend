@@ -35,10 +35,7 @@ export default function LoginForm() {
 
     return (
         <FormProvider {...createUserForm}>
-            <form
-                className="flex flex-col gap-3"
-                onSubmit={handleSubmit(onSubmit)}
-            >
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <Form.InputWrapper>
                     <Form.Label htmlFor="email">E-mail</Form.Label>
                     <Form.Input

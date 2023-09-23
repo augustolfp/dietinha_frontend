@@ -14,18 +14,14 @@ export default function PasswordInput(props: Props) {
     };
 
     return (
-        <div className="flex items-center relative">
+        <div>
             <input
                 id="password"
                 {...register("password")}
-                className="w-full"
                 type={passwordVisible ? "text" : "password"}
                 {...props}
             />
-            <div
-                className="absolute right-2"
-                onClick={togglePasswordVisibility}
-            >
+            <div onClick={togglePasswordVisibility}>
                 {passwordVisible ? <BiSolidHide /> : <BiSolidShow />}
             </div>
         </div>

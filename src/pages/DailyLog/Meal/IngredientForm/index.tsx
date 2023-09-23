@@ -70,13 +70,10 @@ export default function IngredientForm({ mealId }: Props) {
     };
 
     return (
-        <div className="bg-purple-300 p-4 m-4">
+        <div>
             <h3>Adicionar ingrediente</h3>
             <FormProvider {...createIngredientForm}>
-                <form
-                    className="flex flex-col gap-3"
-                    onSubmit={handleSubmit(onSubmit)}
-                >
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <Form.InputWrapper>
                         <Form.Label htmlFor="name">
                             Nome do ingrediente

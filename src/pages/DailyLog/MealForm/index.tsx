@@ -50,13 +50,10 @@ export default function MealForm({ dailyLogId }: Props) {
     };
 
     return (
-        <div className="bg-white shadow-md p-4 mb-4">
-            <h2 className="font-semibold text-lg mb-4">Adicionar refeição</h2>
+        <div>
+            <h2>Adicionar refeição</h2>
             <FormProvider {...createMealForm}>
-                <form
-                    className="flex flex-col gap-3"
-                    onSubmit={handleSubmit(onSubmit)}
-                >
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <Form.InputWrapper>
                         <Form.Label htmlFor="name">Nome da refeição</Form.Label>
                         <Form.Input

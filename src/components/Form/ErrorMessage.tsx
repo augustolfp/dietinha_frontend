@@ -3,9 +3,5 @@ interface Props {
 }
 
 export default function ErrorMessage({ message }: Props) {
-    return (
-        <p role="alert" className="text-xs text-red-700">
-            {message ? message : "Campo inválido."}
-        </p>
-    );
+    return <p role="alert">{message ? message : "Campo inválido."}</p>;
 }

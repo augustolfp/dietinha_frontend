@@ -7,11 +7,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export default function SubmitButton({ disabled, children, ...rest }: Props) {
     return (
-        <button
-            type="submit"
-            className="p-2 bg-pink-500 flex items-center justify-center"
-            {...rest}
-        >
+        <button type="submit" {...rest}>
             {disabled ? <DotWave /> : children}
         </button>
     );

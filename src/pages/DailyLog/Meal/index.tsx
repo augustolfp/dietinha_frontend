@@ -6,9 +6,9 @@ interface Props extends Omit<DetailedMeal, "createdAt" | "dailyLogId"> {}
 
 export default function Meal(props: Props) {
     return (
-        <div className="bg-purple-200 p-4 m-4">
-            <h3 className="font-semibold text-md">{props.name}</h3>
-            <ul className="m-4">
+        <div>
+            <h3>{props.name}</h3>
+            <ul>
                 <li>
                     <strong>Descrição: </strong>
                     {props.description ? props.description : "Sem descrição"}
@@ -33,8 +33,8 @@ export default function Meal(props: Props) {
 
             <IngredientForm mealId={props.id} />
 
-            <h4 className="font-semibold text-sm">Ingredientes: </h4>
-            <div className="bg-purple-100 p-4 m-4">
+            <h4>Ingredientes: </h4>
+            <div>
                 {props.ingredientsList.map((ing) => (
                     <Ingredient
                         key={ing.id}

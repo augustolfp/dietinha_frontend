@@ -40,10 +40,7 @@ export default function RegisterForm() {
 
     return (
         <FormProvider {...registerUserForm}>
-            <form
-                className="flex flex-col gap-3"
-                onSubmit={handleSubmit(onSubmit)}
-            >
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <Form.InputWrapper>
                     <Form.Label htmlFor="displayName">Nome completo</Form.Label>
                     <Form.Input

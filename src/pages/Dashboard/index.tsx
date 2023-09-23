@@ -26,9 +26,9 @@ export default function Dashboard() {
     }
 
     return (
-        <div className="m-6">
-            <h2 className="text-xl font-semibold mb-6">Dashboard</h2>
-            <div className="flex flex-wrap gap-4">
+        <div>
+            <h2>Dashboard</h2>
+            <div>
                 <DailyLogForm />
                 {content}
             </div>

@@ -50,13 +50,10 @@ export default function DailyLogForm() {
     };
 
     return (
-        <div className="bg-white shadow-md p-4">
-            <h2 className="font-semibold text-lg">New Daily Log</h2>
+        <div>
+            <h2>New Daily Log</h2>
             <FormProvider {...createDailyLogForm}>
-                <form
-                    className="flex flex-col gap-3"
-                    onSubmit={handleSubmit(onSubmit)}
-                >
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <Form.InputWrapper>
                         <Form.Label htmlFor="date">Data</Form.Label>
                         <Form.Input
