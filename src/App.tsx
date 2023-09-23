@@ -10,7 +10,7 @@ import DailyLog from "./pages/DailyLog";
 
 function App() {
     return (
-        <div className="pt-16 bg-slate-50 prose">
+        <>
             <Navbar />
             <Router>
                 <Routes>
@@ -34,7 +34,7 @@ function App() {
                     </Route>
                 </Routes>
             </Router>
-        </div>
+        </>
     );
 }
 
