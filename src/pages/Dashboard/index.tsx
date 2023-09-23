@@ -27,12 +27,8 @@ export default function Dashboard() {
 
     return (
         <div className="m-6">
-            <h2>Bem vindo a Dashboard!</h2>
-            <div className="bg-purple-300 p-4 m-4">
-                <h3 className="font-semibold">Access Token:</h3>
-                <p className="break-all">{accessToken}</p>
-            </div>
-            <div className="flex flex-wrap gap-4 m-4">
+            <h2 className="text-xl font-semibold mb-6">Dashboard</h2>
+            <div className="flex flex-wrap gap-4">
                 <DailyLogForm />
                 {content}
             </div>
