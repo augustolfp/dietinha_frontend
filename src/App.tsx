@@ -9,7 +9,7 @@ import DailyLog from "./pages/DailyLog";
 
 function App() {
     return (
-        <div className="mt-28">
+        <div className="pt-16 bg-slate-50">
             <Navbar />
             <Router>
                 <Routes>

@@ -50,7 +50,7 @@ export default function DailyLogForm() {
     };
 
     return (
-        <div className="bg-purple-200 p-4">
+        <div className="bg-white shadow-md p-4">
             <h2 className="font-semibold text-lg">New Daily Log</h2>
             <FormProvider {...createDailyLogForm}>
                 <form
