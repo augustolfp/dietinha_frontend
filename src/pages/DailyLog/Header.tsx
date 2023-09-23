@@ -4,31 +4,31 @@ interface Props extends Omit<DailyLog, "id" | "userId"> {}
 
 export default function Header(props: Props) {
     return (
-        <div className="bg-purple-300 p-4 m-4">
+        <div className="bg-white shadow-md p-4 mb-4">
             <h2 className="font-semibold text-lg">Resumo do dia:</h2>
-            <ul className="m-4">
+            <ul className="m-4 list-disc list-inside">
                 <li>
-                    <strong>Data: </strong>
+                    <b>Data: </b>
                     {props.date}
                 </li>
                 <li>
-                    <strong>Notas: </strong>
+                    <b>Notas: </b>
                     {props.notes ? props.notes : "Sem notas"}
                 </li>
                 <li>
-                    <strong>Carboidratos consumidos: </strong>
+                    <b>Carboidratos consumidos: </b>
                     {props.carbs} g
                 </li>
                 <li>
-                    <strong>Gorduras consumidas: </strong>
+                    <b>Gorduras consumidas: </b>
                     {props.fats} g
                 </li>
                 <li>
-                    <strong>Proteinas consumidas: </strong>
+                    <b>Proteinas consumidas: </b>
                     {props.proteins} de {props.proteinsTarget} g
                 </li>
                 <li>
-                    <strong>Calorias consumidas: </strong>
+                    <b>Calorias consumidas: </b>
                     {props.kcals} de {props.caloriesTarget} kcal
                 </li>
             </ul>

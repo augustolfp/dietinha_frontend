@@ -33,7 +33,7 @@ export default function DailyLog() {
                     kcals={data.kcals}
                 />
                 <MealForm dailyLogId={dailyLogId!} />
-                <div className="bg-purple-300 p-4 m-4">
+                <div className="bg-white shadow-md p-4">
                     <h2 className="font-semibold text-lg">Refeições: </h2>
                     <div className="m-4">
                         {data.mealsList.map((meal) => (
@@ -55,5 +55,5 @@ export default function DailyLog() {
         );
     }
 
-    return <div>{content}</div>;
+    return <div className="m-6">{content}</div>;
 }
