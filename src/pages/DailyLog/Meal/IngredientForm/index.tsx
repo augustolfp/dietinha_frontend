@@ -1,55 +1,38 @@
-import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ingredientFormSchema } from "../../../../schemas/ingredientsSchemas";
-import { Form } from "../../../../components/Form";
 import { useAddIngredientMutation } from "../../../../store/api/apiSlice";
-import type { AddIngredient } from "../../../../types/DailyLogTypes";
-
-type Inputs = Omit<AddIngredient, "mealId">;
+import {
+    ingredientSchema,
+    type IngredientSchema,
+} from "../../../../schemas/ingredientsSchemas";
 
 interface Props {
     mealId: string;
 }
 
 export default function IngredientForm({ mealId }: Props) {
-    const [addIngredient, { isLoading }] = useAddIngredientMutation();
-
-    const createIngredientForm = useForm<Inputs>({
-        resolver: zodResolver(ingredientFormSchema),
-    });
+    const [addIngredient] = useAddIngredientMutation();
 
     const {
+        register,
         handleSubmit,
         setError,
-        formState: { errors },
-    } = createIngredientForm;
+        formState: { errors, isSubmitting },
+        reset,
+    } = useForm<IngredientSchema>({
+        resolver: zodResolver(ingredientSchema),
+    });
 
-    const onSubmit: SubmitHandler<Inputs> = async ({
-        name,
-        weight,
-        carbs,
-        fats,
-        proteins,
-        kcals,
-    }) => {
+    const onSubmit = async (data: IngredientSchema) => {
         try {
-            console.log({
-                name,
-                mealId,
-                weight,
-                carbs,
-                fats: Number(fats),
-                proteins: Number(proteins),
-                kcals: Number(kcals),
-            });
             await addIngredient({
-                name,
+                ...data,
                 mealId,
-                weight: Number(weight),
-                carbs: Number(carbs),
-                fats: Number(fats),
-                proteins: Number(proteins),
-                kcals: Number(kcals),
+                weight: Number(data.weight),
+                carbs: Number(data.carbs),
+                fats: Number(data.fats),
+                proteins: Number(data.proteins),
+                kcals: Number(data.kcals),
             }).unwrap();
         } catch (err: any) {
             let errMsg = "Erro inesperado na API. Recarregue a página.";
@@ -70,110 +53,74 @@ export default function IngredientForm({ mealId }: Props) {
     };
 
     return (
-        <div>
-            <h3>Adicionar ingrediente</h3>
-            <FormProvider {...createIngredientForm}>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <Form.InputWrapper>
-                        <Form.Label htmlFor="name">
-                            Nome do ingrediente
-                        </Form.Label>
-                        <Form.Input
-                            name="name"
-                            type="text"
-                            aria-invalid={errors.name ? "true" : "false"}
-                            disabled={isLoading}
-                        />
-                        {errors.name && (
-                            <Form.ErrorMessage message={errors.name.message} />
-                        )}
-                    </Form.InputWrapper>
-
-                    <Form.InputWrapper>
-                        <Form.Label htmlFor="weight">
-                            Quantidade (em g)
-                        </Form.Label>
-                        <Form.Input
-                            name="weight"
-                            type="number"
-                            aria-invalid={errors.weight ? "true" : "false"}
-                            disabled={isLoading}
-                        />
-                        {errors.weight && (
-                            <Form.ErrorMessage
-                                message={errors.weight.message}
-                            />
-                        )}
-                    </Form.InputWrapper>
-
-                    <Form.InputWrapper>
-                        <Form.Label htmlFor="carbs">
-                            Carboidratos (em g)
-                        </Form.Label>
-                        <Form.Input
-                            name="carbs"
-                            type="number"
-                            aria-invalid={errors.carbs ? "true" : "false"}
-                            disabled={isLoading}
-                        />
-                        {errors.carbs && (
-                            <Form.ErrorMessage message={errors.carbs.message} />
-                        )}
-                    </Form.InputWrapper>
-
-                    <Form.InputWrapper>
-                        <Form.Label htmlFor="fats">Gorduras (em g)</Form.Label>
-                        <Form.Input
-                            name="fats"
-                            type="number"
-                            aria-invalid={errors.fats ? "true" : "false"}
-                            disabled={isLoading}
-                        />
-                        {errors.fats && (
-                            <Form.ErrorMessage message={errors.fats.message} />
-                        )}
-                    </Form.InputWrapper>
-
-                    <Form.InputWrapper>
-                        <Form.Label htmlFor="proteins">
-                            Proteinas (em g)
-                        </Form.Label>
-                        <Form.Input
-                            name="proteins"
-                            type="number"
-                            aria-invalid={errors.proteins ? "true" : "false"}
-                            disabled={isLoading}
-                        />
-                        {errors.proteins && (
-                            <Form.ErrorMessage
-                                message={errors.proteins.message}
-                            />
-                        )}
-                    </Form.InputWrapper>
-
-                    <Form.InputWrapper>
-                        <Form.Label htmlFor="kcals">Calorias</Form.Label>
-                        <Form.Input
-                            name="kcals"
-                            type="number"
-                            aria-invalid={errors.kcals ? "true" : "false"}
-                            disabled={isLoading}
-                        />
-                        {errors.kcals && (
-                            <Form.ErrorMessage message={errors.kcals.message} />
-                        )}
-                    </Form.InputWrapper>
-
-                    <Form.SubmitButton disabled={isLoading}>
-                        Adicionar ingrediente
-                    </Form.SubmitButton>
-                    {errors.root && (
-                        <Form.ErrorMessage
-                            message={errors.root.serverError.message}
-                        />
-                    )}
-                </form>
-            </FormProvider>
-        </div>
+        <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col gap-y-2"
+        >
+            <input
+                {...register("name")}
+                type="text"
+                placeholder="Nome do ingrediente"
+                aria-invalid={errors.name ? "true" : "false"}
+            />
+            {errors.name && (
+                <p className="text-red-500">{`${errors.name.message}`}</p>
+            )}
+            <input
+                {...register("weight")}
+                type="number"
+                placeholder="Quantidade (g)"
+                aria-invalid={errors.weight ? "true" : "false"}
+            />
+            {errors.weight && (
+                <p className="text-red-500">{`${errors.weight.message}`}</p>
+            )}
+            <input
+                {...register("carbs")}
+                type="number"
+                placeholder="Carboidratos (g)"
+                aria-invalid={errors.carbs ? "true" : "false"}
+            />
+            {errors.carbs && (
+                <p className="text-red-500">{`${errors.carbs.message}`}</p>
+            )}
+            <input
+                {...register("fats")}
+                type="number"
+                placeholder="Gorduras (g)"
+                aria-invalid={errors.fats ? "true" : "false"}
+            />
+            {errors.fats && (
+                <p className="text-red-500">{`${errors.fats.message}`}</p>
+            )}
+            <input
+                {...register("proteins")}
+                type="number"
+                placeholder="Proteinas (g)"
+                aria-invalid={errors.proteins ? "true" : "false"}
+            />
+            {errors.proteins && (
+                <p className="text-red-500">{`${errors.proteins.message}`}</p>
+            )}
+            <input
+                {...register("kcals")}
+                type="number"
+                placeholder="Calorias (kCal)"
+                aria-invalid={errors.kcals ? "true" : "false"}
+            />
+            {errors.kcals && (
+                <p className="text-red-500">{`${errors.kcals.message}`}</p>
+            )}
+            <button
+                type="submit"
+                disabled={isSubmitting}
+                className="bg-blue-500 disabled:bg-gray-500 py-2 rounded"
+            >
+                Adicionar ingrediente
+            </button>
+            {errors.root && (
+                <p className="text-red-500">{`${errors.root.serverError.message}`}</p>
+            )}
+        </form>
     );
 }
