@@ -3,7 +3,7 @@ import { useGetDailyLogByIdQuery } from "../../store/api/apiSlice";
 import { useParams } from "react-router-dom";
 import Header from "./Header";
 import Meal from "./Meal";
-import MealForm from "./MealForm";
+import MealForm from "../../components/MealForm";
 
 export default function DailyLog() {
     const { dailyLogId } = useParams();

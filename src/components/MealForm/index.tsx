@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAddMealMutation } from "../../../store/api/apiSlice";
-import { mealSchema, type MealSchema } from "../../../schemas/mealsSchemas";
+import { useAddMealMutation } from "../../store/api/apiSlice";
+import { mealSchema, type MealSchema } from "../../schemas/mealsSchemas";
 
 interface Props {
     dailyLogId: string;
