@@ -1,34 +1,29 @@
-import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { mealFormSchema } from "../../../schemas/mealsSchemas";
-import { Form } from "../../../components/Form";
 import { useAddMealMutation } from "../../../store/api/apiSlice";
-import type { AddMeal } from "../../../types/DailyLogTypes";
-
-type Inputs = Omit<AddMeal, "dailyLogId">;
+import { mealSchema, type MealSchema } from "../../../schemas/mealsSchemas";
 
 interface Props {
     dailyLogId: string;
 }
 
 export default function MealForm({ dailyLogId }: Props) {
-    const [addMeal, { isLoading }] = useAddMealMutation();
-
-    const createMealForm = useForm<Inputs>({
-        resolver: zodResolver(mealFormSchema),
-    });
+    const [addMeal] = useAddMealMutation();
 
     const {
+        register,
         handleSubmit,
         setError,
-        formState: { errors },
-    } = createMealForm;
+        formState: { errors, isSubmitting },
+        reset,
+    } = useForm<MealSchema>({
+        resolver: zodResolver(mealSchema),
+    });
 
-    const onSubmit: SubmitHandler<Inputs> = async ({ name, description }) => {
+    const onSubmit = async (data: MealSchema) => {
         try {
             await addMeal({
-                name,
-                description,
+                ...data,
                 dailyLogId,
             }).unwrap();
         } catch (err: any) {
@@ -46,52 +41,45 @@ export default function MealForm({ dailyLogId }: Props) {
             setError("root.serverError", {
                 message: errMsg,
             });
+            return;
         }
+
+        reset();
     };
 
     return (
-        <div>
-            <h2>Adicionar refeição</h2>
-            <FormProvider {...createMealForm}>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <Form.InputWrapper>
-                        <Form.Label htmlFor="name">Nome da refeição</Form.Label>
-                        <Form.Input
-                            name="name"
-                            type="text"
-                            aria-invalid={errors.name ? "true" : "false"}
-                            disabled={isLoading}
-                        />
-                        {errors.name && (
-                            <Form.ErrorMessage message={errors.name.message} />
-                        )}
-                    </Form.InputWrapper>
-
-                    <Form.InputWrapper>
-                        <Form.Label htmlFor="description">Descrição</Form.Label>
-                        <Form.Input
-                            name="description"
-                            type="text"
-                            aria-invalid={errors.description ? "true" : "false"}
-                            disabled={isLoading}
-                        />
-                        {errors.description && (
-                            <Form.ErrorMessage
-                                message={errors.description.message}
-                            />
-                        )}
-                    </Form.InputWrapper>
-
-                    <Form.SubmitButton disabled={isLoading}>
-                        Adicionar Refeição
-                    </Form.SubmitButton>
-                    {errors.root && (
-                        <Form.ErrorMessage
-                            message={errors.root.serverError.message}
-                        />
-                    )}
-                </form>
-            </FormProvider>
-        </div>
+        <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col gap-y-2"
+        >
+            <input
+                {...register("name")}
+                type="text"
+                placeholder="Título"
+                aria-invalid={errors.name ? "true" : "false"}
+            />
+            {errors.name && (
+                <p className="text-red-500">{`${errors.name.message}`}</p>
+            )}
+            <input
+                {...register("description")}
+                type="text"
+                placeholder="Descrição"
+                aria-invalid={errors.description ? "true" : "false"}
+            />
+            {errors.description && (
+                <p className="text-red-500">{`${errors.description.message}`}</p>
+            )}
+            <button
+                type="submit"
+                disabled={isSubmitting}
+                className="bg-blue-500 disabled:bg-gray-500 py-2 rounded"
+            >
+                Adicionar refeição
+            </button>
+            {errors.root && (
+                <p className="text-red-500">{`${errors.root.serverError.message}`}</p>
+            )}
+        </form>
     );
 }
