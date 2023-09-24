@@ -8,14 +8,17 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export default function GoogleButton({ children, disabled, ...rest }: Props) {
     return (
-        <button {...rest}>
+        <button
+            {...rest}
+            className="py-2 rounded border-solid border-2 border-black flex justify-center"
+        >
             {disabled ? (
                 <DotWave />
             ) : (
-                <>
+                <div className="flex items-center gap-x-2">
                     <FcGoogle />
                     {children}
-                </>
+                </div>
             )}
         </button>
     );
