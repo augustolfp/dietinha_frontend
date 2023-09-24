@@ -10,7 +10,7 @@ export const signInSchema = z.object({
 
 export type SignInSchema = z.infer<typeof signInSchema>;
 
-export const registerFormSchema = z.object({
+export const signUpSchema = z.object({
     displayName: z
         .string()
         .nonempty("O nome é obrigatório")
@@ -31,3 +31,5 @@ export const registerFormSchema = z.object({
         .nonempty("O Email é obrigatório"),
     password: z.string().min(6, "A senha deve conter pelo menos 6 caracteres"),
 });
+
+export type SignUpSchema = z.infer<typeof signUpSchema>;

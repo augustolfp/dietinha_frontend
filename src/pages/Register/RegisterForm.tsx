@@ -1,94 +1,80 @@
-import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useSignUp from "../../hooks/authHooks/useSignUp";
-import { registerFormSchema } from "../../schemas/credentialsSchemas";
-import { Form } from "../../components/Form";
-
-type Inputs = {
-    displayName: string;
-    email: string;
-    password: string;
-};
+import {
+    signUpSchema,
+    type SignUpSchema,
+} from "../../schemas/credentialsSchemas";
 
 export default function RegisterForm() {
-    const { isLoading, signUp } = useSignUp();
-
-    const registerUserForm = useForm<Inputs>({
-        resolver: zodResolver(registerFormSchema),
-    });
+    const { signUp } = useSignUp();
 
     const {
+        register,
         handleSubmit,
         setError,
-        formState: { errors },
-    } = registerUserForm;
+        formState: { errors, isSubmitting },
+        reset,
+    } = useForm<SignUpSchema>({
+        resolver: zodResolver(signUpSchema),
+    });
 
-    const onSubmit: SubmitHandler<Inputs> = async ({
-        displayName,
-        email,
-        password,
-    }) => {
+    const onSubmit = async (data: SignUpSchema) => {
         try {
-            await signUp({ email, password, displayName });
+            await signUp(data);
         } catch (err) {
             setError("root.serverError", {
                 message:
                     "Ocorreu um erro no Cadastro. Verifique suas credenciais.",
             });
+            return;
         }
+
+        reset();
     };
 
     return (
-        <FormProvider {...registerUserForm}>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Form.InputWrapper>
-                    <Form.Label htmlFor="displayName">Nome completo</Form.Label>
-                    <Form.Input
-                        name="displayName"
-                        type="text"
-                        aria-invalid={errors.displayName ? "true" : "false"}
-                        disabled={isLoading}
-                    />
-                    {errors.displayName && (
-                        <Form.ErrorMessage
-                            message={errors.displayName.message}
-                        />
-                    )}
-                </Form.InputWrapper>
-
-                <Form.InputWrapper>
-                    <Form.Label htmlFor="email">E-mail</Form.Label>
-                    <Form.Input
-                        name="email"
-                        type="text"
-                        aria-invalid={errors.email ? "true" : "false"}
-                        disabled={isLoading}
-                    />
-                    {errors.email && (
-                        <Form.ErrorMessage message={errors.email.message} />
-                    )}
-                </Form.InputWrapper>
-
-                <Form.InputWrapper>
-                    <Form.Label htmlFor="password">Senha</Form.Label>
-                    <Form.PasswordInput
-                        aria-invalid={errors.password ? "true" : "false"}
-                        disabled={isLoading}
-                    />
-                    {errors.password && (
-                        <Form.ErrorMessage message={errors.password.message} />
-                    )}
-                </Form.InputWrapper>
-
-                <Form.SubmitButton disabled={isLoading}>
-                    Cadastrar
-                </Form.SubmitButton>
-                {errors.root && (
-                    <Form.ErrorMessage
-                        message={errors.root.serverError.message}
-                    />
-                )}
-            </form>
-        </FormProvider>
+        <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col gap-y-2"
+        >
+            <input
+                {...register("displayName")}
+                type="text"
+                placeholder="Nome completo"
+                aria-invalid={errors.displayName ? "true" : "false"}
+            />
+            {errors.displayName && (
+                <p className="text-red-500">{`${errors.displayName.message}`}</p>
+            )}
+            <input
+                {...register("email")}
+                type="email"
+                placeholder="Email"
+                aria-invalid={errors.email ? "true" : "false"}
+            />
+            {errors.email && (
+                <p className="text-red-500">{`${errors.email.message}`}</p>
+            )}
+            <input
+                {...register("password")}
+                type="password"
+                placeholder="Password"
+                aria-invalid={errors.password ? "true" : "false"}
+            />
+            {errors.password && (
+                <p className="text-red-500">{`${errors.password.message}`}</p>
+            )}
+            <button
+                type="submit"
+                disabled={isSubmitting}
+                className="bg-blue-500 disabled:bg-gray-500 py-2 rounded"
+            >
+                Entrar
+            </button>
+            {errors.root && (
+                <p className="text-red-500">{`${errors.root.serverError.message}`}</p>
+            )}
+        </form>
     );
 }
