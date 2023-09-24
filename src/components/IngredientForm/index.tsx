@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAddIngredientMutation } from "../../../../store/api/apiSlice";
+import { useAddIngredientMutation } from "../../store/api/apiSlice";
 import {
     ingredientSchema,
     type IngredientSchema,
-} from "../../../../schemas/ingredientsSchemas";
+} from "../../schemas/ingredientsSchemas";
 
 interface Props {
     mealId: string;
