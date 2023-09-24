@@ -7,26 +7,37 @@ interface Props {
 
 export default function DashboardCard({ dailyLog }: Props) {
     return (
-        <div>
-            <h2>Daily Log</h2>
-            <ul>
-                <li>
-                    <b>Data:</b> {dailyLog.date}
-                </li>
-                <li>
-                    <b>Alvo de proteinas:</b> {dailyLog.proteinsTarget} g
-                </li>
-                <li>
-                    <b>Proteinas consumidas:</b> {dailyLog.proteins} g
-                </li>
-                <li>
-                    <b>Alvo de calorias:</b> {dailyLog.caloriesTarget} kcal
-                </li>
-                <li>
-                    <b>Calorias consumidas:</b> {dailyLog.kcals} kcal
-                </li>
-            </ul>
-            <Link to={`/daily-log/${dailyLog.id}`}>Ver detalhes</Link>
+        <div className="card w-96 bg-base-100 shadow-xl">
+            <div className="card-body">
+                <h2 className="card-title">{dailyLog.date}</h2>
+
+                <div className="stats stats-horizontal shadow">
+                    <div className="stat">
+                        <div className="stat-title">Proteinas</div>
+                        <div className="stat-value">{dailyLog.proteins} g</div>
+                        <div className="stat-desc">
+                            Objetivo: {dailyLog.proteinsTarget} g
+                        </div>
+                    </div>
+
+                    <div className="stat">
+                        <div className="stat-title">Calorias</div>
+                        <div className="stat-value">{dailyLog.kcals} kcal</div>
+                        <div className="stat-desc">
+                            Objetivo: {dailyLog.caloriesTarget} kcal
+                        </div>
+                    </div>
+                </div>
+
+                <div className="card-actions justify-end">
+                    <Link
+                        className="btn btn-primary"
+                        to={`/daily-log/${dailyLog.id}`}
+                    >
+                        Ver detalhes
+                    </Link>
+                </div>
+            </div>
         </div>
     );
 }

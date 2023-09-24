@@ -50,84 +50,90 @@ export default function DailyLogForm() {
     };
 
     return (
-        <div>
-            <h2>New Daily Log</h2>
-            <FormProvider {...createDailyLogForm}>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <Form.InputWrapper>
-                        <Form.Label htmlFor="date">Data</Form.Label>
-                        <Form.Input
-                            name="date"
-                            type="text"
-                            aria-invalid={errors.date ? "true" : "false"}
-                            disabled={isLoading}
-                        />
-                        {errors.date && (
-                            <Form.ErrorMessage message={errors.date.message} />
-                        )}
-                    </Form.InputWrapper>
+        <div className="card w-96 bg-base-100 shadow-xl">
+            <div className="card-body">
+                <h2 className="card-title">New Daily Log</h2>
+                <FormProvider {...createDailyLogForm}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <Form.InputWrapper>
+                            <Form.Label htmlFor="date">Data</Form.Label>
+                            <Form.Input
+                                name="date"
+                                type="text"
+                                aria-invalid={errors.date ? "true" : "false"}
+                                disabled={isLoading}
+                            />
+                            {errors.date && (
+                                <Form.ErrorMessage
+                                    message={errors.date.message}
+                                />
+                            )}
+                        </Form.InputWrapper>
 
-                    <Form.InputWrapper>
-                        <Form.Label htmlFor="notes">Anotações</Form.Label>
-                        <Form.Input
-                            name="notes"
-                            type="text"
-                            aria-invalid={errors.notes ? "true" : "false"}
-                            disabled={isLoading}
-                        />
-                        {errors.notes && (
-                            <Form.ErrorMessage message={errors.notes.message} />
-                        )}
-                    </Form.InputWrapper>
+                        <Form.InputWrapper>
+                            <Form.Label htmlFor="notes">Anotações</Form.Label>
+                            <Form.Input
+                                name="notes"
+                                type="text"
+                                aria-invalid={errors.notes ? "true" : "false"}
+                                disabled={isLoading}
+                            />
+                            {errors.notes && (
+                                <Form.ErrorMessage
+                                    message={errors.notes.message}
+                                />
+                            )}
+                        </Form.InputWrapper>
 
-                    <Form.InputWrapper>
-                        <Form.Label htmlFor="proteinsTarget">
-                            Alvo de proteinas
-                        </Form.Label>
-                        <Form.Input
-                            name="proteinsTarget"
-                            type="number"
-                            aria-invalid={
-                                errors.proteinsTarget ? "true" : "false"
-                            }
-                            disabled={isLoading}
-                        />
-                        {errors.proteinsTarget && (
+                        <Form.InputWrapper>
+                            <Form.Label htmlFor="proteinsTarget">
+                                Alvo de proteinas
+                            </Form.Label>
+                            <Form.Input
+                                name="proteinsTarget"
+                                type="number"
+                                aria-invalid={
+                                    errors.proteinsTarget ? "true" : "false"
+                                }
+                                disabled={isLoading}
+                            />
+                            {errors.proteinsTarget && (
+                                <Form.ErrorMessage
+                                    message={errors.proteinsTarget.message}
+                                />
+                            )}
+                        </Form.InputWrapper>
+
+                        <Form.InputWrapper>
+                            <Form.Label htmlFor="caloriesTarget">
+                                Alvo de calorias
+                            </Form.Label>
+                            <Form.Input
+                                name="caloriesTarget"
+                                type="number"
+                                aria-invalid={
+                                    errors.caloriesTarget ? "true" : "false"
+                                }
+                                disabled={isLoading}
+                            />
+                            {errors.caloriesTarget && (
+                                <Form.ErrorMessage
+                                    message={errors.caloriesTarget.message}
+                                />
+                            )}
+                        </Form.InputWrapper>
+
+                        <Form.SubmitButton disabled={isLoading}>
+                            Adicionar Daily-log
+                        </Form.SubmitButton>
+                        {errors.root && (
                             <Form.ErrorMessage
-                                message={errors.proteinsTarget.message}
+                                message={errors.root.serverError.message}
                             />
                         )}
-                    </Form.InputWrapper>
-
-                    <Form.InputWrapper>
-                        <Form.Label htmlFor="caloriesTarget">
-                            Alvo de calorias
-                        </Form.Label>
-                        <Form.Input
-                            name="caloriesTarget"
-                            type="number"
-                            aria-invalid={
-                                errors.caloriesTarget ? "true" : "false"
-                            }
-                            disabled={isLoading}
-                        />
-                        {errors.caloriesTarget && (
-                            <Form.ErrorMessage
-                                message={errors.caloriesTarget.message}
-                            />
-                        )}
-                    </Form.InputWrapper>
-
-                    <Form.SubmitButton disabled={isLoading}>
-                        Adicionar Daily-log
-                    </Form.SubmitButton>
-                    {errors.root && (
-                        <Form.ErrorMessage
-                            message={errors.root.serverError.message}
-                        />
-                    )}
-                </form>
-            </FormProvider>
+                    </form>
+                </FormProvider>
+            </div>
         </div>
     );
 }

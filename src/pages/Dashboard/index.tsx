@@ -26,9 +26,9 @@ export default function Dashboard() {
     }
 
     return (
-        <div>
-            <h2>Dashboard</h2>
-            <div>
+        <div className="container mx-auto">
+            <h2 className="text-3xl font-bold">Dashboard</h2>
+            <div className="flex flex-wrap gap-4">
                 <DailyLogForm />
                 {content}
             </div>
