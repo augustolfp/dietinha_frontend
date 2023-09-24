@@ -1,35 +1,30 @@
-import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { dailyLogFormSchema } from "../../../schemas/dailyLogSchemas";
-import { Form } from "../../../components/Form";
 import { useAddDailyLogMutation } from "../../../store/api/apiSlice";
-import type { AddDailyLog as Inputs } from "../../../types/DailyLogTypes";
+import {
+    dailyLogSchema,
+    type DailyLogSchema,
+} from "../../../schemas/dailyLogSchemas";
 
 export default function DailyLogForm() {
-    const [addDailyLog, { isLoading }] = useAddDailyLogMutation();
-
-    const createDailyLogForm = useForm<Inputs>({
-        resolver: zodResolver(dailyLogFormSchema),
-    });
+    const [addDailyLog] = useAddDailyLogMutation();
 
     const {
+        register,
         handleSubmit,
         setError,
-        formState: { errors },
-    } = createDailyLogForm;
+        formState: { errors, isSubmitting },
+        reset,
+    } = useForm<DailyLogSchema>({
+        resolver: zodResolver(dailyLogSchema),
+    });
 
-    const onSubmit: SubmitHandler<Inputs> = async ({
-        date,
-        notes,
-        caloriesTarget,
-        proteinsTarget,
-    }) => {
+    const onSubmit = async (data: DailyLogSchema) => {
         try {
             await addDailyLog({
-                date,
-                notes,
-                caloriesTarget: Number(caloriesTarget),
-                proteinsTarget: Number(proteinsTarget),
+                ...data,
+                caloriesTarget: Number(data.caloriesTarget),
+                proteinsTarget: Number(data.proteinsTarget),
             }).unwrap();
         } catch (err: any) {
             let errMsg = "Erro inesperado na API. Recarregue a página.";
@@ -46,94 +41,63 @@ export default function DailyLogForm() {
             setError("root.serverError", {
                 message: errMsg,
             });
+            return;
         }
+
+        reset();
     };
 
     return (
-        <div className="card w-96 bg-base-100 shadow-xl">
-            <div className="card-body">
-                <h2 className="card-title">New Daily Log</h2>
-                <FormProvider {...createDailyLogForm}>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <Form.InputWrapper>
-                            <Form.Label htmlFor="date">Data</Form.Label>
-                            <Form.Input
-                                name="date"
-                                type="text"
-                                aria-invalid={errors.date ? "true" : "false"}
-                                disabled={isLoading}
-                            />
-                            {errors.date && (
-                                <Form.ErrorMessage
-                                    message={errors.date.message}
-                                />
-                            )}
-                        </Form.InputWrapper>
-
-                        <Form.InputWrapper>
-                            <Form.Label htmlFor="notes">Anotações</Form.Label>
-                            <Form.Input
-                                name="notes"
-                                type="text"
-                                aria-invalid={errors.notes ? "true" : "false"}
-                                disabled={isLoading}
-                            />
-                            {errors.notes && (
-                                <Form.ErrorMessage
-                                    message={errors.notes.message}
-                                />
-                            )}
-                        </Form.InputWrapper>
-
-                        <Form.InputWrapper>
-                            <Form.Label htmlFor="proteinsTarget">
-                                Alvo de proteinas
-                            </Form.Label>
-                            <Form.Input
-                                name="proteinsTarget"
-                                type="number"
-                                aria-invalid={
-                                    errors.proteinsTarget ? "true" : "false"
-                                }
-                                disabled={isLoading}
-                            />
-                            {errors.proteinsTarget && (
-                                <Form.ErrorMessage
-                                    message={errors.proteinsTarget.message}
-                                />
-                            )}
-                        </Form.InputWrapper>
-
-                        <Form.InputWrapper>
-                            <Form.Label htmlFor="caloriesTarget">
-                                Alvo de calorias
-                            </Form.Label>
-                            <Form.Input
-                                name="caloriesTarget"
-                                type="number"
-                                aria-invalid={
-                                    errors.caloriesTarget ? "true" : "false"
-                                }
-                                disabled={isLoading}
-                            />
-                            {errors.caloriesTarget && (
-                                <Form.ErrorMessage
-                                    message={errors.caloriesTarget.message}
-                                />
-                            )}
-                        </Form.InputWrapper>
-
-                        <Form.SubmitButton disabled={isLoading}>
-                            Adicionar Daily-log
-                        </Form.SubmitButton>
-                        {errors.root && (
-                            <Form.ErrorMessage
-                                message={errors.root.serverError.message}
-                            />
-                        )}
-                    </form>
-                </FormProvider>
-            </div>
-        </div>
+        <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col gap-y-2"
+        >
+            <input
+                {...register("date")}
+                type="text"
+                placeholder="Data"
+                aria-invalid={errors.date ? "true" : "false"}
+            />
+            {errors.date && (
+                <p className="text-red-500">{`${errors.date.message}`}</p>
+            )}
+            <input
+                {...register("notes")}
+                type="text"
+                placeholder="Anotações"
+                aria-invalid={errors.notes ? "true" : "false"}
+            />
+            {errors.notes && (
+                <p className="text-red-500">{`${errors.notes.message}`}</p>
+            )}
+            <input
+                {...register("proteinsTarget")}
+                type="number"
+                placeholder="Alvo de proteinas"
+                aria-invalid={errors.proteinsTarget ? "true" : "false"}
+            />
+            {errors.proteinsTarget && (
+                <p className="text-red-500">{`${errors.proteinsTarget.message}`}</p>
+            )}
+            <input
+                {...register("caloriesTarget")}
+                type="number"
+                placeholder="Alvo de calorias"
+                aria-invalid={errors.caloriesTarget ? "true" : "false"}
+            />
+            {errors.caloriesTarget && (
+                <p className="text-red-500">{`${errors.caloriesTarget.message}`}</p>
+            )}
+            <button
+                type="submit"
+                disabled={isSubmitting}
+                className="bg-blue-500 disabled:bg-gray-500 py-2 rounded"
+            >
+                Adicionar Daily-log
+            </button>
+            {errors.root && (
+                <p className="text-red-500">{`${errors.root.serverError.message}`}</p>
+            )}
+        </form>
     );
 }
