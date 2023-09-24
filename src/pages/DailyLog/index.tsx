@@ -2,7 +2,7 @@ import useUser from "../../hooks/authHooks/useUser";
 import { useGetDailyLogByIdQuery } from "../../store/api/apiSlice";
 import { useParams } from "react-router-dom";
 import Header from "./Header";
-import Meal from "./Meal";
+import Meal from "../../components/Meal";
 import MealForm from "../../components/MealForm";
 
 export default function DailyLog() {
