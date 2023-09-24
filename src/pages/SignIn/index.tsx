@@ -14,7 +14,7 @@ export default function SignIn() {
                             <h2 className="text-center font-bold">Login</h2>
                             <SignInForm />
                             <SignInWithGoogle />
-                            <Link to="/register">
+                            <Link to="/sign-up">
                                 Ainda não tem uma conta? Cadastre-se!
                             </Link>
                         </div>

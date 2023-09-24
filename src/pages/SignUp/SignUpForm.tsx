@@ -6,7 +6,7 @@ import {
     type SignUpSchema,
 } from "../../schemas/credentialsSchemas";
 
-export default function RegisterForm() {
+export default function SignUpForm() {
     const { signUp } = useSignUp();
 
     const {
