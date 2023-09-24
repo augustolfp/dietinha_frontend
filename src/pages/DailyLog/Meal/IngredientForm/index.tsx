@@ -49,7 +49,10 @@ export default function IngredientForm({ mealId }: Props) {
             setError("root.serverError", {
                 message: errMsg,
             });
+            return;
         }
+
+        reset();
     };
 
     return (
