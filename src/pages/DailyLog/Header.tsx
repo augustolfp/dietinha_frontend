@@ -5,7 +5,7 @@ interface Props extends Omit<DailyLog, "id" | "userId"> {}
 export default function Header(props: Props) {
     return (
         <div>
-            <h2>Resumo do dia:</h2>
+            <h2 className="text-xl font-bold">Resumo do dia:</h2>
             <ul>
                 <li>
                     <b>Data: </b>

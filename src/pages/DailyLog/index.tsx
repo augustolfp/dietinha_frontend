@@ -22,34 +22,47 @@ export default function DailyLog() {
     } else if (isSuccess) {
         content = (
             <>
-                <Header
-                    date={data.date}
-                    notes={data.notes}
-                    caloriesTarget={data.caloriesTarget}
-                    proteinsTarget={data.proteinsTarget}
-                    carbs={data.carbs}
-                    fats={data.fats}
-                    proteins={data.proteins}
-                    kcals={data.kcals}
-                />
-                <MealForm dailyLogId={dailyLogId!} />
-                <div>
-                    <h2>Refeições: </h2>
-                    <div>
-                        {data.mealsList.map((meal) => (
-                            <Meal
-                                key={meal.id}
-                                id={meal.id}
-                                name={meal.name}
-                                description={meal.description}
-                                carbs={meal.carbs}
-                                fats={meal.fats}
-                                proteins={meal.proteins}
-                                kcals={meal.kcals}
-                                ingredientsList={meal.ingredientsList}
-                            />
-                        ))}
+                <div className="container mx-auto flex gap-x-4">
+                    <div className="card w-96 bg-base-100 shadow-xl p-4">
+                        <Header
+                            date={data.date}
+                            notes={data.notes}
+                            caloriesTarget={data.caloriesTarget}
+                            proteinsTarget={data.proteinsTarget}
+                            carbs={data.carbs}
+                            fats={data.fats}
+                            proteins={data.proteins}
+                            kcals={data.kcals}
+                        />
                     </div>
+                    <div className="card w-96 bg-base-100 shadow-xl p-4">
+                        <h2 className="text-xl font-bold">
+                            Adicionar nova refeição:
+                        </h2>
+                        <MealForm dailyLogId={dailyLogId!} />
+                    </div>
+                </div>
+                <div className="container mx-auto bg-base-100 shadow-xl p-4">
+                    <h2 className="text-xl font-bold mb-8">
+                        Lista de refeições:
+                    </h2>
+                    <ul className="p-8">
+                        {data.mealsList.map((meal) => (
+                            <li>
+                                <Meal
+                                    key={meal.id}
+                                    id={meal.id}
+                                    name={meal.name}
+                                    description={meal.description}
+                                    carbs={meal.carbs}
+                                    fats={meal.fats}
+                                    proteins={meal.proteins}
+                                    kcals={meal.kcals}
+                                    ingredientsList={meal.ingredientsList}
+                                />
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             </>
         );
