@@ -1,75 +1,71 @@
-import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useSignIn from "../../hooks/authHooks/useSignIn";
-import { loginFormSchema } from "../../schemas/credentialsSchemas";
-import { Form } from "../../components/Form";
-
-type Inputs = {
-    email: string;
-    password: string;
-};
+import {
+    signInSchema,
+    type SignInSchema,
+} from "../../schemas/credentialsSchemas";
 
 export default function LoginForm() {
-    const { isLoading, signIn } = useSignIn();
-
-    const createUserForm = useForm<Inputs>({
-        resolver: zodResolver(loginFormSchema),
-    });
+    const { signIn } = useSignIn();
 
     const {
+        register,
         handleSubmit,
         setError,
-        formState: { errors },
-    } = createUserForm;
+        formState: { errors, isSubmitting },
+        reset,
+    } = useForm<SignInSchema>({
+        resolver: zodResolver(signInSchema),
+    });
 
-    const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
+    const onSubmit = async (data: SignInSchema) => {
         try {
-            await signIn({ email, password });
+            await signIn(data);
         } catch (err) {
             setError("root.serverError", {
                 message:
                     "Ocorreu um erro no Login. Verifique suas credenciais.",
             });
+            return;
         }
+
+        reset();
     };
 
     return (
-        <FormProvider {...createUserForm}>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Form.InputWrapper>
-                    <Form.Label htmlFor="email">E-mail</Form.Label>
-                    <Form.Input
-                        name="email"
-                        type="text"
-                        aria-invalid={errors.email ? "true" : "false"}
-                        disabled={isLoading}
-                    />
-                    {errors.email && (
-                        <Form.ErrorMessage message={errors.email.message} />
-                    )}
-                </Form.InputWrapper>
-
-                <Form.InputWrapper>
-                    <Form.Label htmlFor="password">Senha</Form.Label>
-                    <Form.PasswordInput
-                        aria-invalid={errors.password ? "true" : "false"}
-                        disabled={isLoading}
-                    />
-
-                    {errors.password && (
-                        <Form.ErrorMessage message={errors.password.message} />
-                    )}
-                </Form.InputWrapper>
-
-                <Form.SubmitButton disabled={isLoading}>
-                    Entrar
-                </Form.SubmitButton>
-                {errors.root && (
-                    <Form.ErrorMessage
-                        message={errors.root.serverError.message}
-                    />
-                )}
-            </form>
-        </FormProvider>
+        <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col gap-y-2"
+        >
+            <input
+                {...register("email")}
+                type="email"
+                placeholder="Email"
+                aria-invalid={errors.email ? "true" : "false"}
+            />
+            {errors.email && (
+                <p className="text-red-500">{`${errors.email.message}`}</p>
+            )}
+            <input
+                {...register("password")}
+                type="password"
+                placeholder="Password"
+                aria-invalid={errors.password ? "true" : "false"}
+            />
+            {errors.password && (
+                <p className="text-red-500">{`${errors.password.message}`}</p>
+            )}
+            <button
+                type="submit"
+                disabled={isSubmitting}
+                className="bg-blue-500 disabled:bg-gray-500 py-2 rounded"
+            >
+                Entrar
+            </button>
+            {errors.root && (
+                <p className="text-red-500">{`${errors.root.serverError.message}`}</p>
+            )}
+        </form>
     );
 }
