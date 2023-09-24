@@ -1,4 +1,4 @@
-import type { Ingredient } from "../../../../types/DailyLogTypes";
+import type { Ingredient } from "../../types/DailyLogTypes";
 
 interface Props extends Omit<Ingredient, "id" | "mealId"> {}
 

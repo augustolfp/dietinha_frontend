@@ -1,5 +1,5 @@
 import type { DetailedMeal } from "../../types/DailyLogTypes";
-import Ingredient from "../../pages/DailyLog/Meal/Ingredient";
+import Ingredient from "../Ingredient";
 import IngredientForm from "../IngredientForm";
 
 interface Props extends Omit<DetailedMeal, "createdAt" | "dailyLogId"> {}
