@@ -2,7 +2,7 @@ import { SyntheticEvent } from "react";
 import useGoogleAuth from "../../hooks/authHooks/useGoogleAuth";
 import { Form } from "../../components/Form";
 
-export default function LoginWithGoogle() {
+export default function SignInWithGoogle() {
     const { isLoading, googleAuth } = useGoogleAuth();
 
     const handleGoogleLogin = async (e: SyntheticEvent) => {

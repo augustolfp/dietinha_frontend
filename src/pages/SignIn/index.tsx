@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import LoginWithGoogle from "./LoginWithGoogle";
-import LoginForm from "./LoginForm";
+import SignInWithGoogle from "./SignInWithGoogle";
+import SignInForm from "./SignInForm";
 import HeroText from "../../components/HeroText";
 
-export default function Login() {
+export default function SignIn() {
     return (
         <div className="container mx-auto">
             <div className="hero min-h-screen">
@@ -12,8 +12,8 @@ export default function Login() {
                     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                         <div className="card-body">
                             <h2 className="text-center font-bold">Login</h2>
-                            <LoginForm />
-                            <LoginWithGoogle />
+                            <SignInForm />
+                            <SignInWithGoogle />
                             <Link to="/register">
                                 Ainda não tem uma conta? Cadastre-se!
                             </Link>

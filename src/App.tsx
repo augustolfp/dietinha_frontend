@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Dashboard from "./pages/Dashboard";
-import Login from "./pages/Login";
+import SignIn from "./pages/SignIn";
 import Register from "./pages/Register";
 import AuthGuard from "./guards/AuthGuard";
 import GuestGuard from "./guards/GuestGuard";
@@ -15,7 +15,7 @@ function App() {
             <Router>
                 <Routes>
                     <Route element={<GuestGuard />}>
-                        <Route path="/" element={<Login />} />
+                        <Route path="/" element={<SignIn />} />
                     </Route>
 
                     <Route element={<GuestGuard />}>
