@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function GoogleAuth({ children }: Props) {
-    const { isLoading, googleAuth } = useGoogleAuth();
+    const { isLoading, googleAuth, error } = useGoogleAuth();
 
     const handleGoogleAuth = async (e: SyntheticEvent) => {
         e.preventDefault();
@@ -15,8 +15,11 @@ export default function GoogleAuth({ children }: Props) {
     };
 
     return (
-        <GoogleButton disabled={isLoading} onClick={handleGoogleAuth}>
-            {children}
-        </GoogleButton>
+        <>
+            <GoogleButton disabled={isLoading} onClick={handleGoogleAuth}>
+                {children}
+            </GoogleButton>
+            {error?.message && <p className="text-red-500">{error.message}</p>}
+        </>
     );
 }
