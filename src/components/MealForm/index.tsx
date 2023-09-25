@@ -2,11 +2,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAddMealMutation } from "../../store/api/apiSlice";
 import { mealSchema, type MealSchema } from "../../schemas/mealsSchemas";
-import {
-    isFetchBaseQueryError,
-    isErrorWithMessage,
-    isMessageOnData,
-} from "../../services/helpers";
+import getApiErrorMessage from "../../services/getApiErrorMessage";
 
 interface Props {
     dailyLogId: string;
@@ -32,24 +28,11 @@ export default function MealForm({ dailyLogId }: Props) {
                 dailyLogId,
             }).unwrap();
         } catch (err) {
-            if (isFetchBaseQueryError(err)) {
-                if (isMessageOnData(err.data)) {
-                    setError("root.serverError", {
-                        message: err.data.message,
-                    });
-                    return;
-                }
-                setError("root.serverError", {
-                    message: "Erro inesperado na API.",
-                });
-                return;
-            }
-            if (isErrorWithMessage(err)) {
-                setError("root.serverError", {
-                    message: err.message,
-                });
-                return;
-            }
+            const errMessage = getApiErrorMessage(err);
+            setError("root.serverError", {
+                message: errMessage,
+            });
+            return;
         }
 
         reset();

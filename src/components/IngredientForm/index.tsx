@@ -5,11 +5,7 @@ import {
     ingredientSchema,
     type IngredientSchema,
 } from "../../schemas/ingredientsSchemas";
-import {
-    isFetchBaseQueryError,
-    isErrorWithMessage,
-    isMessageOnData,
-} from "../../services/helpers";
+import getApiErrorMessage from "../../services/getApiErrorMessage";
 
 interface Props {
     mealId: string;
@@ -40,24 +36,11 @@ export default function IngredientForm({ mealId }: Props) {
                 kcals: Number(data.kcals),
             }).unwrap();
         } catch (err) {
-            if (isFetchBaseQueryError(err)) {
-                if (isMessageOnData(err.data)) {
-                    setError("root.serverError", {
-                        message: err.data.message,
-                    });
-                    return;
-                }
-                setError("root.serverError", {
-                    message: "Erro inesperado na API.",
-                });
-                return;
-            }
-            if (isErrorWithMessage(err)) {
-                setError("root.serverError", {
-                    message: err.message,
-                });
-                return;
-            }
+            const errMessage = getApiErrorMessage(err);
+            setError("root.serverError", {
+                message: errMessage,
+            });
+            return;
         }
 
         reset();
