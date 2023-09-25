@@ -1,7 +1,8 @@
 import useUser from "../../hooks/authHooks/useUser";
+import { Link } from "react-router-dom";
 import { useGetDailyLogsQuery } from "../../store/api/apiSlice";
 import DailyLogForm from "../../components/DailyLogForm";
-import DashboardCard from "./DashboardCard";
+import DailyLog from "../../components/DailyLog";
 
 export default function DashboardPage() {
     const { accessToken } = useUser();
@@ -19,7 +20,14 @@ export default function DashboardPage() {
         content = (
             <>
                 {data.map((dailyLog) => (
-                    <DashboardCard key={dailyLog.id} dailyLog={dailyLog} />
+                    <DailyLog key={dailyLog.id} dailyLog={dailyLog}>
+                        <Link
+                            className="btn btn-primary"
+                            to={`/daily-log/${dailyLog.id}`}
+                        >
+                            Ver detalhes
+                        </Link>
+                    </DailyLog>
                 ))}
             </>
         );

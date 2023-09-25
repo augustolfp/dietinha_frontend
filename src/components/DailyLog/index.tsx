@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
-import { DailyLog } from "../../types/DailyLogTypes";
+import { DailyLog as DailyLogType } from "../../types/DailyLogTypes";
 
 interface Props {
-    dailyLog: DailyLog;
+    dailyLog: DailyLogType;
+    children?: React.ReactNode;
 }
 
-export default function DashboardCard({ dailyLog }: Props) {
+export default function DailyLog({ dailyLog, children }: Props) {
     return (
         <div className="card w-96 bg-base-100 shadow-xl">
             <div className="card-body">
@@ -29,14 +29,7 @@ export default function DashboardCard({ dailyLog }: Props) {
                     </div>
                 </div>
 
-                <div className="card-actions justify-end">
-                    <Link
-                        className="btn btn-primary"
-                        to={`/daily-log/${dailyLog.id}`}
-                    >
-                        Ver detalhes
-                    </Link>
-                </div>
+                <div className="card-actions justify-end">{children}</div>
             </div>
         </div>
     );
