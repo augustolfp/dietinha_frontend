@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import SignInWithGoogle from "./SignInWithGoogle";
 import SignInForm from "./SignInForm";
 import HeroText from "../../components/HeroText";
+import GoogleAuth from "../../components/GoogleAuth";
 
 export default function SignInPage() {
     return (
@@ -13,7 +13,7 @@ export default function SignInPage() {
                         <div className="card-body">
                             <h2 className="text-center font-bold">Login</h2>
                             <SignInForm />
-                            <SignInWithGoogle />
+                            <GoogleAuth>Logar com o Google</GoogleAuth>
                             <Link to="/sign-up">
                                 Ainda não tem uma conta? Cadastre-se!
                             </Link>

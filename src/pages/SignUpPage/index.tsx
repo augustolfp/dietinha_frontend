@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import SignUpWithGoogle from "./SignUpWithGoogle";
 import SignUpForm from "./SignUpForm";
 import HeroText from "../../components/HeroText";
+import GoogleAuth from "../../components/GoogleAuth";
 
 export default function SignUpPage() {
     return (
@@ -13,7 +13,7 @@ export default function SignUpPage() {
                         <div className="card-body">
                             <h2 className="text-center font-bold">Cadastro</h2>
                             <SignUpForm />
-                            <SignUpWithGoogle />
+                            <GoogleAuth>Cadastre-se com o Google</GoogleAuth>
                             <Link to="/">Já tem uma conta? Faça login!</Link>
                         </div>
                     </div>
