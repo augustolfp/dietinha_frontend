@@ -25,6 +25,8 @@ export default function DailyLogPage() {
                 <div className="container mx-auto flex gap-x-4">
                     <div className="card w-96 bg-base-100 shadow-xl p-4">
                         <Header
+                            id={data.id}
+                            userId={data.userId}
                             date={data.date}
                             notes={data.notes}
                             caloriesTarget={data.caloriesTarget}
