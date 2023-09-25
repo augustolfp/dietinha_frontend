@@ -3,7 +3,7 @@ import SignUpWithGoogle from "./SignUpWithGoogle";
 import SignUpForm from "./SignUpForm";
 import HeroText from "../../components/HeroText";
 
-export default function SignUp() {
+export default function SignUpPage() {
     return (
         <div className="container mx-auto">
             <div className="hero min-h-screen">

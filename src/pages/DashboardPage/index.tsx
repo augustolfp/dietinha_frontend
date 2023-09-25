@@ -3,7 +3,7 @@ import { useGetDailyLogsQuery } from "../../store/api/apiSlice";
 import DailyLogForm from "../../components/DailyLogForm";
 import DashboardCard from "./DashboardCard";
 
-export default function Dashboard() {
+export default function DashboardPage() {
     const { accessToken } = useUser();
     const { data, isFetching, isSuccess } = useGetDailyLogsQuery(
         "required_arg",

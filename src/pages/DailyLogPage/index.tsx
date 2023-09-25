@@ -5,7 +5,7 @@ import Header from "./Header";
 import Meal from "../../components/Meal";
 import MealForm from "../../components/MealForm";
 
-export default function DailyLog() {
+export default function DailyLogPage() {
     const { dailyLogId } = useParams();
     const { accessToken } = useUser();
 

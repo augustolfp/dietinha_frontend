@@ -3,7 +3,7 @@ import SignInWithGoogle from "./SignInWithGoogle";
 import SignInForm from "./SignInForm";
 import HeroText from "../../components/HeroText";
 
-export default function SignIn() {
+export default function SignInPage() {
     return (
         <div className="container mx-auto">
             <div className="hero min-h-screen">

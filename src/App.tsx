@@ -1,12 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import Dashboard from "./pages/Dashboard";
-import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
+import DashboardPage from "./pages/DashboardPage";
+import SignInPage from "./pages/SignInPage";
+import SignUpPage from "./pages/SignUpPage";
 import AuthGuard from "./guards/AuthGuard";
 import GuestGuard from "./guards/GuestGuard";
 import Navbar from "./components/Navbar";
-import DailyLog from "./pages/DailyLog";
+import DailyLogPage from "./pages/DailyLogPage";
 
 function App() {
     return (
@@ -15,21 +15,21 @@ function App() {
             <Router>
                 <Routes>
                     <Route element={<GuestGuard />}>
-                        <Route path="/" element={<SignIn />} />
+                        <Route path="/" element={<SignInPage />} />
                     </Route>
 
                     <Route element={<GuestGuard />}>
-                        <Route path="/sign-up" element={<SignUp />} />
+                        <Route path="/sign-up" element={<SignUpPage />} />
                     </Route>
 
                     <Route element={<AuthGuard />}>
-                        <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/dashboard" element={<DashboardPage />} />
                     </Route>
 
                     <Route element={<AuthGuard />}>
                         <Route
                             path="/daily-log/:dailyLogId"
-                            element={<DailyLog />}
+                            element={<DailyLogPage />}
                         />
                     </Route>
                 </Routes>
