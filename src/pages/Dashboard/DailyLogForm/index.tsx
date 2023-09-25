@@ -5,6 +5,11 @@ import {
     dailyLogSchema,
     type DailyLogSchema,
 } from "../../../schemas/dailyLogSchemas";
+import {
+    isFetchBaseQueryError,
+    isErrorWithMessage,
+    isMessageOnData,
+} from "../../../services/helpers";
 
 export default function DailyLogForm() {
     const [addDailyLog] = useAddDailyLogMutation();
@@ -26,22 +31,25 @@ export default function DailyLogForm() {
                 caloriesTarget: Number(data.caloriesTarget),
                 proteinsTarget: Number(data.proteinsTarget),
             }).unwrap();
-        } catch (err: any) {
-            let errMsg = "Erro inesperado na API. Recarregue a página.";
-            if (err.status === 401) {
-                errMsg =
-                    "Suas credenciais estão inválidas. Recarregue a página.";
+        } catch (err) {
+            if (isFetchBaseQueryError(err)) {
+                if (isMessageOnData(err.data)) {
+                    setError("root.serverError", {
+                        message: err.data.message,
+                    });
+                    return;
+                }
+                setError("root.serverError", {
+                    message: "Erro inesperado na API.",
+                });
+                return;
             }
-            if (err.status === 403) {
-                errMsg = "Usuário já tem um Log cadastrado na data fornecida.";
+            if (isErrorWithMessage(err)) {
+                setError("root.serverError", {
+                    message: err.message,
+                });
+                return;
             }
-            if (err.status === 422) {
-                errMsg = "Dados preenchidos são inválidos.";
-            }
-            setError("root.serverError", {
-                message: errMsg,
-            });
-            return;
         }
 
         reset();
