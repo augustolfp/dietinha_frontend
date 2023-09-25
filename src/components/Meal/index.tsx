@@ -2,7 +2,7 @@ import type { DetailedMeal } from "../../types/DailyLogTypes";
 import Ingredient from "../Ingredient";
 import IngredientForm from "../IngredientForm";
 
-interface Props extends Omit<DetailedMeal, "createdAt" | "dailyLogId"> {}
+interface Props extends DetailedMeal {}
 
 export default function Meal(props: Props) {
     return (
@@ -39,15 +39,7 @@ export default function Meal(props: Props) {
                 <h3 className="text-md font-semibold mb-4">Ingredientes:</h3>
                 {props.ingredientsList.map((ing) => (
                     <div>
-                        <Ingredient
-                            key={ing.id}
-                            name={ing.name}
-                            weight={ing.weight}
-                            carbs={ing.carbs}
-                            fats={ing.fats}
-                            proteins={ing.proteins}
-                            kcals={ing.kcals}
-                        />
+                        <Ingredient {...ing} />
                     </div>
                 ))}
             </div>

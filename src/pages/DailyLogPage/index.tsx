@@ -51,17 +51,7 @@ export default function DailyLogPage() {
                     <ul className="p-8">
                         {data.mealsList.map((meal) => (
                             <li>
-                                <Meal
-                                    key={meal.id}
-                                    id={meal.id}
-                                    name={meal.name}
-                                    description={meal.description}
-                                    carbs={meal.carbs}
-                                    fats={meal.fats}
-                                    proteins={meal.proteins}
-                                    kcals={meal.kcals}
-                                    ingredientsList={meal.ingredientsList}
-                                />
+                                <Meal {...meal} />
                             </li>
                         ))}
                     </ul>

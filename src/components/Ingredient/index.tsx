@@ -1,6 +1,6 @@
-import type { Ingredient } from "../../types/DailyLogTypes";
+import type { Ingredient as IngredientType } from "../../types/DailyLogTypes";
 
-interface Props extends Omit<Ingredient, "id" | "mealId"> {}
+interface Props extends IngredientType {}
 
 export default function Ingredient(props: Props) {
     return (
