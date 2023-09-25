@@ -1,3 +1,4 @@
+import { FirebaseError } from "firebase/app";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useSignIn from "../../hooks/authHooks/useSignIn";
@@ -22,15 +23,18 @@ export default function SignInForm() {
     const onSubmit = async (data: SignInSchema) => {
         try {
             await signIn(data);
-        } catch (err) {
+            reset();
+        } catch (error: unknown) {
+            if (error instanceof FirebaseError) {
+                setError("root.serverError", {
+                    message: error.message,
+                });
+                return;
+            }
             setError("root.serverError", {
-                message:
-                    "Ocorreu um erro no Login. Verifique suas credenciais.",
+                message: "Erro desconhecido. Por favor, recarregue a página.",
             });
-            return;
         }
-
-        reset();
     };
 
     return (
