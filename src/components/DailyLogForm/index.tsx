@@ -5,11 +5,7 @@ import {
     dailyLogSchema,
     type DailyLogSchema,
 } from "../../schemas/dailyLogSchemas";
-import {
-    isFetchBaseQueryError,
-    isErrorWithMessage,
-    isMessageOnData,
-} from "../../services/helpers";
+import getApiErrorMessage from "../../services/getApiErrorMessage";
 
 export default function DailyLogForm() {
     const [addDailyLog] = useAddDailyLogMutation();
@@ -32,24 +28,11 @@ export default function DailyLogForm() {
                 proteinsTarget: Number(data.proteinsTarget),
             }).unwrap();
         } catch (err) {
-            if (isFetchBaseQueryError(err)) {
-                if (isMessageOnData(err.data)) {
-                    setError("root.serverError", {
-                        message: err.data.message,
-                    });
-                    return;
-                }
-                setError("root.serverError", {
-                    message: "Erro inesperado na API.",
-                });
-                return;
-            }
-            if (isErrorWithMessage(err)) {
-                setError("root.serverError", {
-                    message: err.message,
-                });
-                return;
-            }
+            const errMessage = getApiErrorMessage(err);
+            setError("root.serverError", {
+                message: errMessage,
+            });
+            return;
         }
 
         reset();
