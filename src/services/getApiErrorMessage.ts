@@ -1,3 +1,4 @@
+import { FirebaseError } from "firebase/app";
 import {
     isFetchBaseQueryError,
     isErrorWithMessage,
@@ -14,5 +15,9 @@ export default function getApiErrorMessage(error: unknown) {
     if (isErrorWithMessage(error)) {
         message = error.message;
     }
+    if (error instanceof FirebaseError) {
+        message = error.message;
+    }
+
     return message;
 }

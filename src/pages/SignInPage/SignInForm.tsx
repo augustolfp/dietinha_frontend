@@ -1,4 +1,3 @@
-import { FirebaseError } from "firebase/app";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useSignIn from "../../hooks/authHooks/useSignIn";
@@ -6,6 +5,7 @@ import {
     signInSchema,
     type SignInSchema,
 } from "../../schemas/credentialsSchemas";
+import getApiErrorMessage from "../../services/getApiErrorMessage";
 
 export default function SignInForm() {
     const { signIn } = useSignIn();
@@ -24,16 +24,12 @@ export default function SignInForm() {
         try {
             await signIn(data);
             reset();
-        } catch (error: unknown) {
-            if (error instanceof FirebaseError) {
-                setError("root.serverError", {
-                    message: error.message,
-                });
-                return;
-            }
+        } catch (err) {
+            const errMessage = getApiErrorMessage(err);
             setError("root.serverError", {
-                message: "Erro desconhecido. Por favor, recarregue a página.",
+                message: errMessage,
             });
+            return;
         }
     };
 
