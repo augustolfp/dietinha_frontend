@@ -27,32 +27,4 @@ export default function useSignUp() {
     return {
         signUp,
     };
-
-    // const signUp = async ({
-    //     displayName,
-    //     email,
-    //     password,
-    // }: SignUpCredentials) => {
-    //     setIsLoading(true);
-    //     try {
-    //         const { user } = await createUserWithEmailAndPassword(
-    //             auth,
-    //             email,
-    //             password
-    //         );
-
-    //         await updateProfile(user, {
-    //             displayName: displayName,
-    //         });
-    //     } catch (err) {
-    //         throw err;
-    //     } finally {
-    //         setIsLoading(false);
-    //     }
-    // };
-
-    // return {
-    //     isLoading,
-    //     signUp,
-    // };
 }
