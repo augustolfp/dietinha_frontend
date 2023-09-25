@@ -2,6 +2,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAddMealMutation } from "../../store/api/apiSlice";
 import { mealSchema, type MealSchema } from "../../schemas/mealsSchemas";
+import {
+    isFetchBaseQueryError,
+    isErrorWithMessage,
+    isMessageOnData,
+} from "../../services/helpers";
 
 interface Props {
     dailyLogId: string;
@@ -26,22 +31,25 @@ export default function MealForm({ dailyLogId }: Props) {
                 ...data,
                 dailyLogId,
             }).unwrap();
-        } catch (err: any) {
-            let errMsg = "Erro inesperado na API. Recarregue a página.";
-            if (err.status === 401) {
-                errMsg =
-                    "Suas credenciais estão inválidas. Recarregue a página.";
+        } catch (err) {
+            if (isFetchBaseQueryError(err)) {
+                if (isMessageOnData(err.data)) {
+                    setError("root.serverError", {
+                        message: err.data.message,
+                    });
+                    return;
+                }
+                setError("root.serverError", {
+                    message: "Erro inesperado na API.",
+                });
+                return;
             }
-            if (err.status === 404) {
-                errMsg = "Api não encontrou o dia selecionado.";
+            if (isErrorWithMessage(err)) {
+                setError("root.serverError", {
+                    message: err.message,
+                });
+                return;
             }
-            if (err.status === 422) {
-                errMsg = "Dados preenchidos são inválidos.";
-            }
-            setError("root.serverError", {
-                message: errMsg,
-            });
-            return;
         }
 
         reset();
