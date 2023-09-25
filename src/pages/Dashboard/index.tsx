@@ -1,6 +1,6 @@
 import useUser from "../../hooks/authHooks/useUser";
 import { useGetDailyLogsQuery } from "../../store/api/apiSlice";
-import DailyLogForm from "./DailyLogForm";
+import DailyLogForm from "../../components/DailyLogForm";
 import DashboardCard from "./DashboardCard";
 
 export default function Dashboard() {

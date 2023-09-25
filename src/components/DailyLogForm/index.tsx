@@ -1,15 +1,15 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAddDailyLogMutation } from "../../../store/api/apiSlice";
+import { useAddDailyLogMutation } from "../../store/api/apiSlice";
 import {
     dailyLogSchema,
     type DailyLogSchema,
-} from "../../../schemas/dailyLogSchemas";
+} from "../../schemas/dailyLogSchemas";
 import {
     isFetchBaseQueryError,
     isErrorWithMessage,
     isMessageOnData,
-} from "../../../services/helpers";
+} from "../../services/helpers";
 
 export default function DailyLogForm() {
     const [addDailyLog] = useAddDailyLogMutation();
