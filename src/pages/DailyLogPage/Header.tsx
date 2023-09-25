@@ -1,4 +1,4 @@
-import type { DailyLog as DailyLogType } from "../../types/DailyLogTypes";
+import type { DailyLog as DailyLogType } from "../../types";
 import DailyLog from "../../components/DailyLog";
 
 interface Props extends DailyLogType {}

@@ -1,4 +1,4 @@
-import type { Ingredient as IngredientType } from "../../types/DailyLogTypes";
+import type { Ingredient as IngredientType } from "../../types";
 
 interface Props extends IngredientType {}
 

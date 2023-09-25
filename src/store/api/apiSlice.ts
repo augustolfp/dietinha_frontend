@@ -8,7 +8,7 @@ import type {
     AddMeal,
     Ingredient,
     AddIngredient,
-} from "../../types/DailyLogTypes";
+} from "../../types";
 
 export const apiSlice = createApi({
     reducerPath: "api",

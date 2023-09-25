@@ -1,4 +1,4 @@
-import type { DetailedMeal } from "../../types/DailyLogTypes";
+import type { DetailedMeal } from "../../types";
 import Ingredient from "../Ingredient";
 import IngredientForm from "../IngredientForm";
 
