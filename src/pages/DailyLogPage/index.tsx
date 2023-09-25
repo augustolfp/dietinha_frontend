@@ -50,7 +50,7 @@ export default function DailyLogPage() {
                     </h2>
                     <ul className="p-8">
                         {data.mealsList.map((meal) => (
-                            <li>
+                            <li key={meal.id}>
                                 <Meal {...meal} />
                             </li>
                         ))}

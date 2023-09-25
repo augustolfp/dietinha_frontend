@@ -38,9 +38,7 @@ export default function Meal(props: Props) {
             <div>
                 <h3 className="text-md font-semibold mb-4">Ingredientes:</h3>
                 {props.ingredientsList.map((ing) => (
-                    <div>
-                        <Ingredient {...ing} />
-                    </div>
+                    <Ingredient key={ing.id} {...ing} />
                 ))}
             </div>
 
