@@ -2,8 +2,10 @@ import Controls from "./Controls";
 
 export default function Navbar() {
     return (
-        <div className="flex justify-between items-center absolute top-0 w-screen bg-white shadow-md px-4 py-2">
-            <h1 className="font-bold text-pink-700">DIETINHA!</h1>
+        <div className="navbar bg-base-100">
+            <div className="flex-1">
+                <a className="btn btn-ghost normal-case text-xl">Dietinha!</a>
+            </div>
             <Controls />
         </div>
     );

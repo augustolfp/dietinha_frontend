@@ -1,12 +1,12 @@
-import type { Ingredient } from "../../../../types/DailyLogTypes";
+import type { Ingredient } from "../../types/DailyLogTypes";
 
 interface Props extends Omit<Ingredient, "id" | "mealId"> {}
 
 export default function Ingredient(props: Props) {
     return (
-        <div className="bg-pink-300 p-4 m-4">
-            <h5 className="font-semibold text-xs">{props.name}</h5>
-            <ul className="m-4">
+        <div>
+            <h4 className="text-md font-bold">{props.name}</h4>
+            <ul className="list-disc list-inside text-sm p-2">
                 <li>
                     <strong>Quantidade: </strong>
                     {props.weight} g

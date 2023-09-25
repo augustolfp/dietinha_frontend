@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { auth } from "../../config/firebase";
 import { signInWithEmailAndPassword } from "@firebase/auth";
 
@@ -8,21 +7,11 @@ interface SignInCredentials {
 }
 
 export default function useSignIn() {
-    const [isLoading, setIsLoading] = useState(false);
-
-    const signIn = async ({ email, password }: SignInCredentials) => {
-        setIsLoading(true);
-        try {
-            await signInWithEmailAndPassword(auth, email, password);
-        } catch (err) {
-            throw err;
-        } finally {
-            setIsLoading(false);
-        }
+    const signIn = ({ email, password }: SignInCredentials) => {
+        return signInWithEmailAndPassword(auth, email, password);
     };
 
     return {
-        isLoading,
         signIn,
     };
 }

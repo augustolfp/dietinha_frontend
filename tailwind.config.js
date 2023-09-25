@@ -9,4 +9,7 @@ export default {
         require("@tailwindcss/forms"),
         require("daisyui"),
     ],
+    daisyui: {
+        darkTheme: "light",
+    },
 };

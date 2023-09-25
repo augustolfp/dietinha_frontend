@@ -6,10 +6,20 @@ export default function Controls() {
     const { isLoggedIn } = useUser();
 
     return (
-        <div className="flex items-center gap-3 text-pink-700">
-            <div>Sobre</div>
-            <FaGithub />
-            {isLoggedIn && <button onClick={() => useSignOut()}>Sair</button>}
+        <div className="flex-none">
+            <ul className="menu menu-horizontal px-1">
+                <li>
+                    <a>Sobre</a>
+                </li>
+                <li>
+                    <a>Github</a>
+                </li>
+                {isLoggedIn && (
+                    <li>
+                        <button onClick={() => useSignOut()}>Sair</button>
+                    </li>
+                )}
+            </ul>
         </div>
     );
 }

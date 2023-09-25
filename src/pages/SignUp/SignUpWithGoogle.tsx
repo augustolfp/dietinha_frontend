@@ -1,8 +1,8 @@
 import { SyntheticEvent } from "react";
 import useGoogleAuth from "../../hooks/authHooks/useGoogleAuth";
-import { Form } from "../../components/Form";
+import GoogleButton from "../../components/GoogleButton";
 
-export default function RegisterWithGoogle() {
+export default function SignUpWithGoogle() {
     const { isLoading, googleAuth } = useGoogleAuth();
 
     const handleGoogleRegister = async (e: SyntheticEvent) => {
@@ -11,8 +11,8 @@ export default function RegisterWithGoogle() {
     };
 
     return (
-        <Form.GoogleButton disabled={isLoading} onClick={handleGoogleRegister}>
+        <GoogleButton disabled={isLoading} onClick={handleGoogleRegister}>
             Cadastre-se com o Google
-        </Form.GoogleButton>
+        </GoogleButton>
     );
 }

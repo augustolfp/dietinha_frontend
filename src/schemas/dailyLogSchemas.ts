@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const dailyLogFormSchema = z.object({
+export const dailyLogSchema = z.object({
     date: z.string().nonempty("A data é obrigatória"),
     notes: z.string().optional(),
     caloriesTarget: z.coerce
@@ -12,3 +12,5 @@ export const dailyLogFormSchema = z.object({
         .int("Insira um número inteiro")
         .nonnegative("Insira um número positivo"),
 });
+
+export type DailyLogSchema = z.infer<typeof dailyLogSchema>;

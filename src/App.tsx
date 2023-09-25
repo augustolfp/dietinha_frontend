@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Dashboard from "./pages/Dashboard";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 import AuthGuard from "./guards/AuthGuard";
 import GuestGuard from "./guards/GuestGuard";
 import Navbar from "./components/Navbar";
@@ -10,16 +10,16 @@ import DailyLog from "./pages/DailyLog";
 
 function App() {
     return (
-        <div className="pt-16 bg-slate-50">
+        <>
             <Navbar />
             <Router>
                 <Routes>
                     <Route element={<GuestGuard />}>
-                        <Route path="/" element={<Login />} />
+                        <Route path="/" element={<SignIn />} />
                     </Route>
 
                     <Route element={<GuestGuard />}>
-                        <Route path="/register" element={<Register />} />
+                        <Route path="/sign-up" element={<SignUp />} />
                     </Route>
 
                     <Route element={<AuthGuard />}>
@@ -34,7 +34,7 @@ function App() {
                     </Route>
                 </Routes>
             </Router>
-        </div>
+        </>
     );
 }
 

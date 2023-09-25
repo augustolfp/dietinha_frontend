@@ -10,15 +10,15 @@ export default function GoogleButton({ children, disabled, ...rest }: Props) {
     return (
         <button
             {...rest}
-            className="border border-black text-zinc-700 p-2 flex items-center justify-center gap-2"
+            className="py-2 rounded border-solid border-2 border-black flex justify-center"
         >
             {disabled ? (
                 <DotWave />
             ) : (
-                <>
+                <div className="flex items-center gap-x-2">
                     <FcGoogle />
                     {children}
-                </>
+                </div>
             )}
         </button>
     );
