@@ -1,7 +1,7 @@
 import { DailyLog as DailyLogType } from "../../types";
 
 interface Props {
-    dailyLog: DailyLogType;
+    dailyLog: Omit<DailyLogType, "mealsList">;
     children?: React.ReactNode;
 }
 

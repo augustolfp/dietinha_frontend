@@ -9,12 +9,13 @@ export type DailyLog = {
     fats: number;
     proteins: number;
     kcals: number;
+    mealsList: Meal[];
 };
 
-export type AddDailyLog = Omit<
-    DailyLog,
-    "id" | "userId" | "carbs" | "fats" | "proteins" | "kcals"
->;
+// export type AddDailyLog = Omit<
+//     DailyLog,
+//     "id" | "userId" | "carbs" | "fats" | "proteins" | "kcals"
+// >;
 
 export type Meal = {
     id: string;
@@ -26,9 +27,10 @@ export type Meal = {
     fats: number;
     proteins: number;
     kcals: number;
+    ingredientsList: Ingredient[];
 };
 
-export type AddMeal = Pick<Meal, "name" | "description" | "dailyLogId">;
+// export type AddMeal = Pick<Meal, "name" | "description" | "dailyLogId">;
 
 export type Ingredient = {
     id: string;
@@ -41,12 +43,8 @@ export type Ingredient = {
     kcals: number;
 };
 
-export type AddIngredient = Omit<Ingredient, "id">;
+// export type AddIngredient = Omit<Ingredient, "id">;
 
-export type DetailedMeal = Meal & {
-    ingredientsList: Ingredient[];
-};
-
-export type DetailedDailyLog = DailyLog & {
-    mealsList: DetailedMeal[];
-};
+// export type DetailedDailyLog = DailyLog & {
+//     mealsList: DetailedMeal[];
+// };

@@ -2,12 +2,12 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { auth } from "../../config/firebase";
 import type {
     DailyLog,
-    AddDailyLog,
-    DetailedDailyLog,
+    // AddDailyLog,
+    // DetailedDailyLog,
     Meal,
-    AddMeal,
+    // AddMeal,
     Ingredient,
-    AddIngredient,
+    // AddIngredient,
 } from "../../types";
 
 export const apiSlice = createApi({
@@ -24,14 +24,28 @@ export const apiSlice = createApi({
     }),
     tagTypes: ["DailyLog", "DetailedDailyLog"],
     endpoints: (builder) => ({
-        getDailyLogs: builder.query<DailyLog[], string>({
+        getDailyLogs: builder.query<Omit<DailyLog, "mealsList">[], string>({
             query: () => ({
                 url: "/daily-log",
                 method: "GET",
             }),
             providesTags: ["DailyLog"],
         }),
-        addDailyLog: builder.mutation<Partial<DailyLog>, AddDailyLog>({
+        addDailyLog: builder.mutation<
+            Pick<
+                DailyLog,
+                | "id"
+                | "date"
+                | "notes"
+                | "userId"
+                | "caloriesTarget"
+                | "proteinsTarget"
+            >,
+            Pick<
+                DailyLog,
+                "date" | "notes" | "caloriesTarget" | "proteinsTarget"
+            >
+        >({
             query: (newDailyLog) => ({
                 url: "/daily-log",
                 method: "POST",
@@ -39,14 +53,20 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: ["DailyLog"],
         }),
-        getDailyLogById: builder.query<DetailedDailyLog, string>({
+        getDailyLogById: builder.query<DailyLog, string>({
             query: (dailyLogId) => ({
                 url: `/daily-log/${dailyLogId}`,
                 method: "GET",
             }),
             providesTags: ["DetailedDailyLog"],
         }),
-        addMeal: builder.mutation<Partial<Meal>, AddMeal>({
+        addMeal: builder.mutation<
+            Pick<
+                Meal,
+                "id" | "name" | "description" | "createdAt" | "dailyLogId"
+            >,
+            Pick<Meal, "name" | "description" | "dailyLogId">
+        >({
             query: (newMeal) => ({
                 url: "/meal",
                 method: "POST",
@@ -54,7 +74,7 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: ["DailyLog", "DetailedDailyLog"],
         }),
-        addIngredient: builder.mutation<Ingredient, AddIngredient>({
+        addIngredient: builder.mutation<Ingredient, Omit<Ingredient, "id">>({
             query: (newIngredient) => ({
                 url: "/ingredient",
                 method: "POST",

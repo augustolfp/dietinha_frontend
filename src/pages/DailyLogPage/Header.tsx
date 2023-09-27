@@ -1,7 +1,7 @@
 import type { DailyLog as DailyLogType } from "../../types";
 import DailyLog from "../../components/DailyLog";
 
-interface Props extends DailyLogType {}
+interface Props extends Omit<DailyLogType, "mealsList"> {}
 
 export default function Header(dailyLog: Props) {
     return (
