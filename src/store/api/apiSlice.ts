@@ -1,14 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { auth } from "../../config/firebase";
-import type {
-    DailyLog,
-    // AddDailyLog,
-    // DetailedDailyLog,
-    Meal,
-    // AddMeal,
-    Ingredient,
-    // AddIngredient,
-} from "../../types";
+import type { DailyLog, Meal, Ingredient } from "../../types";
 
 export const apiSlice = createApi({
     reducerPath: "api",
@@ -76,13 +68,6 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: ["UserDailyLogs"],
         }),
-        getDailyLogById: builder.query<DailyLog, string>({
-            query: (dailyLogId) => ({
-                url: `/daily-log/${dailyLogId}`,
-                method: "GET",
-            }),
-            providesTags: ["DetailedDailyLog"],
-        }),
         addMeal: builder.mutation<
             Pick<
                 Meal,
@@ -110,7 +95,6 @@ export const apiSlice = createApi({
 
 export const {
     useGetDailyLogsQuery,
-    useGetDailyLogByIdQuery,
     useGetDailyLogStatsQuery,
     useAddDailyLogMutation,
     useAddMealMutation,
