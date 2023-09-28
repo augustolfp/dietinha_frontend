@@ -87,6 +87,15 @@ export const apiSlice = createApi({
             }),
             providesTags: ["DailyLogsMeals"],
         }),
+        getMealSummary: builder.query<
+            Pick<Meal, "id" | "carbs" | "fats" | "proteins" | "kcals">,
+            Pick<DailyLog, "id">
+        >({
+            query: (dailyLog) => ({
+                url: `/meals/${dailyLog.id}/summary`,
+                method: "GET",
+            }),
+        }),
         addMeal: builder.mutation<
             Pick<
                 Meal,
@@ -118,5 +127,6 @@ export const {
     useAddDailyLogMutation,
     useAddMealMutation,
     useGetMealsQuery,
+    useGetMealSummaryQuery,
     useAddIngredientMutation,
 } = apiSlice;
