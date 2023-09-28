@@ -45,7 +45,7 @@ export const apiSlice = createApi({
             Partial<DailyLog>
         >({
             query: (dailyLog) => ({
-                url: `/daily-log/details/${dailyLog.id}`,
+                url: `/daily-log/${dailyLog.id}`,
                 method: "GET",
             }),
             providesTags: (_result, _error, dailyLog) => {
@@ -95,7 +95,7 @@ export const apiSlice = createApi({
             Pick<Meal, "name" | "description" | "dailyLogId">
         >({
             query: (newMeal) => ({
-                url: "/meal",
+                url: "/meals",
                 method: "POST",
                 body: newMeal,
             }),
@@ -103,7 +103,7 @@ export const apiSlice = createApi({
         }),
         addIngredient: builder.mutation<Ingredient, Omit<Ingredient, "id">>({
             query: (newIngredient) => ({
-                url: "/ingredient",
+                url: "/ingredients",
                 method: "POST",
                 body: newIngredient,
             }),
