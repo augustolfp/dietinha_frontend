@@ -3,12 +3,13 @@ import { useGetMealsQuery } from "../../store/api/apiSlice";
 import { useParams } from "react-router-dom";
 import Header from "./Header";
 import MealForm from "../../components/MealForm";
+import Meal from "../../components/Meal";
 
 export default function DailyLogPage() {
     const { accessToken } = useUser();
     const { dailyLogId } = useParams();
     const { data, error, isLoading } = useGetMealsQuery(
-        { id: dailyLogId },
+        { id: dailyLogId! },
         { skip: !Boolean(accessToken) }
     );
 
@@ -19,7 +20,13 @@ export default function DailyLogPage() {
         content = <p className="text-red-600">Error on fetching</p>;
     } else if (data) {
         content = data.map((meal) => {
-            return <div>{meal.name}</div>;
+            return (
+                <div key={meal.id}>
+                    <div>Título: {meal.name}</div>
+                    <div>Descrição: {meal.description}</div>
+                    <Meal id={meal.id} />
+                </div>
+            );
         });
     }
 
