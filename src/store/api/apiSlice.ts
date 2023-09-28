@@ -22,14 +22,37 @@ export const apiSlice = createApi({
             return headers;
         },
     }),
-    tagTypes: ["DailyLog", "DetailedDailyLog"],
+    tagTypes: ["DailyLog", "UserDailyLogs", "DetailedDailyLog"],
     endpoints: (builder) => ({
-        getDailyLogs: builder.query<Omit<DailyLog, "mealsList">[], string>({
+        getDailyLogs: builder.query<Pick<DailyLog, "id" | "date">[], string>({
             query: () => ({
                 url: "/daily-log",
                 method: "GET",
             }),
-            providesTags: ["DailyLog"],
+            providesTags: ["UserDailyLogs"],
+        }),
+        getDailyLogStats: builder.query<
+            Pick<
+                DailyLog,
+                | "id"
+                | "carbs"
+                | "fats"
+                | "proteins"
+                | "kcals"
+                | "notes"
+                | "userId"
+                | "caloriesTarget"
+                | "proteinsTarget"
+            >,
+            Partial<DailyLog>
+        >({
+            query: (dailyLog) => ({
+                url: `/daily-log/details/${dailyLog.id}`,
+                method: "GET",
+            }),
+            providesTags: (_result, _error, dailyLog) => {
+                return [{ type: "DailyLog", id: dailyLog.id }];
+            },
         }),
         addDailyLog: builder.mutation<
             Pick<
@@ -51,7 +74,7 @@ export const apiSlice = createApi({
                 method: "POST",
                 body: newDailyLog,
             }),
-            invalidatesTags: ["DailyLog"],
+            invalidatesTags: ["UserDailyLogs"],
         }),
         getDailyLogById: builder.query<DailyLog, string>({
             query: (dailyLogId) => ({
@@ -88,6 +111,7 @@ export const apiSlice = createApi({
 export const {
     useGetDailyLogsQuery,
     useGetDailyLogByIdQuery,
+    useGetDailyLogStatsQuery,
     useAddDailyLogMutation,
     useAddMealMutation,
     useAddIngredientMutation,

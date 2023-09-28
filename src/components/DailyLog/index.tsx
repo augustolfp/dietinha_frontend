@@ -1,33 +1,52 @@
-import { DailyLog as DailyLogType } from "../../types";
+import useUser from "../../hooks/authHooks/useUser";
+// import { DailyLog } from "../../types";
+import { useGetDailyLogStatsQuery } from "../../store/api/apiSlice";
 
 interface Props {
-    dailyLog: Omit<DailyLogType, "mealsList">;
+    dailyLogId: string;
     children?: React.ReactNode;
 }
 
-export default function DailyLog({ dailyLog, children }: Props) {
+export default function DailyLog({ dailyLogId, children }: Props) {
+    const { accessToken } = useUser();
+    const { data, error, isLoading } = useGetDailyLogStatsQuery(
+        { id: dailyLogId },
+        {
+            skip: !Boolean(accessToken),
+        }
+    );
+
+    let content;
+    if (isLoading) {
+        content = <p>Loading...</p>;
+    } else if (error) {
+        content = <p className="text-red-600">Error on fetching</p>;
+    } else if (data) {
+        content = (
+            <div className="stats stats-horizontal shadow">
+                <div className="stat">
+                    <div className="stat-title">Proteinas</div>
+                    <div className="stat-value">{data.proteins} g</div>
+                    <div className="stat-desc">
+                        Objetivo: {data.proteinsTarget} g
+                    </div>
+                </div>
+
+                <div className="stat">
+                    <div className="stat-title">Calorias</div>
+                    <div className="stat-value">{data.kcals} kcal</div>
+                    <div className="stat-desc">
+                        Objetivo: {data.caloriesTarget} kcal
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="card w-96 bg-base-100 shadow-xl">
             <div className="card-body">
-                <h2 className="card-title">{dailyLog.date}</h2>
-
-                <div className="stats stats-horizontal shadow">
-                    <div className="stat">
-                        <div className="stat-title">Proteinas</div>
-                        <div className="stat-value">{dailyLog.proteins} g</div>
-                        <div className="stat-desc">
-                            Objetivo: {dailyLog.proteinsTarget} g
-                        </div>
-                    </div>
-
-                    <div className="stat">
-                        <div className="stat-title">Calorias</div>
-                        <div className="stat-value">{dailyLog.kcals} kcal</div>
-                        <div className="stat-desc">
-                            Objetivo: {dailyLog.caloriesTarget} kcal
-                        </div>
-                    </div>
-                </div>
+                {content}
 
                 <div className="card-actions justify-end">{children}</div>
             </div>

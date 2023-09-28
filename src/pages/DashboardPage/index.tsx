@@ -20,14 +20,17 @@ export default function DashboardPage() {
         content = (
             <>
                 {data.map((dailyLog) => (
-                    <DailyLog key={dailyLog.id} dailyLog={dailyLog}>
-                        <Link
-                            className="btn btn-primary"
-                            to={`/daily-log/${dailyLog.id}`}
-                        >
-                            Ver detalhes
-                        </Link>
-                    </DailyLog>
+                    <div key={dailyLog.id}>
+                        <h2>{dailyLog.date}</h2>
+                        <DailyLog dailyLogId={dailyLog.id}>
+                            <Link
+                                className="btn btn-primary"
+                                to={`/daily-log/${dailyLog.id}`}
+                            >
+                                Ver detalhes
+                            </Link>
+                        </DailyLog>
+                    </div>
                 ))}
             </>
         );
