@@ -110,6 +110,12 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: ["DailyLogsMeals"],
         }),
+        getIngredients: builder.query<Ingredient[], Pick<Meal, "id">>({
+            query: (meal) => ({
+                url: `/ingredients/${meal.id}`,
+                method: "GET",
+            }),
+        }),
         addIngredient: builder.mutation<Ingredient, Omit<Ingredient, "id">>({
             query: (newIngredient) => ({
                 url: "/ingredients",
@@ -128,5 +134,6 @@ export const {
     useAddMealMutation,
     useGetMealsQuery,
     useGetMealSummaryQuery,
+    useGetIngredientsQuery,
     useAddIngredientMutation,
 } = apiSlice;
