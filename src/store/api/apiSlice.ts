@@ -14,7 +14,13 @@ export const apiSlice = createApi({
             return headers;
         },
     }),
-    tagTypes: ["DailyLog", "UserDailyLogs", "DetailedDailyLog"],
+    tagTypes: [
+        "DailyLog",
+        "UserDailyLogs",
+        "DetailedDailyLog",
+        "Meal",
+        "DailyLogsMeals",
+    ],
     endpoints: (builder) => ({
         getDailyLogs: builder.query<Pick<DailyLog, "id" | "date">[], string>({
             query: () => ({
@@ -68,6 +74,19 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: ["UserDailyLogs"],
         }),
+        getMeals: builder.query<
+            Pick<
+                Meal,
+                "id" | "name" | "description" | "createdAt" | "dailyLogId"
+            >[],
+            Partial<DailyLog>
+        >({
+            query: (dailyLog) => ({
+                url: `/meals/${dailyLog.id}`,
+                method: "GET",
+            }),
+            providesTags: ["DailyLogsMeals"],
+        }),
         addMeal: builder.mutation<
             Pick<
                 Meal,
@@ -80,7 +99,7 @@ export const apiSlice = createApi({
                 method: "POST",
                 body: newMeal,
             }),
-            invalidatesTags: ["DailyLog", "DetailedDailyLog"],
+            invalidatesTags: ["DailyLogsMeals"],
         }),
         addIngredient: builder.mutation<Ingredient, Omit<Ingredient, "id">>({
             query: (newIngredient) => ({
@@ -98,5 +117,6 @@ export const {
     useGetDailyLogStatsQuery,
     useAddDailyLogMutation,
     useAddMealMutation,
+    useGetMealsQuery,
     useAddIngredientMutation,
 } = apiSlice;
