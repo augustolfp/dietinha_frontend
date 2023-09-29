@@ -25,9 +25,10 @@ export default function DashboardPage() {
                         dailyLog.date
                     );
                     return (
-                        <div
+                        <Link
                             key={dailyLog.id}
-                            className="card bg-base-100 shadow-md"
+                            to={`/daily-log/${dailyLog.id}`}
+                            className="card bg-base-100 shadow-md hover:bg-slate-50"
                         >
                             <div className="card-body">
                                 <h2 className="card-title">
@@ -35,14 +36,8 @@ export default function DashboardPage() {
                                     {formattedDate}
                                 </h2>
                                 <DailyLog dailyLogId={dailyLog.id} />
-                                <Link
-                                    className="btn btn-primary"
-                                    to={`/daily-log/${dailyLog.id}`}
-                                >
-                                    Ver detalhes
-                                </Link>
                             </div>
-                        </div>
+                        </Link>
                     );
                 })}
             </>
