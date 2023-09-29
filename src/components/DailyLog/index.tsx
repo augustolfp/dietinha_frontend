@@ -22,7 +22,7 @@ export default function DailyLog({ dailyLogId, children }: Props) {
         content = <p className="text-red-600">Error on fetching</p>;
     } else if (data) {
         content = (
-            <div className="stats stats-horizontal shadow">
+            <div className="stats stats-horizontal">
                 <div className="stat">
                     <div className="stat-title">Proteinas</div>
                     <div className="stat-value">{data.proteins} g</div>
@@ -45,11 +45,9 @@ export default function DailyLog({ dailyLogId, children }: Props) {
     }
 
     return (
-        <div className="card w-96 bg-base-100 shadow-xl">
-            <div className="card-body">
-                {content}
-                <div className="card-actions justify-end">{children}</div>
-            </div>
-        </div>
+        <>
+            {content}
+            {children}
+        </>
     );
 }
