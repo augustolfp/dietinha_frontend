@@ -27,7 +27,6 @@ export type Meal = {
     fats: number;
     proteins: number;
     kcals: number;
-    ingredientsList: Ingredient[];
 };
 
 // export type AddMeal = Pick<Meal, "name" | "description" | "dailyLogId">;
