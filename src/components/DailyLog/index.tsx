@@ -1,5 +1,6 @@
 import useUser from "../../hooks/authHooks/useUser";
 import { useGetDailyLogStatsQuery } from "../../store/api/apiSlice";
+import RadialProgress from "../RadialProgress";
 
 interface Props {
     dailyLogId: string;
@@ -22,24 +23,46 @@ export default function DailyLog({ dailyLogId, children }: Props) {
         content = <p className="text-red-600">Error on fetching</p>;
     } else if (data) {
         content = (
-            <div className="stats stats-horizontal">
-                <div className="stat">
-                    <div className="stat-title">Proteinas</div>
-                    <div className="stat-value">{data.proteins} g</div>
-                    <div className="stat-desc">
+            <div className="grid grid-cols-2 gap-2">
+                <div className="row-span-3 bg-blue-100 p-3">
+                    <RadialProgress
+                        numerator={data.kcals}
+                        denominator={data.caloriesTarget}
+                    />
+                    <div className="font-semibold">
+                        Calorias: {data.kcals} kcal
+                    </div>
+
+                    <div className="font-semibold">
+                        Objetivo: {data.caloriesTarget} kcal
+                    </div>
+                </div>
+                <div className="row-span-3 bg-red-100 p-3">
+                    <RadialProgress
+                        numerator={data.proteins}
+                        denominator={data.proteinsTarget}
+                    />
+                    <div className="font-semibold">
+                        Proteinas: {data.proteins} g
+                    </div>
+
+                    <div className="font-semibold">
                         Objetivo: {data.proteinsTarget} g
                     </div>
                 </div>
 
-                <div className="stat">
-                    <div className="stat-title">Calorias</div>
-                    <div className="stat-value">{data.kcals} kcal</div>
-                    <div className="stat-desc">
-                        Objetivo: {data.caloriesTarget} kcal
+                <div className="row-span-2 bg-yellow-100 p-3">
+                    <div className="flex items-center justify-center text-lg font-bold">
+                        {data.fats}g
                     </div>
+                    <div className="font-semibold">Gorduras</div>
                 </div>
-                <div>Carboidratos: {data.carbs}</div>
-                <div>Gorduras: {data.fats}</div>
+                <div className="row-span-3 bg-green-100 p-3">
+                    <div className="flex items-center justify-center text-lg font-bold">
+                        {data.carbs}g
+                    </div>
+                    <div className="font-semibold">Carboidratos</div>
+                </div>
             </div>
         );
     }

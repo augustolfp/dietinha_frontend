@@ -91,7 +91,9 @@ export default function DailyLogForm() {
                     <p className="text-red-500">{`${errors.root.serverError.message}`}</p>
                 )}
             </form>
-            <div className="bg-pink-300 py-20">CALENDÁRIO</div>
+            <div className="bg-pink-300 py-20 flex items-center justify-center font-bold text-sm break-all">
+                CALENDÁRIO FICARÁ AQUI
+            </div>
         </div>
     );
 }

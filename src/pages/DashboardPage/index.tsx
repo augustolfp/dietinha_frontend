@@ -31,7 +31,8 @@ export default function DashboardPage() {
                         >
                             <div className="card-body">
                                 <h2 className="card-title">
-                                    {weekDay}, {formattedDate}
+                                    <p>{weekDay}</p>
+                                    {formattedDate}
                                 </h2>
                                 <DailyLog dailyLogId={dailyLog.id} />
                                 <Link
