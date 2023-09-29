@@ -21,8 +21,13 @@ export default function DailyLogPage() {
     } else if (data) {
         content = data.map((meal) => {
             return (
-                <div key={meal.id}>
-                    <div>Título: {meal.name}</div>
+                <div
+                    key={meal.id}
+                    className="flex justify-between m-4 border-solid border-2 rounded-xl p-4"
+                >
+                    <div>
+                        <h3 className="text-lg font-bold">{meal.name}</h3>
+                    </div>
                     <div>Descrição: {meal.description}</div>
                     <div>
                         Sumário da refeição:

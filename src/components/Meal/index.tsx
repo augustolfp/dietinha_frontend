@@ -1,5 +1,7 @@
 import { useGetMealSummaryQuery } from "../../store/api/apiSlice";
 import useUser from "../../hooks/authHooks/useUser";
+import IngredientList from "../IngredientList";
+import IngredientForm from "../IngredientForm";
 
 interface Props {
     mealId: string;
@@ -41,25 +43,19 @@ export default function Meal({ mealId }: Props) {
     }
 
     return (
-        <div className="flex justify-between m-4 border-solid border-2 rounded-xl p-4">
+        <>
+            {content}
             <div>
-                {/* <h3 className="text-lg font-bold">{props.name}</h3> */}
-                {content}
-            </div>
-
-            {/* <div>
                 <h3 className="text-md font-semibold mb-4">Ingredientes:</h3>
-                {props.ingredientsList.map((ing) => (
-                    <Ingredient key={ing.id} {...ing} />
-                ))}
+                <IngredientList mealId={mealId} />
             </div>
 
             <div className="card w-96 bg-base-100 shadow-xl p-4">
                 <h3 className="text-md font-semibold mb-4">
                     Adicionar novo ingrediente:
                 </h3>
-                <IngredientForm mealId={props.id} />
-            </div> */}
-        </div>
+                <IngredientForm mealId={mealId} />
+            </div>
+        </>
     );
 }
