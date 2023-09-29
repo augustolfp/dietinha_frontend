@@ -4,7 +4,7 @@ interface Props {
     ingredient: IngredientType;
 }
 
-export default function Ingredient({ ingredient }: Props) {
+export default function IngredientsListItem({ ingredient }: Props) {
     return (
         <div>
             <h4 className="text-md font-bold">{ingredient.name}</h4>

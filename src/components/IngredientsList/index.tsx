@@ -1,12 +1,12 @@
 import { useGetIngredientsQuery } from "../../store/api/apiSlice";
 import useUser from "../../hooks/authHooks/useUser";
-import Ingredient from "../Ingredient";
+import IngredientsListItem from "../IngredientsListItem";
 
 interface Props {
     mealId: string;
 }
 
-export default function IngredientList({ mealId }: Props) {
+export default function IngredientsList({ mealId }: Props) {
     const { accessToken } = useUser();
     const { data, error, isFetching } = useGetIngredientsQuery(
         { id: mealId },
@@ -23,7 +23,7 @@ export default function IngredientList({ mealId }: Props) {
             <>
                 {data.map((ingredient) => (
                     <div key={ingredient.id}>
-                        <Ingredient ingredient={ingredient} />
+                        <IngredientsListItem ingredient={ingredient} />
                     </div>
                 ))}
             </>

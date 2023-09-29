@@ -1,13 +1,13 @@
 import { useGetMealSummaryQuery } from "../../store/api/apiSlice";
 import useUser from "../../hooks/authHooks/useUser";
-import IngredientList from "../IngredientList";
-import IngredientForm from "../IngredientForm";
+import React from "react";
 
 interface Props {
     mealId: string;
+    children?: React.ReactNode;
 }
 
-export default function MealsListItem({ mealId }: Props) {
+export default function MealsListItem({ mealId, children }: Props) {
     const { accessToken } = useUser();
     const { data, error, isLoading } = useGetMealSummaryQuery(
         { id: mealId },
@@ -45,17 +45,7 @@ export default function MealsListItem({ mealId }: Props) {
     return (
         <div className="flex">
             {content}
-            <div>
-                <h3 className="text-md font-semibold mb-4">Ingredientes:</h3>
-                <IngredientList mealId={mealId} />
-            </div>
-
-            <div className="card w-96 bg-base-100 shadow-xl p-4">
-                <h3 className="text-md font-semibold mb-4">
-                    Adicionar novo ingrediente:
-                </h3>
-                <IngredientForm mealId={mealId} />
-            </div>
+            {children}
         </div>
     );
 }

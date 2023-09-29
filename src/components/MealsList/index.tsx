@@ -1,6 +1,8 @@
 import useUser from "../../hooks/authHooks/useUser";
 import { useGetMealsQuery } from "../../store/api/apiSlice";
 import MealsListItem from "../MealsListItem";
+import IngredientsList from "../IngredientsList";
+import IngredientForm from "../IngredientForm";
 
 interface Props {
     dailyLogId: string;
@@ -34,7 +36,20 @@ export default function MealsList({ dailyLogId }: Props) {
 
                     <div>
                         Sumário da refeição:
-                        <MealsListItem mealId={meal.id} />
+                        <MealsListItem mealId={meal.id}>
+                            <div>
+                                <h3 className="text-md font-semibold mb-4">
+                                    Ingredientes:
+                                </h3>
+                                <IngredientsList mealId={meal.id} />
+                            </div>
+                            <div className="card w-96 bg-base-100 shadow-xl p-4">
+                                <h3 className="text-md font-semibold mb-4">
+                                    Adicionar novo ingrediente:
+                                </h3>
+                                <IngredientForm mealId={meal.id} />
+                            </div>
+                        </MealsListItem>
                     </div>
                 </div>
             );
