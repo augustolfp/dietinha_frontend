@@ -23,38 +23,31 @@ export default function MealsList({ dailyLogId }: Props) {
     } else if (data) {
         content = data.map((meal) => {
             return (
-                <div
+                <MealsListItem
                     key={meal.id}
-                    className="flex m-4 gap-x-8 border-solid border-2 rounded-xl p-4"
+                    mealName={meal.name}
+                    mealId={meal.id}
                 >
+                    Sumário da refeição:
                     <div>
-                        <h3 className="text-lg font-bold">{meal.name}</h3>
-                        <div>
-                            <b>Descrição:</b> {meal.description}
-                        </div>
+                        <b>Descrição:</b> {meal.description}
                     </div>
-
                     <div>
-                        Sumário da refeição:
-                        <MealsListItem mealId={meal.id}>
-                            <div>
-                                <h3 className="text-md font-semibold mb-4">
-                                    Ingredientes:
-                                </h3>
-                                <IngredientsList mealId={meal.id} />
-                            </div>
-                            <div className="card w-96 bg-base-100 shadow-xl p-4">
-                                <h3 className="text-md font-semibold mb-4">
-                                    Adicionar novo ingrediente:
-                                </h3>
-                                <IngredientForm mealId={meal.id} />
-                            </div>
-                        </MealsListItem>
+                        <h3 className="text-md font-semibold mb-4">
+                            Ingredientes:
+                        </h3>
+                        <IngredientsList mealId={meal.id} />
                     </div>
-                </div>
+                    <div className="card w-96 bg-base-100 shadow-xl p-4">
+                        <h3 className="text-md font-semibold mb-4">
+                            Adicionar novo ingrediente:
+                        </h3>
+                        <IngredientForm mealId={meal.id} />
+                    </div>
+                </MealsListItem>
             );
         });
     }
 
-    return <>{content}</>;
+    return <div className="flex flex-col gap-y-4">{content}</div>;
 }

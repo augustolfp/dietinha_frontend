@@ -4,10 +4,11 @@ import React from "react";
 
 interface Props {
     mealId: string;
+    mealName: string;
     children?: React.ReactNode;
 }
 
-export default function MealsListItem({ mealId, children }: Props) {
+export default function MealsListItem({ mealId, children, mealName }: Props) {
     const { accessToken } = useUser();
     const { data, error, isLoading } = useGetMealSummaryQuery(
         { id: mealId },
@@ -21,31 +22,24 @@ export default function MealsListItem({ mealId, children }: Props) {
         content = <p className="text-red-600">Error on fetching</p>;
     } else if (data) {
         content = (
-            <ul className="list-disc list-inside p-8">
-                <li>
-                    <strong>Carboidratos: </strong>
-                    {data.carbs} g
-                </li>
-                <li>
-                    <strong>Gorduras: </strong>
-                    {data.fats} g
-                </li>
-                <li>
-                    <strong>Proteinas: </strong>
-                    {data.proteins} g
-                </li>
-                <li>
-                    <strong>Calorias: </strong>
-                    {data.kcals} kcal
-                </li>
-            </ul>
+            <div className="flex justify-between gap-x-4">
+                <div className="font-light">{data.kcals}kcal</div>
+                <div className="font-light">{data.carbs}C</div>
+                <div className="font-light">{data.proteins}P</div>
+                <div className="font-light">{data.fats}G</div>
+            </div>
         );
     }
 
     return (
-        <div className="flex">
-            {content}
-            {children}
-        </div>
+        <details className="collapse collapse-arrow bg-base-200 border-solid border-2 border-black">
+            <summary className="collapse-title text-xl font-medium">
+                <div className="flex gap-x-6">
+                    <h3 className="text-xl font-bold">{mealName}</h3>
+                    {content}
+                </div>
+            </summary>
+            <div className="collapse-content">{children}</div>
+        </details>
     );
 }
