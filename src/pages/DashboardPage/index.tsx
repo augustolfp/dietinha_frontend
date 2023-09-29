@@ -21,8 +21,7 @@ export default function DashboardPage() {
             <>
                 {data.map((dailyLog) => (
                     <div key={dailyLog.id}>
-                        <h2>{dailyLog.date}</h2>
-                        <DailyLog dailyLogId={dailyLog.id}>
+                        <DailyLog dailyLogId={dailyLog.id} date={dailyLog.date}>
                             <Link
                                 className="btn btn-primary"
                                 to={`/daily-log/${dailyLog.id}`}
