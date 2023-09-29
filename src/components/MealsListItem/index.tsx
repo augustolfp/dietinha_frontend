@@ -7,7 +7,7 @@ interface Props {
     mealId: string;
 }
 
-export default function Meal({ mealId }: Props) {
+export default function MealsListItem({ mealId }: Props) {
     const { accessToken } = useUser();
     const { data, error, isLoading } = useGetMealSummaryQuery(
         { id: mealId },
@@ -43,7 +43,7 @@ export default function Meal({ mealId }: Props) {
     }
 
     return (
-        <>
+        <div className="flex">
             {content}
             <div>
                 <h3 className="text-md font-semibold mb-4">Ingredientes:</h3>
@@ -56,6 +56,6 @@ export default function Meal({ mealId }: Props) {
                 </h3>
                 <IngredientForm mealId={mealId} />
             </div>
-        </>
+        </div>
     );
 }
