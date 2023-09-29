@@ -1,17 +1,14 @@
-import type { Meal as DetailedMeal } from "../../types";
-import Ingredient from "../Ingredient";
-import IngredientForm from "../IngredientForm";
 import { useGetMealSummaryQuery } from "../../store/api/apiSlice";
 import useUser from "../../hooks/authHooks/useUser";
 
 interface Props {
-    id: string;
+    mealId: string;
 }
 
-export default function Meal({ id }: Props) {
+export default function Meal({ mealId }: Props) {
     const { accessToken } = useUser();
     const { data, error, isLoading } = useGetMealSummaryQuery(
-        { id: id },
+        { id: mealId },
         { skip: !Boolean(accessToken) }
     );
 

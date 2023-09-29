@@ -6,17 +6,17 @@ import DailyLog from "../../components/DailyLog";
 
 export default function DashboardPage() {
     const { accessToken } = useUser();
-    const { data, isFetching, isSuccess } = useGetDailyLogsQuery(
-        "required_arg",
-        {
-            skip: !Boolean(accessToken),
-        }
-    );
+
+    const { data, error, isFetching } = useGetDailyLogsQuery(undefined, {
+        skip: !Boolean(accessToken),
+    });
 
     let content;
     if (isFetching) {
         content = <div>Loading....</div>;
-    } else if (isSuccess) {
+    } else if (error) {
+        content = <p className="text-red-600">Error on fetching</p>;
+    } else if (data) {
         content = (
             <>
                 {data.map((dailyLog) => (

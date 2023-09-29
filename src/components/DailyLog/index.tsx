@@ -1,5 +1,4 @@
 import useUser from "../../hooks/authHooks/useUser";
-// import { DailyLog } from "../../types";
 import { useGetDailyLogStatsQuery } from "../../store/api/apiSlice";
 
 interface Props {
@@ -39,6 +38,8 @@ export default function DailyLog({ dailyLogId, children }: Props) {
                         Objetivo: {data.caloriesTarget} kcal
                     </div>
                 </div>
+                <div>Carboidratos: {data.carbs}</div>
+                <div>Gorduras: {data.fats}</div>
             </div>
         );
     }

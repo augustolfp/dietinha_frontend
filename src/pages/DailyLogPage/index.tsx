@@ -24,7 +24,10 @@ export default function DailyLogPage() {
                 <div key={meal.id}>
                     <div>Título: {meal.name}</div>
                     <div>Descrição: {meal.description}</div>
-                    <Meal id={meal.id} />
+                    <div>
+                        Sumário da refeição:
+                        <Meal mealId={meal.id} />
+                    </div>
                 </div>
             );
         });
