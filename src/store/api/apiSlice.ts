@@ -1,14 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { auth } from "../../config/firebase";
-import type {
-    DailyLog,
-    // AddDailyLog,
-    // DetailedDailyLog,
-    Meal,
-    // AddMeal,
-    Ingredient,
-    // AddIngredient,
-} from "../../types";
+import type { DailyLog, Meal, Ingredient } from "../../types";
 
 export const apiSlice = createApi({
     reducerPath: "api",
@@ -22,14 +14,37 @@ export const apiSlice = createApi({
             return headers;
         },
     }),
-    tagTypes: ["DailyLog", "DetailedDailyLog"],
+    tagTypes: ["DailyLogs", "DailyLogStats", "Meal", "MealIngredients"],
     endpoints: (builder) => ({
-        getDailyLogs: builder.query<Omit<DailyLog, "mealsList">[], string>({
+        getDailyLogs: builder.query<Pick<DailyLog, "id" | "date">[], string>({
             query: () => ({
                 url: "/daily-log",
                 method: "GET",
             }),
-            providesTags: ["DailyLog"],
+            providesTags: ["DailyLogs"],
+        }),
+        getDailyLogStats: builder.query<
+            Pick<
+                DailyLog,
+                | "id"
+                | "carbs"
+                | "fats"
+                | "proteins"
+                | "kcals"
+                | "notes"
+                | "userId"
+                | "caloriesTarget"
+                | "proteinsTarget"
+            >,
+            Partial<DailyLog>
+        >({
+            query: (dailyLog) => ({
+                url: `/daily-log/${dailyLog.id}`,
+                method: "GET",
+            }),
+            providesTags: (_result, _error, dailyLog) => {
+                return [{ type: "DailyLogStats", id: dailyLog.id }];
+            },
         }),
         addDailyLog: builder.mutation<
             Pick<
@@ -51,14 +66,34 @@ export const apiSlice = createApi({
                 method: "POST",
                 body: newDailyLog,
             }),
-            invalidatesTags: ["DailyLog"],
+            invalidatesTags: ["DailyLogs"],
         }),
-        getDailyLogById: builder.query<DailyLog, string>({
-            query: (dailyLogId) => ({
-                url: `/daily-log/${dailyLogId}`,
+        getMeals: builder.query<
+            Pick<
+                Meal,
+                "id" | "name" | "description" | "createdAt" | "dailyLogId"
+            >[],
+            Pick<DailyLog, "id">
+        >({
+            query: (dailyLog) => ({
+                url: `/meals/${dailyLog.id}`,
                 method: "GET",
             }),
-            providesTags: ["DetailedDailyLog"],
+            providesTags: (_result, _error, dailyLog) => {
+                return [{ type: "Meal", id: dailyLog.id }];
+            },
+        }),
+        getMealSummary: builder.query<
+            Pick<Meal, "id" | "carbs" | "fats" | "proteins" | "kcals">,
+            Pick<Meal, "id">
+        >({
+            query: (meal) => ({
+                url: `/meals/${meal.id}/summary`,
+                method: "GET",
+            }),
+            providesTags: (_result, _error, meal) => {
+                return [{ type: "Meal", id: meal.id }];
+            },
         }),
         addMeal: builder.mutation<
             Pick<
@@ -67,28 +102,47 @@ export const apiSlice = createApi({
             >,
             Pick<Meal, "name" | "description" | "dailyLogId">
         >({
-            query: (newMeal) => ({
-                url: "/meal",
+            query: (meal) => ({
+                url: "/meals",
                 method: "POST",
-                body: newMeal,
+                body: meal,
             }),
-            invalidatesTags: ["DailyLog", "DetailedDailyLog"],
+            invalidatesTags: (_result, _error, meal) => {
+                return [{ type: "Meal", id: meal.dailyLogId }];
+            },
+        }),
+        getIngredients: builder.query<Ingredient[], Pick<Meal, "id">>({
+            query: (meal) => ({
+                url: `/ingredients/${meal.id}`,
+                method: "GET",
+            }),
+            providesTags: (_result, _error, meal) => {
+                return [{ type: "MealIngredients", id: meal.id }];
+            },
         }),
         addIngredient: builder.mutation<Ingredient, Omit<Ingredient, "id">>({
-            query: (newIngredient) => ({
-                url: "/ingredient",
+            query: (ingredient) => ({
+                url: "/ingredients",
                 method: "POST",
-                body: newIngredient,
+                body: ingredient,
             }),
-            invalidatesTags: ["DailyLog", "DetailedDailyLog"],
+            invalidatesTags: (_result, _error, ingredient) => {
+                return [
+                    { type: "MealIngredients", id: ingredient.mealId },
+                    { type: "Meal", id: ingredient.mealId },
+                ];
+            },
         }),
     }),
 });
 
 export const {
     useGetDailyLogsQuery,
-    useGetDailyLogByIdQuery,
+    useGetDailyLogStatsQuery,
     useAddDailyLogMutation,
     useAddMealMutation,
+    useGetMealsQuery,
+    useGetMealSummaryQuery,
+    useGetIngredientsQuery,
     useAddIngredientMutation,
 } = apiSlice;

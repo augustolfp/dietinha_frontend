@@ -1,64 +1,52 @@
 import useUser from "../../hooks/authHooks/useUser";
-import { useGetDailyLogByIdQuery } from "../../store/api/apiSlice";
+import { useGetMealsQuery } from "../../store/api/apiSlice";
 import { useParams } from "react-router-dom";
 import Header from "./Header";
-import Meal from "../../components/Meal";
 import MealForm from "../../components/MealForm";
+import Meal from "../../components/Meal";
 
 export default function DailyLogPage() {
-    const { dailyLogId } = useParams();
     const { accessToken } = useUser();
-
-    const { data, isFetching, isSuccess } = useGetDailyLogByIdQuery(
-        dailyLogId!,
-        {
-            skip: !Boolean(accessToken),
-        }
+    const { dailyLogId } = useParams();
+    const { data, error, isLoading } = useGetMealsQuery(
+        { id: dailyLogId! },
+        { skip: !Boolean(accessToken) }
     );
 
     let content;
-    if (isFetching) {
-        content = <div>Loading....</div>;
-    } else if (isSuccess) {
-        content = (
-            <>
-                <div className="container mx-auto flex gap-x-4">
-                    <div className="card w-96 bg-base-100 shadow-xl p-4">
-                        <Header
-                            id={data.id}
-                            userId={data.userId}
-                            date={data.date}
-                            notes={data.notes}
-                            caloriesTarget={data.caloriesTarget}
-                            proteinsTarget={data.proteinsTarget}
-                            carbs={data.carbs}
-                            fats={data.fats}
-                            proteins={data.proteins}
-                            kcals={data.kcals}
-                        />
-                    </div>
-                    <div className="card w-96 bg-base-100 shadow-xl p-4">
-                        <h2 className="text-xl font-bold">
-                            Adicionar nova refeição:
-                        </h2>
-                        <MealForm dailyLogId={dailyLogId!} />
-                    </div>
+    if (isLoading) {
+        content = <p>Loading...</p>;
+    } else if (error) {
+        content = <p className="text-red-600">Error on fetching</p>;
+    } else if (data) {
+        content = data.map((meal) => {
+            return (
+                <div key={meal.id}>
+                    <div>Título: {meal.name}</div>
+                    <div>Descrição: {meal.description}</div>
+                    <Meal id={meal.id} />
                 </div>
-                <div className="container mx-auto bg-base-100 shadow-xl p-4">
-                    <h2 className="text-xl font-bold mb-8">
-                        Lista de refeições:
-                    </h2>
-                    <ul className="p-8">
-                        {data.mealsList.map((meal) => (
-                            <li key={meal.id}>
-                                <Meal {...meal} />
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            </>
-        );
+            );
+        });
     }
 
-    return <div>{content}</div>;
+    return (
+        <div>
+            <div className="container mx-auto flex gap-x-4">
+                <div className="card w-96 bg-base-100 shadow-xl p-4">
+                    <Header dailyLogId={dailyLogId!} />
+                </div>
+                <div className="card w-96 bg-base-100 shadow-xl p-4">
+                    <h2 className="text-xl font-bold">
+                        Adicionar nova refeição:
+                    </h2>
+                    <MealForm dailyLogId={dailyLogId!} />
+                </div>
+            </div>
+            <div className="container mx-auto bg-base-100 shadow-xl p-4">
+                <h2 className="text-xl font-bold mb-8">Lista de refeições:</h2>
+                {content}
+            </div>
+        </div>
+    );
 }
