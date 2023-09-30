@@ -3,6 +3,7 @@ import { useGetMealsQuery } from "../../store/api/apiSlice";
 import MealsListItem from "../MealsListItem";
 import IngredientsList from "../IngredientsList";
 import IngredientForm from "../IngredientForm";
+import AddIngredientTab from "../AddIngredientTab";
 
 interface Props {
     dailyLogId: string;
@@ -31,17 +32,14 @@ export default function MealsList({ dailyLogId }: Props) {
                     <div className="mb-6">
                         <b>Descrição:</b> {meal.description}
                     </div>
-                    <div>
-                        <h3 className="text-md font-semibold mb-4">
-                            Ingredientes:
-                        </h3>
-                        <IngredientsList mealId={meal.id} />
-                    </div>
-                    <div className="card w-96 bg-base-100 shadow-xl p-4">
-                        <h3 className="text-md font-semibold mb-4">
-                            Adicionar novo ingrediente:
-                        </h3>
-                        <IngredientForm mealId={meal.id} />
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        <div>
+                            <h3 className="text-md font-semibold mb-4">
+                                Ingredientes:
+                            </h3>
+                            <IngredientsList mealId={meal.id} />
+                        </div>
+                        <AddIngredientTab mealId={meal.id} />
                     </div>
                 </MealsListItem>
             );
