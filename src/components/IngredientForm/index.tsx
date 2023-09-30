@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAddIngredientMutation } from "../../store/api/apiSlice";
@@ -20,9 +21,15 @@ export default function IngredientForm({ mealId }: Props) {
         setError,
         formState: { errors, isSubmitting },
         reset,
+        watch,
     } = useForm<IngredientSchema>({
         resolver: zodResolver(ingredientSchema),
     });
+
+    const watchCarbs = watch("carbs", 0);
+    const watchFats = watch("fats", 0);
+    const watchProteins = watch("proteins", 0);
+    const calories = watchProteins * 4 + watchFats * 9 + watchCarbs * 4;
 
     const onSubmit = async (data: IngredientSchema) => {
         try {
@@ -33,7 +40,7 @@ export default function IngredientForm({ mealId }: Props) {
                 carbs: Number(data.carbs),
                 fats: Number(data.fats),
                 proteins: Number(data.proteins),
-                kcals: Number(data.kcals),
+                kcals: calories,
             }).unwrap();
         } catch (err) {
             const errMessage = getApiErrorMessage(err);
@@ -126,17 +133,8 @@ export default function IngredientForm({ mealId }: Props) {
                     <p className="text-red-500">{`${errors.fats.message}`}</p>
                 )}
             </div>
-            <div className="row-span-2">
-                <input
-                    {...register("kcals")}
-                    type="number"
-                    placeholder="Calorias (kCal)"
-                    aria-invalid={errors.kcals ? "true" : "false"}
-                    className="w-full"
-                />
-                {errors.kcals && (
-                    <p className="text-red-500">{`${errors.kcals.message}`}</p>
-                )}
+            <div className="row-span-2 flex items-center justify-center">
+                {calories}kcal
             </div>
             <div className="col-span-2">
                 <button

@@ -6,7 +6,6 @@ export const ingredientSchema = z.object({
     carbs: z.coerce.number().nonnegative("Insira um número positivo"),
     fats: z.coerce.number().nonnegative("Insira um número positivo"),
     proteins: z.coerce.number().nonnegative("Insira um número positivo"),
-    kcals: z.coerce.number().nonnegative("Insira um número positivo"),
 });
 
 export type IngredientSchema = z.infer<typeof ingredientSchema>;
