@@ -1,6 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { auth } from "../../config/firebase";
-import type { DailyLog, Meal, Ingredient } from "../../types";
+import type {
+    DailyLog,
+    Meal,
+    Ingredient,
+    TableItem,
+    SearchResult,
+} from "../../types";
 
 export const apiSlice = createApi({
     reducerPath: "api",
@@ -14,7 +20,13 @@ export const apiSlice = createApi({
             return headers;
         },
     }),
-    tagTypes: ["UserDailyLogs", "DailyLog", "DailyLogMeals", "Meal"],
+    tagTypes: [
+        "UserDailyLogs",
+        "DailyLog",
+        "DailyLogMeals",
+        "Meal",
+        "SearchResult",
+    ],
     endpoints: (builder) => ({
         getDailyLogs: builder.query<Pick<DailyLog, "id" | "date">[], void>({
             query: () => ({
@@ -138,6 +150,16 @@ export const apiSlice = createApi({
                 return [{ type: "Meal", id: ingredient.mealId }];
             },
         }),
+        searchTable: builder.query<
+            SearchResult,
+            Pick<TableItem, "description">
+        >({
+            query: (arg) => ({
+                url: `/datatable/search/${arg.description}`,
+                method: "GET",
+            }),
+            providesTags: ["SearchResult"],
+        }),
     }),
 });
 
@@ -150,4 +172,5 @@ export const {
     useGetMealSummaryQuery,
     useGetIngredientsQuery,
     useAddIngredientMutation,
+    useSearchTableQuery,
 } = apiSlice;

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SearchTable from "../SearchTable";
 import IngredientForm from "../IngredientForm";
 interface Props {
     mealId: string;
@@ -29,7 +30,9 @@ export default function AddIngredientTab({ mealId }: Props) {
             </div>
             <div className="bg-white p-4">
                 {toggle ? (
-                    <div className="">Tabela TACO</div>
+                    <div className="">
+                        <SearchTable />
+                    </div>
                 ) : (
                     <IngredientForm mealId={mealId} />
                 )}

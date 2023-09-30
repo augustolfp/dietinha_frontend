@@ -12,11 +12,6 @@ export type DailyLog = {
     mealsList: Meal[];
 };
 
-// export type AddDailyLog = Omit<
-//     DailyLog,
-//     "id" | "userId" | "carbs" | "fats" | "proteins" | "kcals"
-// >;
-
 export type Meal = {
     id: string;
     name: string;
@@ -29,8 +24,6 @@ export type Meal = {
     kcals: number;
 };
 
-// export type AddMeal = Pick<Meal, "name" | "description" | "dailyLogId">;
-
 export type Ingredient = {
     id: string;
     name: string;
@@ -42,8 +35,17 @@ export type Ingredient = {
     kcals: number;
 };
 
-// export type AddIngredient = Omit<Ingredient, "id">;
+export type TableItem = {
+    id: string;
+    description: string;
+    baseQty: number;
+    carbs: number;
+    fats: number;
+    proteins: number;
+    kcals: number;
+};
 
-// export type DetailedDailyLog = DailyLog & {
-//     mealsList: DetailedMeal[];
-// };
+export type SearchResult = {
+    tacoResults: TableItem[];
+    customResults: TableItem[];
+};
