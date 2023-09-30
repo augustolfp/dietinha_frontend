@@ -56,7 +56,7 @@ export const apiSlice = createApi({
                 method: "GET",
             }),
             providesTags: (result, _error, dailyLog) => {
-                if (result) {
+                if (result?.mealsList) {
                     const mealsTags = result.mealsList.map((meal) => {
                         return { type: "Meal" as const, id: meal.id };
                     });
