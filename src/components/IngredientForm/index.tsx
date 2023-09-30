@@ -49,72 +49,116 @@ export default function IngredientForm({ mealId }: Props) {
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-y-2"
+            className="grid grid-cols-3 gap-2"
         >
-            <input
-                {...register("name")}
-                type="text"
-                placeholder="Nome do ingrediente"
-                aria-invalid={errors.name ? "true" : "false"}
-            />
-            {errors.name && (
-                <p className="text-red-500">{`${errors.name.message}`}</p>
-            )}
-            <input
-                {...register("weight")}
-                type="number"
-                placeholder="Quantidade (g)"
-                aria-invalid={errors.weight ? "true" : "false"}
-            />
-            {errors.weight && (
-                <p className="text-red-500">{`${errors.weight.message}`}</p>
-            )}
-            <input
-                {...register("carbs")}
-                type="number"
-                placeholder="Carboidratos (g)"
-                aria-invalid={errors.carbs ? "true" : "false"}
-            />
-            {errors.carbs && (
-                <p className="text-red-500">{`${errors.carbs.message}`}</p>
-            )}
-            <input
-                {...register("fats")}
-                type="number"
-                placeholder="Gorduras (g)"
-                aria-invalid={errors.fats ? "true" : "false"}
-            />
-            {errors.fats && (
-                <p className="text-red-500">{`${errors.fats.message}`}</p>
-            )}
-            <input
-                {...register("proteins")}
-                type="number"
-                placeholder="Proteinas (g)"
-                aria-invalid={errors.proteins ? "true" : "false"}
-            />
-            {errors.proteins && (
-                <p className="text-red-500">{`${errors.proteins.message}`}</p>
-            )}
-            <input
-                {...register("kcals")}
-                type="number"
-                placeholder="Calorias (kCal)"
-                aria-invalid={errors.kcals ? "true" : "false"}
-            />
-            {errors.kcals && (
-                <p className="text-red-500">{`${errors.kcals.message}`}</p>
-            )}
-            <button
-                type="submit"
-                disabled={isSubmitting}
-                className="bg-blue-500 disabled:bg-gray-500 py-2 rounded"
-            >
-                Adicionar ingrediente
-            </button>
-            {errors.root && (
-                <p className="text-red-500">{`${errors.root.serverError.message}`}</p>
-            )}
+            <div className="col-span-2">
+                <label>
+                    Nome do ingrediente
+                    <input
+                        {...register("name")}
+                        type="text"
+                        placeholder="Nome do ingrediente"
+                        aria-invalid={errors.name ? "true" : "false"}
+                        className="w-full"
+                    />
+                </label>
+                {errors.name && (
+                    <p className="text-red-500">{`${errors.name.message}`}</p>
+                )}
+            </div>
+            <div className="col-span-1">
+                <label>
+                    Quantidade
+                    <input
+                        {...register("weight")}
+                        type="number"
+                        placeholder="Quantidade (g)"
+                        aria-invalid={errors.weight ? "true" : "false"}
+                        className="w-full"
+                    />
+                </label>
+                {errors.weight && (
+                    <p className="text-red-500">{`${errors.weight.message}`}</p>
+                )}
+            </div>
+            <div className="">
+                <label>
+                    Carboidratos
+                    <input
+                        {...register("carbs")}
+                        type="number"
+                        placeholder="Carboidratos (g)"
+                        aria-invalid={errors.carbs ? "true" : "false"}
+                        className="w-full"
+                    />
+                </label>
+                {errors.carbs && (
+                    <p className="text-red-500">{`${errors.carbs.message}`}</p>
+                )}
+            </div>
+            <div className="">
+                <label>
+                    Proteínas
+                    <input
+                        {...register("proteins")}
+                        type="number"
+                        placeholder="Proteínas (g)"
+                        aria-invalid={errors.proteins ? "true" : "false"}
+                        className="w-full"
+                    />
+                </label>
+                {errors.proteins && (
+                    <p className="text-red-500">{`${errors.proteins.message}`}</p>
+                )}
+            </div>
+            <div className="">
+                <label>
+                    Gorduras
+                    <input
+                        {...register("fats")}
+                        type="number"
+                        placeholder="Gorduras (g)"
+                        aria-invalid={errors.fats ? "true" : "false"}
+                        className="w-full"
+                    />
+                </label>
+                {errors.fats && (
+                    <p className="text-red-500">{`${errors.fats.message}`}</p>
+                )}
+            </div>
+            <div className="row-span-2">
+                <input
+                    {...register("kcals")}
+                    type="number"
+                    placeholder="Calorias (kCal)"
+                    aria-invalid={errors.kcals ? "true" : "false"}
+                    className="w-full"
+                />
+                {errors.kcals && (
+                    <p className="text-red-500">{`${errors.kcals.message}`}</p>
+                )}
+            </div>
+            <div className="col-span-2">
+                <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="btn btn-primary w-full"
+                >
+                    Adicionar e Favoritar
+                </button>
+                {errors.root && (
+                    <p className="text-red-500">{`${errors.root.serverError.message}`}</p>
+                )}
+            </div>
+            <div className="col-span-2">
+                <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="btn btn-secondary w-full"
+                >
+                    Apenas adicionar
+                </button>
+            </div>
         </form>
     );
 }

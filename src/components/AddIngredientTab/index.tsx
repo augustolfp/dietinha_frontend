@@ -27,7 +27,7 @@ export default function AddIngredientTab({ mealId }: Props) {
                     Crie um ingrediente
                 </a>
             </div>
-            <div className="bg-pink-300 p-4">
+            <div className="bg-white p-4">
                 {toggle ? (
                     <div className="">Tabela TACO</div>
                 ) : (
