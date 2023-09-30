@@ -28,8 +28,7 @@ export default function MealsList({ dailyLogId }: Props) {
                     mealName={meal.name}
                     mealId={meal.id}
                 >
-                    Sumário da refeição:
-                    <div>
+                    <div className="mb-6">
                         <b>Descrição:</b> {meal.description}
                     </div>
                     <div>

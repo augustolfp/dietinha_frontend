@@ -6,30 +6,25 @@ interface Props {
 
 export default function IngredientsListItem({ ingredient }: Props) {
     return (
-        <div>
-            <h4 className="text-md font-bold">{ingredient.name}</h4>
-            <ul className="list-disc list-inside text-sm p-2">
-                <li>
-                    <strong>Quantidade: </strong>
-                    {ingredient.weight} g
-                </li>
-                <li>
-                    <strong>Carboidratos: </strong>
-                    {ingredient.carbs} g
-                </li>
-                <li>
-                    <strong>Gorduras: </strong>
-                    {ingredient.fats} g
-                </li>
-                <li>
-                    <strong>Proteinas: </strong>
-                    {ingredient.proteins} g
-                </li>
-                <li>
-                    <strong>Calorias: </strong>
-                    {ingredient.kcals} kcal
-                </li>
-            </ul>
-        </div>
+        <>
+            <div>
+                <h4 className="text-md font-bold">{ingredient.name}</h4>
+                <div className="flex gap-x-1">
+                    <div className="font-light text-sm">
+                        {ingredient.kcals}kcal
+                    </div>
+                    <div className="font-light text-sm">
+                        {ingredient.carbs}C
+                    </div>
+                    <div className="font-light text-sm">
+                        {ingredient.proteins}P
+                    </div>
+                    <div className="font-light text-sm">{ingredient.fats}G</div>
+                </div>
+            </div>
+            <div className="badge badge-lg badge-info p-4">
+                {ingredient.weight}g
+            </div>
+        </>
     );
 }
