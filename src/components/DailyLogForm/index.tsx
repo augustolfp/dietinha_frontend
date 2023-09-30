@@ -6,6 +6,7 @@ import {
     type DailyLogSchema,
 } from "../../schemas/dailyLogSchemas";
 import getApiErrorMessage from "../../services/getApiErrorMessage";
+import Calendar from "../Calendar";
 
 export default function DailyLogForm() {
     const [addDailyLog] = useAddDailyLogMutation();
@@ -91,8 +92,8 @@ export default function DailyLogForm() {
                     <p className="text-red-500">{`${errors.root.serverError.message}`}</p>
                 )}
             </form>
-            <div className="bg-pink-300 py-20 flex items-center justify-center font-bold text-sm break-all">
-                CALENDÁRIO FICARÁ AQUI
+            <div className="flex items-center justify-center">
+                <Calendar />
             </div>
         </div>
     );
