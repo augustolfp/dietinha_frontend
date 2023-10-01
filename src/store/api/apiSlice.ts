@@ -158,7 +158,9 @@ export const apiSlice = createApi({
                 url: `/datatable/search/${arg.description}`,
                 method: "GET",
             }),
-            providesTags: ["SearchResult"],
+            providesTags: (_result, _error, arg) => {
+                return [{ type: "SearchResult", id: arg.description }];
+            },
         }),
     }),
 });
@@ -173,4 +175,5 @@ export const {
     useGetIngredientsQuery,
     useAddIngredientMutation,
     useSearchTableQuery,
+    useLazySearchTableQuery,
 } = apiSlice;

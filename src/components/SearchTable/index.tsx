@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { DebounceInput } from "react-debounce-input";
 import useUser from "../../hooks/authHooks/useUser";
 import { useSearchTableQuery } from "../../store/api/apiSlice";
 
@@ -16,7 +17,6 @@ export default function SearchTable() {
     } else if (error) {
         content = <p className="text-red-600">Error on fetching</p>;
     } else if (data) {
-        console.log(data);
         content = data.tacoResults.map((tableItem) => {
             return <p key={tableItem.id}>{tableItem.description}</p>;
         });
@@ -24,15 +24,20 @@ export default function SearchTable() {
 
     return (
         <div>
-            <input
+            <DebounceInput
                 type="text"
+                minLength={3}
+                debounceTimeout={300}
                 value={searchTerm}
+                placeholder="Pesquise aqui"
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <div>
-                <b>Resultados:</b>
-                {content}
-            </div>
+            {searchTerm.length >= 3 && (
+                <div>
+                    <b>Resultados:</b>
+                    {content}
+                </div>
+            )}
         </div>
     );
 }
