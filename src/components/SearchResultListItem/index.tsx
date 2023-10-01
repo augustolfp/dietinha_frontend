@@ -10,8 +10,10 @@ export default function SearchResultListItem({
     isSelected,
 }: Props) {
     return (
-        <div className={`${isSelected ? "font-bold text-blue-700" : ""}`}>
-            {resultItem.description}
-        </div>
+        <>
+            <div className={`${isSelected ? "font-bold text-blue-700" : ""}`}>
+                {resultItem.description}
+            </div>
+        </>
     );
 }

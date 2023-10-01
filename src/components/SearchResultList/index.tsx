@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { type TableItem } from "../../types";
 import SearchResultListItem from "../SearchResultListItem";
+import AddIngredientFromTable from "../AddIngredientFromTable";
 
 interface Props {
     results: TableItem[];
+    mealId: string;
 }
 
-export default function SearchResultList({ results }: Props) {
+export default function SearchResultList({ results, mealId }: Props) {
     const [selectedResultId, setSelectedResultId] = useState("");
 
     const content = results.map((resultItem) => {
@@ -23,5 +25,26 @@ export default function SearchResultList({ results }: Props) {
         );
     });
 
-    return <div>{content}</div>;
+    const addResultForm = () => {
+        const selectedResult = results.find(
+            (result) => result.id === selectedResultId
+        );
+
+        if (selectedResult) {
+            return (
+                <AddIngredientFromTable
+                    resultItem={selectedResult}
+                    mealId={mealId}
+                />
+            );
+        }
+    };
+    const resultForm = addResultForm();
+
+    return (
+        <div>
+            {selectedResultId && <>{resultForm}</>}
+            {content}
+        </div>
+    );
 }

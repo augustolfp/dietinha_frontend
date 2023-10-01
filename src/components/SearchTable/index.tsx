@@ -4,7 +4,11 @@ import useUser from "../../hooks/authHooks/useUser";
 import { useSearchTableQuery } from "../../store/api/apiSlice";
 import SearchResultList from "../SearchResultList";
 
-export default function SearchTable() {
+interface Props {
+    mealId: string;
+}
+
+export default function SearchTable({ mealId }: Props) {
     const [searchTerm, setSearchTerm] = useState("");
     const { accessToken } = useUser();
     const { data, error, isLoading } = useSearchTableQuery(
@@ -18,7 +22,9 @@ export default function SearchTable() {
     } else if (error) {
         content = <p className="text-red-600">Error on fetching</p>;
     } else if (data) {
-        content = <SearchResultList results={data.tacoResults} />;
+        content = (
+            <SearchResultList results={data.tacoResults} mealId={mealId} />
+        );
     }
 
     return (

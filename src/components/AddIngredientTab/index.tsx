@@ -31,7 +31,7 @@ export default function AddIngredientTab({ mealId }: Props) {
             <div className="bg-white p-4">
                 {toggle ? (
                     <div className="">
-                        <SearchTable />
+                        <SearchTable mealId={mealId} />
                     </div>
                 ) : (
                     <IngredientForm mealId={mealId} />
