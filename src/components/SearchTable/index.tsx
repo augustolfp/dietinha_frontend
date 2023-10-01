@@ -2,6 +2,7 @@ import { useState } from "react";
 import { DebounceInput } from "react-debounce-input";
 import useUser from "../../hooks/authHooks/useUser";
 import { useSearchTableQuery } from "../../store/api/apiSlice";
+import SearchResultList from "../SearchResultList";
 
 export default function SearchTable() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -17,9 +18,7 @@ export default function SearchTable() {
     } else if (error) {
         content = <p className="text-red-600">Error on fetching</p>;
     } else if (data) {
-        content = data.tacoResults.map((tableItem) => {
-            return <p key={tableItem.id}>{tableItem.description}</p>;
-        });
+        content = <SearchResultList results={data.tacoResults} />;
     }
 
     return (
