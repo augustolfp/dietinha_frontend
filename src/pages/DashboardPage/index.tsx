@@ -2,8 +2,8 @@ import useUser from "../../hooks/authHooks/useUser";
 import { Link } from "react-router-dom";
 import { useGetDailyLogsQuery } from "../../store/api/apiSlice";
 import DailyLogForm from "../../components/DailyLogForm";
-import DailyLog from "../../components/DailyLog";
 import formatDate from "../../utils/formatDate";
+import DailyLogCard from "./DailyLogCard";
 
 export default function DashboardPage() {
     const { accessToken } = useUser();
@@ -35,7 +35,7 @@ export default function DashboardPage() {
                                     <p>{weekDay}</p>
                                     {formattedDate}
                                 </h2>
-                                <DailyLog dailyLogId={dailyLog.id} />
+                                <DailyLogCard dailyLogId={dailyLog.id} />
                             </div>
                         </Link>
                     );

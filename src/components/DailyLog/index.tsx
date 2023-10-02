@@ -1,75 +1,55 @@
-import useUser from "../../hooks/authHooks/useUser";
-import { useGetDailyLogStatsQuery } from "../../store/api/apiSlice";
 import RadialProgress from "../RadialProgress";
+import { type DailyLog as DailyLogType } from "../../types";
 
 interface Props {
-    dailyLogId: string;
+    dailyLog: DailyLogType;
     children?: React.ReactNode;
 }
 
-export default function DailyLog({ dailyLogId, children }: Props) {
-    const { accessToken } = useUser();
-    const { data, error, isLoading } = useGetDailyLogStatsQuery(
-        { id: dailyLogId },
-        {
-            skip: !Boolean(accessToken),
-        }
-    );
-
-    let content;
-    if (isLoading) {
-        content = <p>Loading...</p>;
-    } else if (error) {
-        content = <p className="text-red-600">Error on fetching</p>;
-    } else if (data) {
-        content = (
+export default function DailyLog({ dailyLog, children }: Props) {
+    return (
+        <>
             <div className="grid grid-cols-2 gap-2">
                 <div className="row-span-3 bg-blue-100 p-3">
                     <RadialProgress
-                        numerator={data.kcals}
-                        denominator={data.caloriesTarget}
+                        numerator={dailyLog.kcals}
+                        denominator={dailyLog.caloriesTarget}
                     />
                     <div className="font-semibold">
-                        Calorias: {data.kcals} kcal
+                        Calorias: {dailyLog.kcals} kcal
                     </div>
 
                     <div className="font-semibold">
-                        Objetivo: {data.caloriesTarget} kcal
+                        Objetivo: {dailyLog.caloriesTarget} kcal
                     </div>
                 </div>
                 <div className="row-span-3 bg-red-100 p-3">
                     <RadialProgress
-                        numerator={data.proteins}
-                        denominator={data.proteinsTarget}
+                        numerator={dailyLog.proteins}
+                        denominator={dailyLog.proteinsTarget}
                     />
                     <div className="font-semibold">
-                        Proteinas: {data.proteins} g
+                        Proteinas: {dailyLog.proteins} g
                     </div>
 
                     <div className="font-semibold">
-                        Objetivo: {data.proteinsTarget} g
+                        Objetivo: {dailyLog.proteinsTarget} g
                     </div>
                 </div>
 
                 <div className="row-span-2 bg-yellow-100 p-3">
                     <div className="flex items-center justify-center text-lg font-bold">
-                        {data.fats}g
+                        {dailyLog.fats}g
                     </div>
                     <div className="font-semibold">Gorduras</div>
                 </div>
                 <div className="row-span-3 bg-green-100 p-3">
                     <div className="flex items-center justify-center text-lg font-bold">
-                        {data.carbs}g
+                        {dailyLog.carbs}g
                     </div>
                     <div className="font-semibold">Carboidratos</div>
                 </div>
             </div>
-        );
-    }
-
-    return (
-        <>
-            {content}
             {children}
         </>
     );

@@ -59,10 +59,7 @@ export const apiSlice = createApi({
             invalidatesTags: ["UserDailyLogs"],
         }),
 
-        getDailyLogStats: builder.query<
-            Omit<DailyLog, "date">,
-            Pick<DailyLog, "id">
-        >({
+        getDailyLogStats: builder.query<DailyLog, Pick<DailyLog, "id">>({
             query: (dailyLog) => ({
                 url: `/daily-log/${dailyLog.id}`,
                 method: "GET",
