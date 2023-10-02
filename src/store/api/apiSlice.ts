@@ -102,7 +102,7 @@ export const apiSlice = createApi({
             Pick<Meal, "id">
         >({
             query: (meal) => ({
-                url: `/meals/${meal.id}/summary`,
+                url: `/meals/${meal.id}`,
                 method: "GET",
             }),
             providesTags: (_result, _error, meal) => {
