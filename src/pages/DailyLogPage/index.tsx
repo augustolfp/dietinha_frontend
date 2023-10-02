@@ -18,10 +18,13 @@ export default function DailyLogPage() {
     );
 
     let content;
+    let mealsList;
     if (isLoading) {
         content = <p>Loading...</p>;
+        mealsList = <p>Loading...</p>;
     } else if (error) {
         content = <p className="text-red-600">Error on fetching</p>;
+        mealsList = <p className="text-red-600">Error on fetching</p>;
     } else if (data) {
         content = (
             <div>
@@ -32,6 +35,8 @@ export default function DailyLogPage() {
                 <DailyLog dailyLog={data} />
             </div>
         );
+
+        mealsList = <MealsList mealsList={data.mealsList} />;
     }
 
     return (
@@ -40,7 +45,7 @@ export default function DailyLogPage() {
             <h2 className="text-xl font-bold">Adicionar nova refeição:</h2>
             <MealForm dailyLogId={dailyLogId!} />
             <h2 className="text-xl font-bold">Refeições:</h2>
-            <MealsList dailyLogId={dailyLogId!} />
+            {mealsList}
         </div>
     );
 }

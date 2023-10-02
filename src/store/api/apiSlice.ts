@@ -80,23 +80,6 @@ export const apiSlice = createApi({
                 return [{ type: "DailyLog", id: dailyLog.id }];
             },
         }),
-
-        getMeals: builder.query<
-            Pick<
-                Meal,
-                "id" | "name" | "description" | "createdAt" | "dailyLogId"
-            >[],
-            Pick<DailyLog, "id">
-        >({
-            query: (dailyLog) => ({
-                url: `/meals/${dailyLog.id}`,
-                method: "GET",
-            }),
-            providesTags: (_result, _error, dailyLog) => {
-                return [{ type: "DailyLogMeals", id: dailyLog.id }];
-            },
-        }),
-
         addMeal: builder.mutation<
             Pick<
                 Meal,
@@ -167,7 +150,6 @@ export const {
     useGetDailyLogStatsQuery,
     useAddDailyLogMutation,
     useAddMealMutation,
-    useGetMealsQuery,
     useGetMealSummaryQuery,
     useGetIngredientsQuery,
     useAddIngredientMutation,
