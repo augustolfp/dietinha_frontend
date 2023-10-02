@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAddDailyLogMutation } from "../../store/api/apiSlice";
 import {
@@ -6,7 +6,9 @@ import {
     type DailyLogSchema,
 } from "../../schemas/dailyLogSchemas";
 import getApiErrorMessage from "../../services/getApiErrorMessage";
-import Calendar from "../Calendar";
+import { DayPicker } from "react-day-picker";
+import { format } from "date-fns";
+import "react-day-picker/src/style.css";
 
 export default function DailyLogForm() {
     const [addDailyLog] = useAddDailyLogMutation();
@@ -14,6 +16,7 @@ export default function DailyLogForm() {
     const {
         register,
         handleSubmit,
+        control,
         setError,
         formState: { errors, isSubmitting },
         reset,
@@ -24,7 +27,8 @@ export default function DailyLogForm() {
     const onSubmit = async (data: DailyLogSchema) => {
         try {
             await addDailyLog({
-                ...data,
+                notes: data.notes,
+                date: format(data.date, "yyyy-MM-dd"),
                 caloriesTarget: Number(data.caloriesTarget),
                 proteinsTarget: Number(data.proteinsTarget),
             }).unwrap();
@@ -40,61 +44,70 @@ export default function DailyLogForm() {
     };
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="flex flex-col gap-y-2"
-            >
-                <input
-                    {...register("date")}
-                    type="text"
-                    placeholder="Data"
-                    aria-invalid={errors.date ? "true" : "false"}
-                />
-                {errors.date && (
-                    <p className="text-red-500">{`${errors.date.message}`}</p>
+        <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="grid grid-cols-2 gap-4"
+        >
+            <Controller
+                control={control}
+                name="date"
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                    <div className="flex flex-col items-center col-span-2">
+                        <div className="text-lg font-semibold">
+                            {value
+                                ? format(value, "dd/MM/yyyy")
+                                : "Selecione uma Data"}
+                        </div>
+                        <DayPicker
+                            mode="single"
+                            onDayClick={onChange}
+                            selected={value}
+                        />
+                        {errors.date && (
+                            <p className="text-red-500">{`${errors.date.message}`}</p>
+                        )}
+                    </div>
                 )}
-                <input
-                    {...register("notes")}
-                    type="text"
-                    placeholder="Anotações"
-                    aria-invalid={errors.notes ? "true" : "false"}
-                />
-                {errors.notes && (
-                    <p className="text-red-500">{`${errors.notes.message}`}</p>
-                )}
+            />
+
+            <div className="col-span-1">
                 <input
                     {...register("proteinsTarget")}
                     type="number"
                     placeholder="Alvo de proteinas"
                     aria-invalid={errors.proteinsTarget ? "true" : "false"}
+                    className="w-full"
                 />
                 {errors.proteinsTarget && (
                     <p className="text-red-500">{`${errors.proteinsTarget.message}`}</p>
                 )}
+            </div>
+
+            <div className="col-span-1">
                 <input
                     {...register("caloriesTarget")}
                     type="number"
                     placeholder="Alvo de calorias"
                     aria-invalid={errors.caloriesTarget ? "true" : "false"}
+                    className="w-full"
                 />
                 {errors.caloriesTarget && (
                     <p className="text-red-500">{`${errors.caloriesTarget.message}`}</p>
                 )}
+            </div>
+
+            <div className="col-span-2">
                 <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="bg-blue-500 disabled:bg-gray-500 py-2 rounded"
+                    className="btn btn-primary w-full"
                 >
                     Adicionar Daily-log
                 </button>
                 {errors.root && (
                     <p className="text-red-500">{`${errors.root.serverError.message}`}</p>
                 )}
-            </form>
-            <div className="flex items-center justify-center">
-                <Calendar />
             </div>
-        </div>
+        </form>
     );
 }
