@@ -3,7 +3,7 @@ import { useGetDailyLogStatsQuery } from "../../store/api/apiSlice";
 import { useParams } from "react-router-dom";
 import MealForm from "../../components/MealForm";
 import DailyLog from "../../components/DailyLog";
-
+import formatDate from "../../utils/formatDate";
 import MealsList from "../../components/MealsList";
 
 export default function DailyLogPage() {
@@ -26,11 +26,14 @@ export default function DailyLogPage() {
         content = <p className="text-red-600">Error on fetching</p>;
         mealsList = <p className="text-red-600">Error on fetching</p>;
     } else if (data) {
+        const { formattedDate, weekDay } = formatDate(data.date);
         content = (
             <div>
                 <div className="lg:flex lg:justify-between">
-                    <h2 className="lg:text-3xl font-bold mb-6">{data.date}</h2>
-                    <p className="lg:text-3xl font-bold mb-6">Data</p>
+                    <h2 className="lg:text-3xl font-bold mb-6">{weekDay}</h2>
+                    <p className="lg:text-3xl font-bold mb-6">
+                        {formattedDate}
+                    </p>
                 </div>
                 <DailyLog dailyLog={data} />
             </div>
