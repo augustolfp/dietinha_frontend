@@ -10,7 +10,16 @@ export default {
         require("daisyui"),
     ],
     daisyui: {
-        themes: ["acid"],
+        themes: [
+            {
+                acid: {
+                    ...require("daisyui/src/theming/themes")[
+                        "[data-theme=acid]"
+                    ],
+                    "base-100": "#F9FAFB",
+                },
+            },
+        ],
         darkTheme: "light",
     },
 };
