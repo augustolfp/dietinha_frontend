@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useSignUp from "../../hooks/authHooks/useSignUp";
@@ -8,6 +9,7 @@ import {
 import getApiErrorMessage from "../../services/getApiErrorMessage";
 
 export default function SignUpForm() {
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const { signUp } = useSignUp();
 
     const {
@@ -19,6 +21,12 @@ export default function SignUpForm() {
     } = useForm<SignUpSchema>({
         resolver: zodResolver(signUpSchema),
     });
+
+    const togglePassword = (e: React.SyntheticEvent) => {
+        e.preventDefault();
+
+        setIsPasswordVisible(!isPasswordVisible);
+    };
 
     const onSubmit = async (data: SignUpSchema) => {
         try {
@@ -35,43 +43,54 @@ export default function SignUpForm() {
     };
 
     return (
-        <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-y-2"
-        >
+        <form onSubmit={handleSubmit(onSubmit)} className="form-control w-full">
+            <label className="label">Nome</label>
             <input
                 {...register("displayName")}
                 type="text"
                 placeholder="Nome completo"
                 aria-invalid={errors.displayName ? "true" : "false"}
+                className="input input-bordered w-full"
             />
             {errors.displayName && (
                 <p className="text-red-500">{`${errors.displayName.message}`}</p>
             )}
+            <label className="label">E-mail</label>
             <input
                 {...register("email")}
                 type="email"
                 placeholder="Email"
                 aria-invalid={errors.email ? "true" : "false"}
+                className="input input-bordered w-full"
             />
             {errors.email && (
                 <p className="text-red-500">{`${errors.email.message}`}</p>
             )}
-            <input
-                {...register("password")}
-                type="password"
-                placeholder="Password"
-                aria-invalid={errors.password ? "true" : "false"}
-            />
+            <label className="label">Senha</label>
+            <div className="join">
+                <input
+                    {...register("password")}
+                    placeholder="Password"
+                    type={isPasswordVisible ? "text" : "password"}
+                    aria-invalid={errors.password ? "true" : "false"}
+                    className="input input-bordered join-item w-full"
+                />
+                <button
+                    className="btn join-item rounded-r-full"
+                    onClick={togglePassword}
+                >
+                    {isPasswordVisible ? "Esconder" : "Mostrar"}
+                </button>
+            </div>
             {errors.password && (
                 <p className="text-red-500">{`${errors.password.message}`}</p>
             )}
             <button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-blue-500 disabled:bg-gray-500 py-2 rounded"
+                className="btn btn-primary mt-4"
             >
-                Entrar
+                Cadastrar
             </button>
             {errors.root && (
                 <p className="text-red-500">{`${errors.root.serverError.message}`}</p>
