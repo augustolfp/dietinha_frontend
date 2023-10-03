@@ -11,8 +11,8 @@ import DailyLogPage from "./pages/DailyLogPage";
 function App() {
     return (
         <>
-            <Navbar />
             <Router>
+                <Navbar />
                 <Routes>
                     <Route element={<GuestGuard />}>
                         <Route path="/" element={<SignInPage />} />

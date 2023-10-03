@@ -10,6 +10,7 @@ export default {
         require("daisyui"),
     ],
     daisyui: {
+        themes: ["acid"],
         darkTheme: "light",
     },
 };

@@ -10,7 +10,7 @@ export default function GoogleButton({ children, disabled, ...rest }: Props) {
         <button
             {...rest}
             disabled={disabled}
-            className="py-2 rounded border-solid border-2 border-black flex justify-center disabled:bg-slate-300"
+            className="btn btn-outline w-full"
         >
             {disabled ? (
                 "Loading..."

@@ -5,19 +5,18 @@ import GoogleAuth from "../../components/GoogleAuth";
 
 export default function SignInPage() {
     return (
-        <div className="container mx-auto">
-            <div className="hero min-h-screen">
-                <div className="hero-content flex-col lg:flex-row">
+        <div className="container mx-auto mt-4 md:mt-24">
+            <div className="hero">
+                <div className="hero-content flex-col lg:flex-row max-w-sm md:max-w-md lg:max-w-4xl">
                     <HeroText />
-                    <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-                        <div className="card-body">
-                            <h2 className="text-center font-bold">Login</h2>
-                            <SignInForm />
-                            <GoogleAuth>Logar com o Google</GoogleAuth>
-                            <Link to="/sign-up">
-                                Ainda não tem uma conta? Cadastre-se!
-                            </Link>
-                        </div>
+                    <div className="flex flex-col gap-3 items-center w-full">
+                        <h2 className="font-bold text-2xl">Login</h2>
+                        <SignInForm />
+                        <div className="divider text-sm">ou</div>
+                        <GoogleAuth>Logar com o Google</GoogleAuth>
+                        <Link to="/sign-up" className="link link-primary">
+                            Ainda não tem uma conta? Cadastre-se!
+                        </Link>
                     </div>
                 </div>
             </div>
