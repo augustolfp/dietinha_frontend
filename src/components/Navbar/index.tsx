@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function Navbar() {
     const isDesktop = useMediaQuery("(min-width: 600px)");
     return (
-        <div className="navbar bg-base-100 drop-shadow-md">
+        <div className="navbar bg-white drop-shadow-md">
             <div className="flex-1">
                 <Link
                     to="/"
