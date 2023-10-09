@@ -20,6 +20,12 @@ Este projeto é a segunda versão do Frontend desenvolvido para registrar e cont
 
 <br />
 
+# Design
+
+<a href="https://www.figma.com/file/InQk4SnmFmHtOReEWQfsID/Frontend-Design?type=design&node-id=1%3A1180&mode=design&t=YrJnRL8i3U6a3i3o-1"><strong>Confira o Design no  Figma!</strong></a>
+
+<br />
+
 # Ferramentas utilizadas
 
 <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" height="30px"/> <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" height="30px"/> <img src="https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white" height="30px" /> <img src="https://img.shields.io/badge/daisyui-5A0EF8?style=for-the-badge&logo=daisyui&logoColor=white" height="30px" />
