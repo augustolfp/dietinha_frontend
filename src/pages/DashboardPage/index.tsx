@@ -29,7 +29,7 @@ export default function DashboardPage() {
                             to={`/daily-log/${dailyLog.id}`}
                             key={dailyLog.id}
                         >
-                            <div className="card bg-white shadow-md">
+                            <div className="card bg-base-100 shadow-md">
                                 <div className="card-body">
                                     <h2 className="card-title">
                                         {weekDay}, {formattedDate}
@@ -45,14 +45,14 @@ export default function DashboardPage() {
     }
 
     return (
-        <div className="container mx-auto mt-4 flex flex-col max-w-5xl">
+        <div className="container mx-auto mt-4 flex flex-col max-w-md sm:max-w-5xl sm:px-6">
             <div className="card bg-white shadow-md">
                 <div className="card-body">
                     <h2 className="card-title">Adicionar dia</h2>
                     <DailyLogForm />
                 </div>
             </div>
-            {content}
+            <div className="flex flex-col gap-6">{content}</div>
         </div>
     );
 }
