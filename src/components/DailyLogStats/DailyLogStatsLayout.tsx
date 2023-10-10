@@ -1,6 +1,5 @@
-import { AiOutlineFire } from "react-icons/ai";
-import { LuBeef } from "react-icons/lu";
 import { type DailyLog as DailyLogType } from "../../types";
+import ProgressBar from "./ProgressBar";
 
 interface Props {
     dailyLog: DailyLogType;
@@ -52,8 +51,14 @@ export default function DailyLogStatsLayout({ dailyLog }: Props) {
                     </div>
                 </div>
             </div>
-
-            <div className="bg-primary h-{346} w-10 sm:w-full sm:h-10 lg:h-20 rounded-md col-span-1"></div>
+            <ProgressBar
+                caloriesPercentage={
+                    (dailyLog.kcals / dailyLog.caloriesTarget) * 100
+                }
+                proteinsPercentage={
+                    (dailyLog.proteins / dailyLog.proteinsTarget) * 100
+                }
+            />
         </div>
     );
 }
