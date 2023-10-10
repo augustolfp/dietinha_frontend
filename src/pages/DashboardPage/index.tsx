@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useGetDailyLogsQuery } from "../../store/api/apiSlice";
 import DailyLogForm from "../../components/DailyLogForm";
 import formatDate from "../../utils/formatDate";
-import DailyLogCard from "./DailyLogCard";
+import DailyLogStats from "../../components/DailyLogStats";
 
 export default function DashboardPage() {
     const { accessToken } = useUser();
@@ -25,9 +25,19 @@ export default function DashboardPage() {
                         dailyLog.date
                     );
                     return (
-                        <div key={dailyLog.id}>
-                            <DailyLogCard dailyLogId={dailyLog.id} />
-                        </div>
+                        <Link
+                            to={`/daily-log/${dailyLog.id}`}
+                            key={dailyLog.id}
+                        >
+                            <div className="card bg-white shadow-md">
+                                <div className="card-body">
+                                    <h2 className="card-title">
+                                        {weekDay}, {formattedDate}
+                                    </h2>
+                                    <DailyLogStats dailyLogId={dailyLog.id} />
+                                </div>
+                            </div>
+                        </Link>
                     );
                 })}
             </>

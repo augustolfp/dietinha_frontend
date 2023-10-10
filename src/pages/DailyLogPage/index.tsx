@@ -2,9 +2,9 @@ import useUser from "../../hooks/authHooks/useUser";
 import { useGetDailyLogStatsQuery } from "../../store/api/apiSlice";
 import { useParams } from "react-router-dom";
 import MealForm from "../../components/MealForm";
-import DailyLog from "../../components/DailyLogStats";
 import formatDate from "../../utils/formatDate";
 import MealsList from "../../components/MealsList";
+import DailyLogStats from "../../components/DailyLogStats";
 
 export default function DailyLogPage() {
     const { dailyLogId } = useParams();
@@ -17,17 +17,17 @@ export default function DailyLogPage() {
         }
     );
 
-    let content;
+    let header;
     let mealsList;
     if (isLoading) {
-        content = <p>Loading...</p>;
+        header = <p>Loading...</p>;
         mealsList = <p>Loading...</p>;
     } else if (error) {
-        content = <p className="text-red-600">Error on fetching</p>;
+        header = <p className="text-red-600">Error on fetching</p>;
         mealsList = <p className="text-red-600">Error on fetching</p>;
     } else if (data) {
         const { formattedDate, weekDay } = formatDate(data.date);
-        content = (
+        header = (
             <div>
                 <div className="lg:flex lg:justify-between">
                     <h2 className="lg:text-3xl font-bold mb-6">{weekDay}</h2>
@@ -35,7 +35,6 @@ export default function DailyLogPage() {
                         {formattedDate}
                     </p>
                 </div>
-                <DailyLog dailyLog={data} />
             </div>
         );
 
@@ -44,7 +43,8 @@ export default function DailyLogPage() {
 
     return (
         <div className="container mx-auto p-6">
-            {content}
+            {header}
+            <DailyLogStats dailyLogId={dailyLogId!} />
             <h2 className="text-xl font-bold">Adicionar nova refeição:</h2>
             <MealForm dailyLogId={dailyLogId!} />
             <h2 className="text-xl font-bold">Refeições:</h2>
