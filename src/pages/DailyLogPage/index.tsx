@@ -2,7 +2,7 @@ import useUser from "../../hooks/authHooks/useUser";
 import { useGetDailyLogStatsQuery } from "../../store/api/apiSlice";
 import { useParams } from "react-router-dom";
 import MealForm from "../../components/MealForm";
-import DailyLog from "../../components/DailyLog";
+import DailyLog from "../../components/DailyLogStats";
 import formatDate from "../../utils/formatDate";
 import MealsList from "../../components/MealsList";
 

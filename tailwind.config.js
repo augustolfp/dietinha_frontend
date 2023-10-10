@@ -14,9 +14,8 @@ export default {
             {
                 acid: {
                     ...require("daisyui/src/theming/themes")[
-                        "[data-theme=acid]"
-                    ],
-                    "base-100": "#F9FAFB",
+                        "[data-theme=winter]"
+                    ]
                 },
             },
         ],

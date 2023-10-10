@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 import useUser from "../../hooks/authHooks/useUser";
 import { useGetDailyLogStatsQuery } from "../../store/api/apiSlice";
-import DailyLog from "../../components/DailyLog";
+import DailyLogStats from "../../components/DailyLogStats";
 
 interface Props {
     dailyLogId: string;
@@ -21,7 +22,16 @@ export default function DailyLogCard({ dailyLogId }: Props) {
     } else if (error) {
         content = <p className="text-red-600">Error on fetching</p>;
     } else if (data) {
-        content = <DailyLog dailyLog={data} />;
+        content = (
+            <Link to={`/daily-log/${data.id}`}>
+                <div className="card bg-base-100 shadow-xl w-full">
+                    <div className="card-body bg-cyan-300">
+                        {data && <div className="card-title">{data.date}</div>}
+                        <DailyLogStats dailyLog={data} />
+                    </div>
+                </div>
+            </Link>
+        );
     }
 
     return <>{content}</>;

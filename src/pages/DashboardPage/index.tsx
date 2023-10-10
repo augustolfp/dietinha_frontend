@@ -25,19 +25,9 @@ export default function DashboardPage() {
                         dailyLog.date
                     );
                     return (
-                        <Link
-                            key={dailyLog.id}
-                            to={`/daily-log/${dailyLog.id}`}
-                            className="card bg-white shadow-md hover:bg-slate-50"
-                        >
-                            <div className="card-body">
-                                <h2 className="card-title">
-                                    <p>{weekDay}</p>
-                                    {formattedDate}
-                                </h2>
-                                <DailyLogCard dailyLogId={dailyLog.id} />
-                            </div>
-                        </Link>
+                        <div key={dailyLog.id}>
+                            <DailyLogCard dailyLogId={dailyLog.id} />
+                        </div>
                     );
                 })}
             </>
@@ -45,17 +35,14 @@ export default function DashboardPage() {
     }
 
     return (
-        <div className="container mx-auto mt-4">
-            <h2 className="text-3xl font-medium mb-6">Dashboard</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <div className="card bg-white shadow-md">
-                    <div className="card-body">
-                        <h2 className="card-title">Adicionar dia</h2>
-                        <DailyLogForm />
-                    </div>
+        <div className="container mx-auto mt-4 flex flex-col max-w-5xl">
+            <div className="card bg-white shadow-md">
+                <div className="card-body">
+                    <h2 className="card-title">Adicionar dia</h2>
+                    <DailyLogForm />
                 </div>
-                {content}
             </div>
+            {content}
         </div>
     );
 }
