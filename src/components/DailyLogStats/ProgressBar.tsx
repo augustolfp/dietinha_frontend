@@ -1,3 +1,4 @@
+import { useMediaQuery } from "../../hooks/useMediaQuery";
 interface Props {
     caloriesPercentage: number;
     proteinsPercentage: number;
@@ -7,31 +8,51 @@ export default function ProgressBar({
     caloriesPercentage,
     proteinsPercentage,
 }: Props) {
-    const truncCalPercent = Math.trunc(caloriesPercentage);
+    const isMobile = !useMediaQuery("(min-width: 640px)");
+
+    const truncCalPercent =
+        Math.trunc(caloriesPercentage) > 100
+            ? 100
+            : Math.trunc(caloriesPercentage);
+    const truncProtPercent =
+        Math.trunc(proteinsPercentage) > 100
+            ? 100
+            : Math.trunc(proteinsPercentage);
     const calRest = 100 - truncCalPercent;
-    const truncProtPercent = Math.trunc(proteinsPercentage);
     const protRest = 100 - truncProtPercent;
 
     return (
-        <div className="h-{346} w-10 sm:w-full sm:h-10 lg:h-20 p-0 flex flex-col-reverse sm:flex-row gap-2">
-            <div className="w-full h-[50%] flex flex-col-reverse">
+        <div className="h-{346} w-10 flex flex-col-reverse gap-2 sm:flex-row sm:w-full sm:h-10 lg:h-20">
+            <div className="w-full h-[50%] flex flex-col-reverse sm:w-[50%] sm:h-full sm:flex-row">
                 <div
-                    className="bg-primary w-full"
-                    style={{ height: `${truncCalPercent}%` }}
+                    className="bg-primary"
+                    style={{
+                        height: isMobile ? `${truncCalPercent}%` : "100%",
+                        width: isMobile ? "100%" : `${truncCalPercent}%`,
+                    }}
                 ></div>
                 <div
-                    className="bg-primary-content w-full"
-                    style={{ height: `${calRest}%` }}
+                    className="bg-primary-content"
+                    style={{
+                        height: isMobile ? `${calRest}%` : "100%",
+                        width: isMobile ? "100%" : `${calRest}%`,
+                    }}
                 ></div>
             </div>
-            <div className="w-full h-[50%] flex flex-col-reverse">
+            <div className="w-full h-[50%] flex flex-col-reverse sm:w-[50%] sm:h-full sm:flex-row">
                 <div
-                    className="bg-secondary w-full"
-                    style={{ height: `${truncProtPercent}%` }}
+                    className="bg-secondary"
+                    style={{
+                        height: isMobile ? `${truncProtPercent}%` : "100%",
+                        width: isMobile ? "100%" : `${truncProtPercent}%`,
+                    }}
                 ></div>
                 <div
-                    className="bg-secondary-content w-full"
-                    style={{ height: `${protRest}%` }}
+                    className="bg-secondary-content"
+                    style={{
+                        height: isMobile ? `${protRest}%` : "100%",
+                        width: isMobile ? "100%" : `${protRest}%`,
+                    }}
                 ></div>
             </div>
         </div>
