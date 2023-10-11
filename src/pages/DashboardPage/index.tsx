@@ -48,7 +48,6 @@ export default function DashboardPage() {
         <div className="container mx-auto mt-4 flex flex-col max-w-md sm:max-w-5xl sm:px-6">
             <div className="card bg-white shadow-md">
                 <div className="card-body">
-                    <h2 className="card-title">Adicionar dia</h2>
                     <DailyLogForm />
                 </div>
             </div>

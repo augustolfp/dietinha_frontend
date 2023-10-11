@@ -46,18 +46,13 @@ export default function DailyLogForm() {
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="grid grid-cols-2 gap-4"
+            className="flex flex-col gap-3 sm:flex-row sm:justify-between"
         >
             <Controller
                 control={control}
                 name="date"
                 render={({ field: { onChange, onBlur, value, ref } }) => (
-                    <div className="flex flex-col items-center col-span-2">
-                        <div className="text-lg font-semibold">
-                            {value
-                                ? format(value, "dd/MM/yyyy")
-                                : "Selecione uma Data"}
-                        </div>
+                    <div className="flex flex-col">
                         <DayPicker
                             mode="single"
                             onDayClick={onChange}
@@ -69,44 +64,90 @@ export default function DailyLogForm() {
                     </div>
                 )}
             />
+            <div className="divider divider-vertical"></div>
+            <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-3">
+                    <div className="flex justify-between">
+                        <label className="label">
+                            <span className="label-text">
+                                Alvo de proteínas
+                            </span>
+                        </label>
+                        <div className="join">
+                            <input
+                                {...register("proteinsTarget")}
+                                type="number"
+                                placeholder="150"
+                                aria-invalid={
+                                    errors.proteinsTarget ? "true" : "false"
+                                }
+                                className="input input-bordered join-item w-20"
+                            />
+                            <div className="join-item bg-base-300 px-4 text-sm text-base-content flex items-center">
+                                g
+                            </div>
+                        </div>
+                    </div>
+                    <input
+                        type="range"
+                        min={0}
+                        max="100"
+                        value="40"
+                        readOnly={true}
+                        className="range range-secondary range-sm"
+                    />
+                    {errors.proteinsTarget && (
+                        <p className="text-red-500">{`${errors.proteinsTarget.message}`}</p>
+                    )}
+                </div>
 
-            <div className="col-span-1">
-                <input
-                    {...register("proteinsTarget")}
-                    type="number"
-                    placeholder="Alvo de proteinas"
-                    aria-invalid={errors.proteinsTarget ? "true" : "false"}
-                    className="w-full"
-                />
-                {errors.proteinsTarget && (
-                    <p className="text-red-500">{`${errors.proteinsTarget.message}`}</p>
-                )}
-            </div>
+                <div className="divider divider-vertical"></div>
 
-            <div className="col-span-1">
-                <input
-                    {...register("caloriesTarget")}
-                    type="number"
-                    placeholder="Alvo de calorias"
-                    aria-invalid={errors.caloriesTarget ? "true" : "false"}
-                    className="w-full"
-                />
-                {errors.caloriesTarget && (
-                    <p className="text-red-500">{`${errors.caloriesTarget.message}`}</p>
-                )}
-            </div>
+                <div className="flex flex-col gap-3">
+                    <div className="flex justify-between">
+                        <label className="label">
+                            <span className="label-text">Alvo de calorias</span>
+                        </label>
+                        <div className="join">
+                            <input
+                                {...register("caloriesTarget")}
+                                type="number"
+                                placeholder="2600"
+                                aria-invalid={
+                                    errors.caloriesTarget ? "true" : "false"
+                                }
+                                className="input input-bordered join-item w-24"
+                            />
+                            <div className="join-item bg-base-300 px-4 text-sm text-base-content flex items-center">
+                                kcal
+                            </div>
+                        </div>
+                    </div>
+                    <input
+                        type="range"
+                        min={0}
+                        max="100"
+                        value="40"
+                        readOnly={true}
+                        className="range range-primary range-sm"
+                    />
+                    {errors.caloriesTarget && (
+                        <p className="text-red-500">{`${errors.caloriesTarget.message}`}</p>
+                    )}
+                </div>
 
-            <div className="col-span-2">
-                <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="btn btn-primary w-full"
-                >
-                    Adicionar Daily-log
-                </button>
-                {errors.root && (
-                    <p className="text-red-500">{`${errors.root.serverError.message}`}</p>
-                )}
+                <div className="">
+                    <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="btn btn-neutral w-full"
+                    >
+                        Adicionar
+                    </button>
+                    {errors.root && (
+                        <p className="text-red-500">{`${errors.root.serverError.message}`}</p>
+                    )}
+                </div>
             </div>
         </form>
     );
