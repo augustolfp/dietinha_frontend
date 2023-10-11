@@ -88,7 +88,7 @@ export default function SignUpForm() {
             <button
                 type="submit"
                 disabled={isSubmitting}
-                className="btn btn-primary mt-4"
+                className="btn btn-neutral mt-4"
             >
                 Cadastrar
             </button>
