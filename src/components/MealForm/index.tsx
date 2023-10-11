@@ -3,12 +3,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAddMealMutation } from "../../store/api/apiSlice";
 import { mealSchema, type MealSchema } from "../../schemas/mealsSchemas";
 import getApiErrorMessage from "../../services/getApiErrorMessage";
+import { FaArrowRight } from "react-icons/fa";
+import { useMediaQuery } from "../../hooks/useMediaQuery";
 
 interface Props {
     dailyLogId: string;
 }
 
 export default function MealForm({ dailyLogId }: Props) {
+    const isDesktop = useMediaQuery("(min-width: 768px)");
     const [addMeal] = useAddMealMutation();
 
     const {
@@ -39,38 +42,39 @@ export default function MealForm({ dailyLogId }: Props) {
     };
 
     return (
-        <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-y-2"
-        >
-            <input
-                {...register("name")}
-                type="text"
-                placeholder="Título"
-                aria-invalid={errors.name ? "true" : "false"}
-            />
-            {errors.name && (
-                <p className="text-red-500">{`${errors.name.message}`}</p>
-            )}
-            <input
-                {...register("description")}
-                type="text"
-                placeholder="Descrição"
-                aria-invalid={errors.description ? "true" : "false"}
-            />
-            {errors.description && (
-                <p className="text-red-500">{`${errors.description.message}`}</p>
-            )}
-            <button
-                type="submit"
-                disabled={isSubmitting}
-                className="bg-blue-500 disabled:bg-gray-500 py-2 rounded"
+        <div className="w-full p-4 bg-base-100 shadow-xl rounded-lg">
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="flex flex-col gap-3 md:flex-row md:items-center"
             >
-                Adicionar refeição
-            </button>
-            {errors.root && (
-                <p className="text-red-500">{`${errors.root.serverError.message}`}</p>
-            )}
-        </form>
+                <h2 className="card-title">Adicionar refeição</h2>
+                {isDesktop && (
+                    <div className="text-base-content text-2xl">
+                        <FaArrowRight />
+                    </div>
+                )}
+                <input
+                    {...register("name")}
+                    type="text"
+                    placeholder="Nome da refeição"
+                    aria-invalid={errors.name ? "true" : "false"}
+                    className="input input-bordered w-full"
+                />
+                {errors.name && (
+                    <p className="text-red-500">{`${errors.name.message}`}</p>
+                )}
+
+                <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="btn btn-neutral"
+                >
+                    Adicionar
+                </button>
+                {errors.root && (
+                    <p className="text-red-500">{`${errors.root.serverError.message}`}</p>
+                )}
+            </form>
+        </div>
     );
 }

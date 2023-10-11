@@ -45,7 +45,6 @@ export default function DailyLogPage() {
         <div className="container mx-auto p-6">
             {header}
             <DailyLogStats dailyLogId={dailyLogId!} />
-            <h2 className="text-xl font-bold">Adicionar nova refeição:</h2>
             <MealForm dailyLogId={dailyLogId!} />
             <h2 className="text-xl font-bold">Refeições:</h2>
             {mealsList}
