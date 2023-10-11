@@ -32,8 +32,8 @@ export default function DashboardPage() {
                         >
                             <div className="card bg-base-100 shadow-md">
                                 <div className="card-body">
-                                    <div className="card-title flex justify-between">
-                                        <h2 className="flex flex-col sm:flex-row gap-1">
+                                    <div className="card-title flex justify-between mb-4">
+                                        <h2 className="flex flex-col sm:flex-row gap-0">
                                             <span className="text-xl font-semibold">
                                                 {weekDay},
                                             </span>
@@ -41,8 +41,8 @@ export default function DashboardPage() {
                                                 {formattedDate}
                                             </span>
                                         </h2>
-                                        <button className="btn btn-error aspect-square w-12">
-                                            <TbTrashXFilled />
+                                        <button className="btn btn-error aspect-square w-12 p-0">
+                                            <TbTrashXFilled size={28} />
                                         </button>
                                     </div>
                                     <DailyLogStats dailyLogId={dailyLog.id} />

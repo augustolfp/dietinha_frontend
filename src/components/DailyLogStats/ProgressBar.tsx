@@ -18,40 +18,24 @@ export default function ProgressBar({
         Math.trunc(proteinsPercentage) > 100
             ? 100
             : Math.trunc(proteinsPercentage);
-    const calRest = 100 - truncCalPercent;
-    const protRest = 100 - truncProtPercent;
 
     return (
-        <div className="h-{346} w-12 flex flex-col-reverse gap-2 sm:flex-row sm:w-full sm:h-12 lg:h-20">
-            <div className="w-full h-[50%] flex flex-col-reverse sm:w-[50%] sm:h-full sm:flex-row z-10">
+        <div className="h-{346} w-12 flex flex-col gap-2 sm:flex-row sm:w-full sm:h-12 lg:h-20 lg:max-w-xs">
+            <div className="w-full h-[50%] flex flex-col-reverse sm:w-[50%] sm:h-full sm:flex-row rounded-lg bg-primary-content">
                 <div
-                    className="bg-primary"
+                    className="bg-primary rounded-lg"
                     style={{
                         height: isMobile ? `${truncCalPercent}%` : "100%",
                         width: isMobile ? "100%" : `${truncCalPercent}%`,
                     }}
                 ></div>
-                <div
-                    className="bg-primary-content"
-                    style={{
-                        height: isMobile ? `${calRest}%` : "100%",
-                        width: isMobile ? "100%" : `${calRest}%`,
-                    }}
-                ></div>
             </div>
-            <div className="w-full h-[50%] flex flex-col-reverse sm:w-[50%] sm:h-full sm:flex-row">
+            <div className="w-full h-[50%] flex flex-col-reverse sm:w-[50%] sm:h-full sm:flex-row rounded-lg bg-secondary-content">
                 <div
-                    className="bg-secondary"
+                    className="bg-secondary rounded-lg"
                     style={{
                         height: isMobile ? `${truncProtPercent}%` : "100%",
                         width: isMobile ? "100%" : `${truncProtPercent}%`,
-                    }}
-                ></div>
-                <div
-                    className="bg-secondary-content"
-                    style={{
-                        height: isMobile ? `${protRest}%` : "100%",
-                        width: isMobile ? "100%" : `${protRest}%`,
                     }}
                 ></div>
             </div>
