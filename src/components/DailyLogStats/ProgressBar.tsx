@@ -22,8 +22,8 @@ export default function ProgressBar({
     const protRest = 100 - truncProtPercent;
 
     return (
-        <div className="h-{346} w-10 flex flex-col-reverse gap-2 sm:flex-row sm:w-full sm:h-10 lg:h-20">
-            <div className="w-full h-[50%] flex flex-col-reverse sm:w-[50%] sm:h-full sm:flex-row">
+        <div className="h-{346} w-12 flex flex-col-reverse gap-2 sm:flex-row sm:w-full sm:h-12 lg:h-20">
+            <div className="w-full h-[50%] flex flex-col-reverse sm:w-[50%] sm:h-full sm:flex-row z-10">
                 <div
                     className="bg-primary"
                     style={{
