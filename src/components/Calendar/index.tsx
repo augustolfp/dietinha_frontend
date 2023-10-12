@@ -1,24 +1,20 @@
-import { useState } from "react";
-import { format } from "date-fns";
 import { DayPicker } from "react-day-picker";
+import { DayPickerSingleProps } from "react-day-picker";
+import { ptBR } from "date-fns/locale";
 import "react-day-picker/src/style.css";
+import "./day-picker-custom-style.css";
 
-export default function Calendar() {
-    const [selected, setSelected] = useState<Date>();
+interface Props extends DayPickerSingleProps {}
 
-    let header = <>Selecione uma data</>;
-    if (selected) {
-        header = <>{format(selected, "yyyy-MM-dd")}</>;
-    }
-
+export default function Calendar({ onDayClick, selected }: Props) {
     return (
-        <div>
-            <div className="text-lg font-semibold text-center">{header}</div>
-            <DayPicker
-                mode="single"
-                selected={selected}
-                onSelect={setSelected}
-            />
-        </div>
+        <DayPicker
+            mode="single"
+            locale={ptBR}
+            onDayClick={onDayClick}
+            selected={selected}
+            showOutsideDays
+            fixedWeeks
+        />
     );
 }

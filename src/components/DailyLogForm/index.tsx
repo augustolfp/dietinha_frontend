@@ -6,9 +6,8 @@ import {
     type DailyLogSchema,
 } from "../../schemas/dailyLogSchemas";
 import getApiErrorMessage from "../../services/getApiErrorMessage";
-import { DayPicker } from "react-day-picker";
-import "./dayPickerStyle.css";
 import { format } from "date-fns";
+import Calendar from "../Calendar";
 
 export default function DailyLogForm() {
     const [addDailyLog] = useAddDailyLogMutation();
@@ -53,7 +52,7 @@ export default function DailyLogForm() {
                 name="date"
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                     <div className="flex flex-col items-center">
-                        <DayPicker
+                        <Calendar
                             mode="single"
                             onDayClick={onChange}
                             selected={value}
