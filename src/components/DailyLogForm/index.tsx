@@ -8,6 +8,7 @@ import {
 import getApiErrorMessage from "../../services/getApiErrorMessage";
 import { format, parse } from "date-fns";
 import Calendar from "../Calendar";
+import ProteinsInput from "./ProteinsInput";
 
 export default function DailyLogForm() {
     const [addDailyLog] = useAddDailyLogMutation();
@@ -65,7 +66,15 @@ export default function DailyLogForm() {
             />
             <div className="divider divider-vertical"></div>
             <div className="flex flex-col gap-3">
-                <div className="flex flex-col gap-3">
+                <Controller
+                    control={control}
+                    name="proteinsTarget"
+                    defaultValue={150}
+                    render={({ field: { onChange, onBlur, value, ref } }) => (
+                        <ProteinsInput onChange={onChange} value={value} />
+                    )}
+                />
+                {/* <div className="flex flex-col gap-3">
                     <div className="flex justify-between">
                         <label className="label">
                             <span className="label-text">
@@ -98,7 +107,7 @@ export default function DailyLogForm() {
                     {errors.proteinsTarget && (
                         <p className="text-red-500">{`${errors.proteinsTarget.message}`}</p>
                     )}
-                </div>
+                </div> */}
 
                 <div className="divider divider-vertical"></div>
 
