@@ -52,11 +52,7 @@ export default function DailyLogForm() {
                 name="date"
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                     <div className="flex flex-col items-center">
-                        <Calendar
-                            mode="single"
-                            onDayClick={onChange}
-                            selected={value}
-                        />
+                        <Calendar />
                         {errors.date && (
                             <p className="text-red-500">{`${errors.date.message}`}</p>
                         )}
