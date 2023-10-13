@@ -1,10 +1,7 @@
 import { z } from "zod";
 
 export const dailyLogSchema = z.object({
-    date: z.date({
-        required_error: "Por favor, selecione uma data",
-        invalid_type_error: "Data inválida",
-    }),
+    date: z.string(),
     notes: z.string().optional(),
     caloriesTarget: z.coerce
         .number()
