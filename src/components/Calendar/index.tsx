@@ -49,6 +49,7 @@ export default function Calendar({ onChange }: Props) {
             <DayPicker
                 mode="single"
                 defaultMonth={selected}
+                month={selected}
                 selected={selected}
                 onSelect={handleDaySelect}
                 showOutsideDays
