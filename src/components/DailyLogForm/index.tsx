@@ -15,6 +15,7 @@ export default function DailyLogForm() {
     const {
         register,
         handleSubmit,
+        watch,
         control,
         setError,
         formState: { errors, isSubmitting },
@@ -27,7 +28,7 @@ export default function DailyLogForm() {
         try {
             await addDailyLog({
                 notes: data.notes,
-                date: format(data.date, "yyyy-MM-dd"),
+                date: data.date,
                 caloriesTarget: Number(data.caloriesTarget),
                 proteinsTarget: Number(data.proteinsTarget),
             }).unwrap();
@@ -41,6 +42,10 @@ export default function DailyLogForm() {
 
         reset();
     };
+    const watchDate = watch("date");
+    console.log(watchDate);
+
+    const { onChange, ref, name } = register("date");
 
     return (
         <form
@@ -52,7 +57,7 @@ export default function DailyLogForm() {
                 name="date"
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                     <div className="flex flex-col items-center">
-                        <Calendar />
+                        <Calendar onChange={onChange} />
                         {errors.date && (
                             <p className="text-red-500">{`${errors.date.message}`}</p>
                         )}
