@@ -8,15 +8,15 @@ import "./day-picker-custom-style.css";
 
 interface Props {
     onChange: (event: string) => void;
+    value: string;
 }
 
-export default function Calendar({ onChange }: Props) {
+export default function Calendar({ onChange, value: inputValue }: Props) {
     const [selected, setSelected] = useState<Date>();
-    const [inputValue, setInputValue] = useState<string>("");
 
     const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-        setInputValue(e.currentTarget.value);
-        const date = parse(e.currentTarget.value, "y-MM-dd", new Date());
+        onChange(e.currentTarget.value);
+        const date = parse(e.currentTarget.value, "dd/MM/yyyy", new Date());
         if (isValid(date)) {
             setSelected(date);
         } else {
@@ -27,26 +27,23 @@ export default function Calendar({ onChange }: Props) {
     const handleDaySelect: SelectSingleEventHandler = (date) => {
         setSelected(date);
         if (date) {
-            setInputValue(format(date, "y-MM-dd"));
+            onChange(format(date, "dd/MM/yyyy"));
         } else {
-            setInputValue("");
+            onChange("");
         }
     };
-
-    useEffect(() => {
-        onChange(inputValue);
-    }, [inputValue]);
 
     return (
         <div>
             <input
                 className="input input-bordered"
                 type="text"
-                placeholder={format(new Date(), "y-MM-dd")}
+                placeholder={format(new Date(), "dd/MM/yyyy")}
                 value={inputValue}
                 onChange={handleInputChange}
             />
             <DayPicker
+                locale={ptBR}
                 mode="single"
                 defaultMonth={selected}
                 month={selected}

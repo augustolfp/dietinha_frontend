@@ -6,7 +6,7 @@ import {
     type DailyLogSchema,
 } from "../../schemas/dailyLogSchemas";
 import getApiErrorMessage from "../../services/getApiErrorMessage";
-import { format } from "date-fns";
+import { format, parse } from "date-fns";
 import Calendar from "../Calendar";
 
 export default function DailyLogForm() {
@@ -15,7 +15,6 @@ export default function DailyLogForm() {
     const {
         register,
         handleSubmit,
-        watch,
         control,
         setError,
         formState: { errors, isSubmitting },
@@ -28,7 +27,10 @@ export default function DailyLogForm() {
         try {
             await addDailyLog({
                 notes: data.notes,
-                date: data.date,
+                date: format(
+                    parse(data.date, "dd/MM/yyyy", new Date()),
+                    "yyyy-MM-dd"
+                ),
                 caloriesTarget: Number(data.caloriesTarget),
                 proteinsTarget: Number(data.proteinsTarget),
             }).unwrap();
@@ -42,10 +44,6 @@ export default function DailyLogForm() {
 
         reset();
     };
-    const watchDate = watch("date");
-    console.log(watchDate);
-
-    const { onChange, ref, name } = register("date");
 
     return (
         <form
@@ -55,9 +53,10 @@ export default function DailyLogForm() {
             <Controller
                 control={control}
                 name="date"
+                defaultValue={format(new Date(), "dd/MM/yyyy")}
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                     <div className="flex flex-col items-center">
-                        <Calendar onChange={onChange} />
+                        <Calendar onChange={onChange} value={value} />
                         {errors.date && (
                             <p className="text-red-500">{`${errors.date.message}`}</p>
                         )}
