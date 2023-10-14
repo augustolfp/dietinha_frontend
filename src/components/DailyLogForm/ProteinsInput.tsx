@@ -1,9 +1,11 @@
 interface Props {
     onChange: (event: number) => void;
-    value: string | number;
+    value: number;
 }
 
 export default function ProteinsInput({ onChange, value }: Props) {
+    const inputMin = 0;
+    const inputMax = 300;
     return (
         <div className="flex flex-col gap-3">
             <div className="flex justify-between">
@@ -13,11 +15,17 @@ export default function ProteinsInput({ onChange, value }: Props) {
                 <div className="join">
                     <input
                         type="number"
-                        min={0}
-                        max={300}
-                        value={value}
-                        onChange={(e) => onChange(Number(e.target.value))}
-                        placeholder="150"
+                        min={inputMin}
+                        max={inputMax}
+                        value={value || ""}
+                        onChange={(e) => {
+                            if (e.target.value) {
+                                onChange(parseInt(e.target.value));
+                            } else {
+                                onChange(0);
+                            }
+                        }}
+                        placeholder="0"
                         className="input input-bordered join-item w-20"
                     />
                     <div className="join-item bg-base-300 px-4 text-sm text-base-content flex items-center">
@@ -27,10 +35,10 @@ export default function ProteinsInput({ onChange, value }: Props) {
             </div>
             <input
                 type="range"
-                min={0}
-                max="300"
+                min={inputMin}
+                max={inputMax}
                 value={value}
-                onChange={(e) => onChange(Number(e.target.value))}
+                onChange={(e) => onChange(parseInt(e.target.value))}
                 className="range range-secondary range-sm"
             />
         </div>

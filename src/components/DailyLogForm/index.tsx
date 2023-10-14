@@ -29,8 +29,8 @@ export default function DailyLogForm() {
             await addDailyLog({
                 notes: data.notes,
                 date: data.date,
-                caloriesTarget: data.proteinsTarget,
-                proteinsTarget: data.caloriesTarget,
+                caloriesTarget: data.caloriesTarget,
+                proteinsTarget: data.proteinsTarget,
             }).unwrap();
         } catch (err) {
             const errMessage = getApiErrorMessage(err);
@@ -67,7 +67,7 @@ export default function DailyLogForm() {
                     control={control}
                     name="proteinsTarget"
                     defaultValue={150}
-                    render={({ field: { onChange, onBlur, value, ref } }) => (
+                    render={({ field: { onChange, value } }) => (
                         <ProteinsInput onChange={onChange} value={value} />
                     )}
                 />
