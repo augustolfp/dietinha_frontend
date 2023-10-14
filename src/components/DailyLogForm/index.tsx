@@ -7,7 +7,7 @@ import {
 } from "../../schemas/dailyLogSchemas";
 import getApiErrorMessage from "../../services/getApiErrorMessage";
 import { format } from "date-fns";
-import Calendar from "../Calendar";
+import Calendar from "./Calendar";
 import ProteinsInput from "./ProteinsInput";
 
 export default function DailyLogForm() {
