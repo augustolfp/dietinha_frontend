@@ -1,5 +1,4 @@
-import React, { ChangeEventHandler, useEffect, useRef, useState } from "react";
-
+import { ChangeEventHandler, useState } from "react";
 import { format, isValid, parse } from "date-fns";
 import { DayPicker, SelectSingleEventHandler } from "react-day-picker";
 import { ptBR } from "date-fns/locale";
@@ -38,7 +37,7 @@ export default function Calendar({ onChange, value: inputValue }: Props) {
             <input
                 className="input input-bordered"
                 type="text"
-                placeholder={format(new Date(), "dd/MM/yyyy")}
+                placeholder="dd/MM/aaaa"
                 value={inputValue}
                 onChange={handleInputChange}
             />
