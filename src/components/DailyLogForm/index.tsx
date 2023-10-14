@@ -9,6 +9,7 @@ import getApiErrorMessage from "../../services/getApiErrorMessage";
 import { format } from "date-fns";
 import Calendar from "./Calendar";
 import ProteinsInput from "./ProteinsInput";
+import CaloriesInput from "./CaloriesInput";
 
 export default function DailyLogForm() {
     const [addDailyLog] = useAddDailyLogMutation();
@@ -74,32 +75,13 @@ export default function DailyLogForm() {
                 <div className="divider divider-vertical"></div>
 
                 <div className="flex flex-col gap-3">
-                    <div className="flex justify-between">
-                        <label className="label">
-                            <span className="label-text">Alvo de calorias</span>
-                        </label>
-                        <div className="join">
-                            <input
-                                {...register("caloriesTarget")}
-                                type="number"
-                                placeholder="2600"
-                                aria-invalid={
-                                    errors.caloriesTarget ? "true" : "false"
-                                }
-                                className="input input-bordered join-item w-24"
-                            />
-                            <div className="join-item bg-base-300 px-4 text-sm text-base-content flex items-center">
-                                kcal
-                            </div>
-                        </div>
-                    </div>
-                    <input
-                        type="range"
-                        min={0}
-                        max="100"
-                        value="40"
-                        readOnly={true}
-                        className="range range-primary range-sm"
+                    <Controller
+                        control={control}
+                        name="caloriesTarget"
+                        defaultValue={2500}
+                        render={({ field: { onChange, value } }) => (
+                            <CaloriesInput onChange={onChange} value={value} />
+                        )}
                     />
                     {errors.caloriesTarget && (
                         <p className="text-red-500">{`${errors.caloriesTarget.message}`}</p>
