@@ -60,23 +60,21 @@ export const apiSlice = createApi({
         }),
 
         deleteDailyLog: builder.mutation<
-        Pick<
-        DailyLog,
-        | "id"
-        | "date"
-        | "notes"
-        | "userId"
-        | "caloriesTarget"
-        | "proteinsTarget"
-    >, Pick<DailyLog, "id">>({
-        query: (dailyLog) => ({
-            url: `/daily-log/${dailyLog.id}`,
-            method: "DELETE"
+            Pick<
+            DailyLog,
+            | "id"
+            | "date"
+            | "notes"
+            | "userId"
+            | "caloriesTarget"
+            | "proteinsTarget"
+        >, Pick<DailyLog, "id">>({
+            query: (dailyLog) => ({
+                url: `/daily-log/${dailyLog.id}`,
+                method: "DELETE"
+            }),
+            invalidatesTags: ["UserDailyLogs"]
         }),
-        invalidatesTags: (_result, _error, dailyLog) => {
-            return [{ type: "DailyLog", id: dailyLog.id }, "UserDailyLogs"];
-        },
-    }),
 
         getDailyLogStats: builder.query<DailyLog, Pick<DailyLog, "id">>({
             query: (dailyLog) => ({
@@ -99,6 +97,7 @@ export const apiSlice = createApi({
                 return [{ type: "DailyLog", id: dailyLog.id }];
             },
         }),
+
         addMeal: builder.mutation<
             Pick<
                 Meal,
@@ -149,6 +148,7 @@ export const apiSlice = createApi({
                 return [{ type: "Meal", id: ingredient.mealId }];
             },
         }),
+
         searchTable: builder.query<
             SearchResult,
             Pick<TableItem, "description">
