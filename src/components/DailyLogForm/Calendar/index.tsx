@@ -65,7 +65,7 @@ export default function Calendar({
             </div>
 
             {isOpen && (
-                <div className="absolute bg-base-100 p-4 shadow-xl rounded-box left-0 z-10">
+                <div className="absolute right-0 md:left-0 md:-right-28 bg-base-100 p-4 shadow-xl rounded-box z-10">
                     <DayPicker
                         locale={ptBR}
                         mode="single"
