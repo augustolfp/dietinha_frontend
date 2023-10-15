@@ -28,6 +28,10 @@ const customErrorMap: z.ZodErrorMap = (issue, ctx) => {
         }
     }
 
+    if (issue.code === z.ZodIssueCode.invalid_date) {
+        return {message: "A data inserida não é válida :("}
+    }
+
     return { message: ctx.defaultError };
 }
 
