@@ -78,12 +78,13 @@ export default function DailyLogForm() {
                         name="caloriesTarget"
                         defaultValue={2500}
                         render={({ field: { onChange, value } }) => (
-                            <CaloriesInput onChange={onChange} value={value} />
+                            <CaloriesInput
+                                onChange={onChange}
+                                value={value}
+                                errorMessage={errors.caloriesTarget?.message}
+                            />
                         )}
                     />
-                    {errors.caloriesTarget && (
-                        <p className="text-red-500">{`${errors.caloriesTarget.message}`}</p>
-                    )}
                 </div>
 
                 <div className="">

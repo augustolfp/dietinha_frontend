@@ -1,11 +1,16 @@
 interface Props {
     onChange: (event: number) => void;
     value: number;
+    errorMessage: string | undefined;
 }
 
-export default function CaloriesInput({ onChange, value }: Props) {
-    const inputMin = 0;
-    const inputMax = 5000;
+export default function CaloriesInput({
+    onChange,
+    value,
+    errorMessage,
+}: Props) {
+    const rangeMin = 0;
+    const rangeMax = 5000;
 
     return (
         <div className="flex flex-col gap-3">
@@ -16,8 +21,6 @@ export default function CaloriesInput({ onChange, value }: Props) {
                 <div className="join">
                     <input
                         type="number"
-                        min={inputMin}
-                        max={inputMax}
                         value={value || ""}
                         onChange={(e) => {
                             if (e.target.value) {
@@ -36,12 +39,15 @@ export default function CaloriesInput({ onChange, value }: Props) {
             </div>
             <input
                 type="range"
-                min={inputMin}
-                max={inputMax}
+                min={rangeMin}
+                max={rangeMax}
                 value={value}
                 onChange={(e) => onChange(parseInt(e.target.value))}
                 className="range range-primary range-sm"
             />
+            {errorMessage && (
+                <p className="text-red-500">{`${errorMessage}`}</p>
+            )}
         </div>
     );
 }
