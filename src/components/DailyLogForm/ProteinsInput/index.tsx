@@ -13,7 +13,7 @@ export default function ProteinsInput({
     const rangeMax = 400;
     return (
         <div className="flex flex-col gap-3">
-            <div className="flex justify-between">
+            <div className="flex justify-between md:flex-col">
                 <label className="label">
                     <span className="label-text">Alvo de proteínas</span>
                 </label>
@@ -45,7 +45,7 @@ export default function ProteinsInput({
                 className="range range-secondary range-sm"
             />
             {errorMessage && (
-                <p className="text-red-500">{`${errorMessage}`}</p>
+                <p className="text-red-500 text-sm">{`${errorMessage}`}</p>
             )}
         </div>
     );
