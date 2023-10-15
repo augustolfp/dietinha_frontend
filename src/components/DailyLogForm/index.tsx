@@ -27,7 +27,6 @@ export default function DailyLogForm() {
     const onSubmit: SubmitHandler<DailyLogSchema> = async (data) => {
         try {
             await addDailyLog({
-                notes: data.notes,
                 date: data.date,
                 caloriesTarget: data.caloriesTarget,
                 proteinsTarget: data.proteinsTarget,
