@@ -1,23 +1,25 @@
 interface Props {
     onChange: (event: number) => void;
     value: number;
+    errorMessage: string | undefined;
 }
 
-export default function CaloriesInput({ onChange, value }: Props) {
-    const inputMin = 0;
-    const inputMax = 5000;
-
+export default function ProteinsInput({
+    onChange,
+    value,
+    errorMessage,
+}: Props) {
+    const rangeMin = 0;
+    const rangeMax = 400;
     return (
         <div className="flex flex-col gap-3">
-            <div className="flex justify-between">
+            <div className="flex justify-between md:flex-col">
                 <label className="label">
-                    <span className="label-text">Alvo de calorias</span>
+                    <span className="label-text">Alvo de proteínas</span>
                 </label>
                 <div className="join">
                     <input
                         type="number"
-                        min={inputMin}
-                        max={inputMax}
                         value={value || ""}
                         onChange={(e) => {
                             if (e.target.value) {
@@ -27,21 +29,24 @@ export default function CaloriesInput({ onChange, value }: Props) {
                             }
                         }}
                         placeholder="0"
-                        className="input input-bordered join-item w-24"
+                        className="input input-bordered join-item w-20"
                     />
                     <div className="join-item bg-base-300 px-4 text-sm text-base-content flex items-center">
-                        kcal
+                        g
                     </div>
                 </div>
             </div>
             <input
                 type="range"
-                min={inputMin}
-                max={inputMax}
+                min={rangeMin}
+                max={rangeMax}
                 value={value}
                 onChange={(e) => onChange(parseInt(e.target.value))}
-                className="range range-primary range-sm"
+                className="range range-secondary range-sm"
             />
+            {errorMessage && (
+                <p className="text-red-500 text-sm">{`${errorMessage}`}</p>
+            )}
         </div>
     );
 }

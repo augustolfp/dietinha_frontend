@@ -15,7 +15,6 @@ export default function DailyLogForm() {
     const [addDailyLog] = useAddDailyLogMutation();
 
     const {
-        register,
         handleSubmit,
         control,
         setError,
@@ -28,7 +27,6 @@ export default function DailyLogForm() {
     const onSubmit: SubmitHandler<DailyLogSchema> = async (data) => {
         try {
             await addDailyLog({
-                notes: data.notes,
                 date: data.date,
                 caloriesTarget: data.caloriesTarget,
                 proteinsTarget: data.proteinsTarget,
@@ -45,62 +43,62 @@ export default function DailyLogForm() {
     };
 
     return (
-        <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-3 sm:flex-row sm:justify-between"
-        >
-            <Controller
-                control={control}
-                name="date"
-                defaultValue={format(new Date(), "dd/MM/yyyy")}
-                render={({ field: { onChange, value } }) => (
-                    <div className="flex flex-col items-center">
-                        <Calendar onChange={onChange} value={value} />
-                        {errors.date && (
-                            <p className="text-red-500">{`${errors.date.message}`}</p>
-                        )}
-                    </div>
-                )}
-            />
-            <div className="divider divider-vertical"></div>
-            <div className="flex flex-col gap-3">
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="flex flex-col gap-3 md:gap-0 md:flex-row md:justify-between">
+                <Controller
+                    control={control}
+                    name="date"
+                    defaultValue={format(new Date(), "dd/MM/yyyy")}
+                    render={({ field: { onChange, value } }) => (
+                        <Calendar
+                            onChange={onChange}
+                            value={value}
+                            errorMessage={errors.date?.message}
+                        />
+                    )}
+                />
+
+                <div className="divider divider-vertical md:divider-horizontal"></div>
+
                 <Controller
                     control={control}
                     name="proteinsTarget"
                     defaultValue={150}
                     render={({ field: { onChange, value } }) => (
-                        <ProteinsInput onChange={onChange} value={value} />
+                        <ProteinsInput
+                            onChange={onChange}
+                            value={value}
+                            errorMessage={errors.proteinsTarget?.message}
+                        />
                     )}
                 />
-                <div className="divider divider-vertical"></div>
 
-                <div className="flex flex-col gap-3">
-                    <Controller
-                        control={control}
-                        name="caloriesTarget"
-                        defaultValue={2500}
-                        render={({ field: { onChange, value } }) => (
-                            <CaloriesInput onChange={onChange} value={value} />
-                        )}
-                    />
-                    {errors.caloriesTarget && (
-                        <p className="text-red-500">{`${errors.caloriesTarget.message}`}</p>
-                    )}
-                </div>
+                <div className="divider divider-vertical md:divider-horizontal"></div>
 
-                <div className="">
-                    <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="btn btn-neutral w-full"
-                    >
-                        Adicionar
-                    </button>
-                    {errors.root && (
-                        <p className="text-red-500">{`${errors.root.serverError.message}`}</p>
+                <Controller
+                    control={control}
+                    name="caloriesTarget"
+                    defaultValue={2500}
+                    render={({ field: { onChange, value } }) => (
+                        <CaloriesInput
+                            onChange={onChange}
+                            value={value}
+                            errorMessage={errors.caloriesTarget?.message}
+                        />
                     )}
-                </div>
+                />
+
+                <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="btn btn-neutral mt-6 md:my-auto md:ml-4"
+                >
+                    Adicionar
+                </button>
             </div>
+            {errors.root && (
+                <p className="text-red-500 text-sm">{`${errors.root.serverError.message}`}</p>
+            )}
         </form>
     );
 }

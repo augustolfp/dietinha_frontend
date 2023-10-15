@@ -59,6 +59,25 @@ export const apiSlice = createApi({
             invalidatesTags: ["UserDailyLogs"],
         }),
 
+        deleteDailyLog: builder.mutation<
+        Pick<
+        DailyLog,
+        | "id"
+        | "date"
+        | "notes"
+        | "userId"
+        | "caloriesTarget"
+        | "proteinsTarget"
+    >, Pick<DailyLog, "id">>({
+        query: (dailyLog) => ({
+            url: `/daily-log/${dailyLog.id}`,
+            method: "DELETE"
+        }),
+        invalidatesTags: (_result, _error, dailyLog) => {
+            return [{ type: "DailyLog", id: dailyLog.id }, "UserDailyLogs"];
+        },
+    }),
+
         getDailyLogStats: builder.query<DailyLog, Pick<DailyLog, "id">>({
             query: (dailyLog) => ({
                 url: `/daily-log/${dailyLog.id}`,
@@ -149,6 +168,7 @@ export const {
     useGetDailyLogsQuery,
     useGetDailyLogStatsQuery,
     useAddDailyLogMutation,
+    useDeleteDailyLogMutation,
     useAddMealMutation,
     useGetMealSummaryQuery,
     useGetIngredientsQuery,
