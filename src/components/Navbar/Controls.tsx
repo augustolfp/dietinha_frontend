@@ -1,4 +1,3 @@
-import { FaGithub } from "react-icons/fa";
 import useUser from "../../hooks/authHooks/useUser";
 import useSignOut from "../../hooks/authHooks/useSignOut";
 
@@ -7,7 +6,7 @@ export default function Controls() {
 
     return (
         <div className="flex-none">
-            <ul className="menu menu-horizontal px-1 text-primary font-medium">
+            <ul className="menu menu-horizontal px-1 text-base-content font-medium">
                 <li>
                     <a>Sobre</a>
                 </li>

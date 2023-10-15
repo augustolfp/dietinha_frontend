@@ -11,9 +11,11 @@ export default function Navbar() {
                     to="/"
                     className="btn btn-ghost normal-case text-4xl flex gap-0"
                 >
-                    <span className="text-primary">D</span>
-                    {isDesktop && <span className="text-primary">ietinha</span>}
-                    <span className="text-secondary">!</span>
+                    <span className="text-base-content">D</span>
+                    {isDesktop && (
+                        <span className="text-base-content">ietinha</span>
+                    )}
+                    <span className="text-green-500">!</span>
                 </Link>
                 <button></button>
             </div>
