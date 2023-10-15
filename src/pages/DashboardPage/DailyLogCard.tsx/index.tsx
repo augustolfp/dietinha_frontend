@@ -58,7 +58,7 @@ export default function DailyLogCard({ id, date }: Props) {
                                 </p>
                                 <div className="w-full flex gap-2 justify-end">
                                     <button className="btn btn-active">
-                                        Não, me tira daqui!
+                                        Cancelar
                                     </button>
                                     <button
                                         className="btn btn-error"
