@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function DailyLogCard({ id, date }: Props) {
-    const [deleteDailyLog] = useDeleteDailyLogMutation();
+    const [deleteDailyLog, { isLoading }] = useDeleteDailyLogMutation();
 
     const handleClick = async (e: React.SyntheticEvent) => {
         e.preventDefault();
@@ -34,11 +34,56 @@ export default function DailyLogCard({ id, date }: Props) {
                             </span>
                         </h2>
                         <button
-                            onClick={handleClick}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                const modal = document.getElementById(
+                                    "my_modal_1"
+                                ) as HTMLDialogElement;
+
+                                modal.showModal();
+                            }}
+                            disabled={isLoading}
                             className="btn btn-error aspect-square w-12 p-0"
                         >
-                            <TbTrashXFilled size={28} />
+                            {isLoading ? "..." : <TbTrashXFilled size={28} />}
                         </button>
+                        <dialog id="my_modal_1" className="modal">
+                            <div className="modal-box">
+                                <h3 className="font-bold text-lg">
+                                    Só para checar...
+                                </h3>
+                                <p className="py-4">
+                                    Deseja realmente deletar esse dia?
+                                </p>
+                                <div className="w-full flex gap-2 justify-end">
+                                    <button className="btn btn-active">
+                                        Cancelar
+                                    </button>
+                                    <button
+                                        className="btn btn-error"
+                                        onClick={handleClick}
+                                    >
+                                        Sim, deletar!
+                                    </button>
+                                </div>
+                            </div>
+                            <form method="dialog" className="modal-backdrop">
+                                <button
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        const modal = document.getElementById(
+                                            "my_modal_1"
+                                        ) as HTMLDialogElement;
+
+                                        modal.close();
+                                    }}
+                                >
+                                    close
+                                </button>
+                            </form>
+                        </dialog>
                     </div>
                     <DailyLogStats dailyLogId={id} />
                 </div>
