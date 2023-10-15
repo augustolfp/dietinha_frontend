@@ -1,22 +1,10 @@
 import useUser from "../../hooks/authHooks/useUser";
-import { Link } from "react-router-dom";
-import {
-    useGetDailyLogsQuery,
-    useDeleteDailyLogMutation,
-} from "../../store/api/apiSlice";
+import { useGetDailyLogsQuery } from "../../store/api/apiSlice";
 import DailyLogForm from "../../components/DailyLogForm";
-import formatDate from "../../utils/formatDate";
-import DailyLogStats from "../../components/DailyLogStats";
-import { TbTrashXFilled } from "react-icons/tb";
 import BackgroundBlur from "./BackgroundBlur";
+import DailyLogCard from "./DailyLogCard.tsx";
 
 export default function DashboardPage() {
-    const [deleteDailyLog] = useDeleteDailyLogMutation();
-
-    const handleClick = async (dailyLogId: string) => {
-        await deleteDailyLog({ id: dailyLogId });
-    };
-
     const { accessToken } = useUser();
 
     const { data, error, isFetching } = useGetDailyLogsQuery(undefined, {
@@ -32,40 +20,7 @@ export default function DashboardPage() {
         content = (
             <>
                 {data.map((dailyLog) => {
-                    const { formattedDate, weekDay } = formatDate(
-                        dailyLog.date
-                    );
-                    return (
-                        // <Link
-                        //     to={`/daily-log/${dailyLog.id}`}
-                        //     key={dailyLog.id}
-                        // >
-                        <div
-                            key={dailyLog.id}
-                            className="card bg-base-100 shadow-md"
-                        >
-                            <div className="card-body">
-                                <div className="card-title flex justify-between mb-4">
-                                    <h2 className="flex flex-col sm:flex-row gap-0">
-                                        <span className="text-xl font-semibold">
-                                            {weekDay},
-                                        </span>
-                                        <span className="text-lg font-medium sm:text-xl sm:font-semibold">
-                                            {formattedDate}
-                                        </span>
-                                    </h2>
-                                    <button
-                                        onClick={() => handleClick(dailyLog.id)}
-                                        className="btn btn-error aspect-square w-12 p-0"
-                                    >
-                                        <TbTrashXFilled size={28} />
-                                    </button>
-                                </div>
-                                <DailyLogStats dailyLogId={dailyLog.id} />
-                            </div>
-                        </div>
-                        // </Link>
-                    );
+                    return <DailyLogCard key={dailyLog.id} {...dailyLog} />;
                 })}
             </>
         );
