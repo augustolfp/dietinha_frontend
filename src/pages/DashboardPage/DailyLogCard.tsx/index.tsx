@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function DailyLogCard({ id, date }: Props) {
-    const [deleteDailyLog] = useDeleteDailyLogMutation();
+    const [deleteDailyLog, { isLoading }] = useDeleteDailyLogMutation();
 
     const handleClick = async (e: React.SyntheticEvent) => {
         e.preventDefault();
@@ -35,9 +35,10 @@ export default function DailyLogCard({ id, date }: Props) {
                         </h2>
                         <button
                             onClick={handleClick}
+                            disabled={isLoading}
                             className="btn btn-error aspect-square w-12 p-0"
                         >
-                            <TbTrashXFilled size={28} />
+                            {isLoading ? "..." : <TbTrashXFilled size={28} />}
                         </button>
                     </div>
                     <DailyLogStats dailyLogId={id} />
