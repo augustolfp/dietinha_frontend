@@ -52,12 +52,11 @@ export default function DailyLogForm() {
                 name="date"
                 defaultValue={format(new Date(), "dd/MM/yyyy")}
                 render={({ field: { onChange, value } }) => (
-                    <div className="flex flex-col items-center">
-                        <Calendar onChange={onChange} value={value} />
-                        {errors.date && (
-                            <p className="text-red-500">{`${errors.date.message}`}</p>
-                        )}
-                    </div>
+                    <Calendar
+                        onChange={onChange}
+                        value={value}
+                        errorMessage={errors.date?.message}
+                    />
                 )}
             />
             <div className="divider divider-vertical"></div>
@@ -67,7 +66,11 @@ export default function DailyLogForm() {
                     name="proteinsTarget"
                     defaultValue={150}
                     render={({ field: { onChange, value } }) => (
-                        <ProteinsInput onChange={onChange} value={value} />
+                        <ProteinsInput
+                            onChange={onChange}
+                            value={value}
+                            errorMessage={errors.proteinsTarget?.message}
+                        />
                     )}
                 />
                 <div className="divider divider-vertical"></div>

@@ -10,7 +10,7 @@ export default function CaloriesInput({
     errorMessage,
 }: Props) {
     const rangeMin = 0;
-    const rangeMax = 5000;
+    const rangeMax = 6000;
 
     return (
         <div className="flex flex-col gap-3">

@@ -1,11 +1,16 @@
 interface Props {
     onChange: (event: number) => void;
     value: number;
+    errorMessage: string | undefined;
 }
 
-export default function ProteinsInput({ onChange, value }: Props) {
-    const inputMin = 0;
-    const inputMax = 300;
+export default function ProteinsInput({
+    onChange,
+    value,
+    errorMessage,
+}: Props) {
+    const rangeMin = 0;
+    const rangeMax = 400;
     return (
         <div className="flex flex-col gap-3">
             <div className="flex justify-between">
@@ -15,8 +20,6 @@ export default function ProteinsInput({ onChange, value }: Props) {
                 <div className="join">
                     <input
                         type="number"
-                        min={inputMin}
-                        max={inputMax}
                         value={value || ""}
                         onChange={(e) => {
                             if (e.target.value) {
@@ -35,12 +38,15 @@ export default function ProteinsInput({ onChange, value }: Props) {
             </div>
             <input
                 type="range"
-                min={inputMin}
-                max={inputMax}
+                min={rangeMin}
+                max={rangeMax}
                 value={value}
                 onChange={(e) => onChange(parseInt(e.target.value))}
                 className="range range-secondary range-sm"
             />
+            {errorMessage && (
+                <p className="text-red-500">{`${errorMessage}`}</p>
+            )}
         </div>
     );
 }

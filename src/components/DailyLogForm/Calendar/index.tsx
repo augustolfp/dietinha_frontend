@@ -8,9 +8,14 @@ import "./day-picker-custom-style.css";
 interface Props {
     onChange: (event: string) => void;
     value: string;
+    errorMessage: string | undefined;
 }
 
-export default function Calendar({ onChange, value: inputValue }: Props) {
+export default function Calendar({
+    onChange,
+    value: inputValue,
+    errorMessage,
+}: Props) {
     const [selected, setSelected] = useState<Date>();
 
     const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -51,6 +56,9 @@ export default function Calendar({ onChange, value: inputValue }: Props) {
                 showOutsideDays
                 fixedWeeks
             />
+            {errorMessage && (
+                <p className="text-red-500">{`${errorMessage}`}</p>
+            )}
         </div>
     );
 }
