@@ -15,7 +15,6 @@ export default function DailyLogForm() {
     const [addDailyLog] = useAddDailyLogMutation();
 
     const {
-        register,
         handleSubmit,
         control,
         setError,
