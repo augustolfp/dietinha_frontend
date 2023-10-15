@@ -59,7 +59,9 @@ export default function DailyLogForm() {
                     />
                 )}
             />
+
             <div className="divider divider-vertical"></div>
+
             <div className="flex flex-col gap-3">
                 <Controller
                     control={control}
@@ -73,35 +75,32 @@ export default function DailyLogForm() {
                         />
                     )}
                 />
+
                 <div className="divider divider-vertical"></div>
 
-                <div className="flex flex-col gap-3">
-                    <Controller
-                        control={control}
-                        name="caloriesTarget"
-                        defaultValue={2500}
-                        render={({ field: { onChange, value } }) => (
-                            <CaloriesInput
-                                onChange={onChange}
-                                value={value}
-                                errorMessage={errors.caloriesTarget?.message}
-                            />
-                        )}
-                    />
-                </div>
-
-                <div className="">
-                    <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="btn btn-neutral w-full"
-                    >
-                        Adicionar
-                    </button>
-                    {errors.root && (
-                        <p className="text-red-500">{`${errors.root.serverError.message}`}</p>
+                <Controller
+                    control={control}
+                    name="caloriesTarget"
+                    defaultValue={2500}
+                    render={({ field: { onChange, value } }) => (
+                        <CaloriesInput
+                            onChange={onChange}
+                            value={value}
+                            errorMessage={errors.caloriesTarget?.message}
+                        />
                     )}
-                </div>
+                />
+
+                <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="btn btn-neutral w-full"
+                >
+                    Adicionar
+                </button>
+                {errors.root && (
+                    <p className="text-red-500">{`${errors.root.serverError.message}`}</p>
+                )}
             </div>
         </form>
     );

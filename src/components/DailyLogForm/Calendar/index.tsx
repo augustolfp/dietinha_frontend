@@ -4,6 +4,7 @@ import { DayPicker, SelectSingleEventHandler } from "react-day-picker";
 import { ptBR } from "date-fns/locale";
 import "react-day-picker/src/style.css";
 import "./day-picker-custom-style.css";
+import { BsCalendar3 } from "react-icons/bs";
 
 interface Props {
     onChange: (event: string) => void;
@@ -16,7 +17,13 @@ export default function Calendar({
     value: inputValue,
     errorMessage,
 }: Props) {
+    const [isOpen, setIsOpen] = useState<boolean>(false);
     const [selected, setSelected] = useState<Date>();
+
+    const handleDropDown = (e: React.SyntheticEvent) => {
+        e.preventDefault();
+        setIsOpen(!isOpen);
+    };
 
     const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
         onChange(e.currentTarget.value);
@@ -38,24 +45,40 @@ export default function Calendar({
     };
 
     return (
-        <div>
-            <input
-                className="input input-bordered"
-                type="text"
-                placeholder="dd/MM/aaaa"
-                value={inputValue}
-                onChange={handleInputChange}
-            />
-            <DayPicker
-                locale={ptBR}
-                mode="single"
-                defaultMonth={selected}
-                month={selected}
-                selected={selected}
-                onSelect={handleDaySelect}
-                showOutsideDays
-                fixedWeeks
-            />
+        <div className="relative">
+            <div className="flex justify-between">
+                <label className="label">
+                    <span className="label-text">Data</span>
+                </label>
+                <div className="join">
+                    <input
+                        className="input input-bordered join-item w-32"
+                        type="text"
+                        placeholder="dd/MM/aaaa"
+                        value={inputValue}
+                        onChange={handleInputChange}
+                    />
+                    <button className="btn join-item" onClick={handleDropDown}>
+                        <BsCalendar3 />
+                    </button>
+                </div>
+            </div>
+
+            {isOpen && (
+                <div className="absolute bg-base-100 p-4 shadow-xl rounded-box left-0 z-10">
+                    <DayPicker
+                        locale={ptBR}
+                        mode="single"
+                        defaultMonth={selected}
+                        month={selected}
+                        selected={selected}
+                        onSelect={handleDaySelect}
+                        showOutsideDays
+                        fixedWeeks
+                    />
+                </div>
+            )}
+
             {errorMessage && (
                 <p className="text-red-500">{`${errorMessage}`}</p>
             )}
