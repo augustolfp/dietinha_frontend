@@ -1,6 +1,5 @@
-import { useGetMealSummaryQuery } from "../../store/api/apiSlice";
-import useUser from "../../hooks/authHooks/useUser";
-import React from "react";
+import { useGetMealSummaryQuery } from "../../../store/api/apiSlice";
+import useUser from "../../../hooks/authHooks/useUser";
 
 interface Props {
     mealId: string;

@@ -1,7 +1,7 @@
-import MealsListItem from "../MealsListItem";
-import IngredientsList from "../IngredientsList";
-import AddIngredientTab from "../AddIngredientTab";
-import { type Meal } from "../../types";
+import MealsListItem from "./MealsListItem";
+import IngredientsList from "../../../components/IngredientsList";
+import AddIngredientTab from "../../../components/AddIngredientTab";
+import { type Meal } from "../../../types";
 
 interface Props {
     mealsList: Meal[];
