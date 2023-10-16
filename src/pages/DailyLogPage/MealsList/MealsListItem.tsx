@@ -31,8 +31,8 @@ export default function MealsListItem({ mealId, children, mealName }: Props) {
     }
 
     return (
-        <details className="collapse collapse-arrow bg-[#DCE1FF] p-2">
-            <summary className="collapse-title">
+        <details className="collapse collapse-arrow p-2">
+            <summary className="collapse-title bg-[#DCE1FF] rounded-xl">
                 <div className="flex flex-col sm:flex-row sm:justify-between">
                     <h3 className="font-medium text-neutral">{mealName}</h3>
                     {content}

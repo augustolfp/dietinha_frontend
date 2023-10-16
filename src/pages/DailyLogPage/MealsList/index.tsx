@@ -11,7 +11,7 @@ export default function MealsList({ mealsList }: Props) {
     const content = mealsList.map((meal) => {
         return (
             <MealsListItem key={meal.id} mealName={meal.name} mealId={meal.id}>
-                <div className="mb-6">
+                <div className="my-6">
                     <b>Descrição:</b> {meal.description}
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -27,5 +27,5 @@ export default function MealsList({ mealsList }: Props) {
         );
     });
 
-    return <div className="flex flex-col gap-y-4">{content}</div>;
+    return <div className="flex flex-col">{content}</div>;
 }
