@@ -54,7 +54,9 @@ export default function DailyLogPage() {
                         </div>
                         <MealForm dailyLogId={dailyLogId!} />
                         <h2 className="text-xl font-bold">Refeições:</h2>
-                        {mealsList}
+                        <div className="bg-base-100 shadow-xl rounded-xl p-4">
+                            {mealsList}
+                        </div>
                     </div>
                 </div>
             </div>
