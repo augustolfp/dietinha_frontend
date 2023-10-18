@@ -41,8 +41,10 @@ export default function DailyLogPage() {
         <ContentContainer>
             <div className="flex flex-col gap-4">
                 {header}
-                <div className="bg-base-100 p-6 rounded-xl shadow-xl">
-                    <DailyLogStats dailyLogId={dailyLogId!} />
+                <div className="card bg-base-100 shadow-xl">
+                    <div className="card-body">
+                        <DailyLogStats dailyLogId={dailyLogId!} />
+                    </div>
                 </div>
                 <MealForm dailyLogId={dailyLogId!} />
                 <MealsList dailyLogId={dailyLogId!} />

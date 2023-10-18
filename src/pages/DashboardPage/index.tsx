@@ -36,7 +36,7 @@ export default function DashboardPage() {
                     Escolha uma data e comece a registrar suas calorias!
                 </p>
             </div>
-            <div className="card bg-white shadow-md">
+            <div className="card bg-base-100 shadow-xl">
                 <div className="card-body">
                     <DailyLogForm />
                 </div>

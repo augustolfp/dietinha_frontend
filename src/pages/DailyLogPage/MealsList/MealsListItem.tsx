@@ -33,7 +33,7 @@ export default function MealsListItem({ mealId, children }: Props) {
     }
 
     return (
-        <details className="collapse collapse-arrow p-2">
+        <details className="collapse collapse-arrow">
             <summary className="collapse-title bg-[#DCE1FF] rounded-xl">
                 {content}
             </summary>

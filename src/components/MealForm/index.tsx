@@ -42,39 +42,41 @@ export default function MealForm({ dailyLogId }: Props) {
     };
 
     return (
-        <div className="w-full p-4 bg-base-100 shadow-xl rounded-lg">
-            <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="flex flex-col gap-3 md:flex-row md:items-center"
-            >
-                <h2 className="card-title">Adicionar refeição</h2>
-                {isDesktop && (
-                    <div className="text-base-content text-2xl">
-                        <FaArrowRight />
-                    </div>
-                )}
-                <input
-                    {...register("name")}
-                    type="text"
-                    placeholder="Nome da refeição"
-                    aria-invalid={errors.name ? "true" : "false"}
-                    className="input input-bordered w-full"
-                />
-                {errors.name && (
-                    <p className="text-red-500">{`${errors.name.message}`}</p>
-                )}
-
-                <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="btn btn-neutral"
+        <div className="card bg-base-100 shadow-xl">
+            <div className="card-body">
+                <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="flex flex-col gap-3 md:flex-row md:items-center"
                 >
-                    Adicionar
-                </button>
-                {errors.root && (
-                    <p className="text-red-500">{`${errors.root.serverError.message}`}</p>
-                )}
-            </form>
+                    <h2 className="card-title">Adicionar refeição</h2>
+                    {isDesktop && (
+                        <div className="text-base-content text-2xl">
+                            <FaArrowRight />
+                        </div>
+                    )}
+                    <input
+                        {...register("name")}
+                        type="text"
+                        placeholder="Nome da refeição"
+                        aria-invalid={errors.name ? "true" : "false"}
+                        className="input input-bordered w-full"
+                    />
+                    {errors.name && (
+                        <p className="text-red-500">{`${errors.name.message}`}</p>
+                    )}
+
+                    <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="btn btn-neutral"
+                    >
+                        Adicionar
+                    </button>
+                    {errors.root && (
+                        <p className="text-red-500">{`${errors.root.serverError.message}`}</p>
+                    )}
+                </form>
+            </div>
         </div>
     );
 }

@@ -22,7 +22,7 @@ export default function DailyLogCard({ id, date }: Props) {
 
     return (
         <Link to={`/daily-log/${id}`}>
-            <div className="card bg-base-100 shadow-md">
+            <div className="card bg-base-100 shadow-xl">
                 <div className="card-body">
                     <div className="card-title flex justify-between mb-4">
                         <h2 className="flex flex-col sm:flex-row gap-0">
