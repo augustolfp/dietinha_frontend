@@ -1,4 +1,4 @@
-export default function BackgroundBlur() {
+export default function ContentBlur() {
     return (
         <>
             <div className="absolute top-0 left-1/2 -translate-x-1/2 bg-base-content w-full aspect-square rounded-full blur-3xl opacity-5"></div>

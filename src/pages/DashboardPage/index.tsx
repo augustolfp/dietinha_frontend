@@ -2,7 +2,6 @@ import ContentContainer from "../../components/PageContainers/ContentContainer";
 import useUser from "../../hooks/authHooks/useUser";
 import { useGetDailyLogsQuery } from "../../store/api/apiSlice";
 import DailyLogForm from "../../components/DailyLogForm";
-import BackgroundBlur from "./BackgroundBlur";
 import DailyLogCard from "./DailyLogCard.tsx";
 
 export default function DashboardPage() {
@@ -30,15 +29,12 @@ export default function DashboardPage() {
     return (
         <ContentContainer>
             <div className="relative">
-                <BackgroundBlur />
-                <div className="relative">
-                    <h1 className="text-3xl sm:text-5xl font-bold text-base-content mb-2">
-                        Olá, usuário!
-                    </h1>
-                    <p className="text-lg sm:text-2xl font-light text-base-content">
-                        Escolha uma data e comece a registrar suas calorias!
-                    </p>
-                </div>
+                <h1 className="text-3xl sm:text-5xl font-bold text-base-content mb-2">
+                    Olá, usuário!
+                </h1>
+                <p className="text-lg sm:text-2xl font-light text-base-content">
+                    Escolha uma data e comece a registrar suas calorias!
+                </p>
             </div>
             <div className="card bg-white shadow-md">
                 <div className="card-body">

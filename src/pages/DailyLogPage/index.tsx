@@ -6,7 +6,6 @@ import MealForm from "../../components/MealForm";
 import formatDate from "../../utils/formatDate";
 import MealsList from "./MealsList";
 import DailyLogStats from "../../components/DailyLogStats";
-import BackgroundBlur from "./BackgroundBlur";
 
 export default function DailyLogPage() {
     const { dailyLogId } = useParams();
@@ -40,16 +39,13 @@ export default function DailyLogPage() {
 
     return (
         <ContentContainer>
-            <div className="relative">
-                <BackgroundBlur />
-                <div className="relative flex flex-col gap-4">
-                    {header}
-                    <div className="bg-base-100 p-6 rounded-xl shadow-xl">
-                        <DailyLogStats dailyLogId={dailyLogId!} />
-                    </div>
-                    <MealForm dailyLogId={dailyLogId!} />
-                    <MealsList dailyLogId={dailyLogId!} />
+            <div className="relative flex flex-col gap-4">
+                {header}
+                <div className="bg-base-100 p-6 rounded-xl shadow-xl">
+                    <DailyLogStats dailyLogId={dailyLogId!} />
                 </div>
+                <MealForm dailyLogId={dailyLogId!} />
+                <MealsList dailyLogId={dailyLogId!} />
             </div>
         </ContentContainer>
     );
