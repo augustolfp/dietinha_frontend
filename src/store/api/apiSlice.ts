@@ -76,14 +76,24 @@ export const apiSlice = createApi({
             invalidatesTags: ["UserDailyLogs"]
         }),
 
-        getDailyLogStats: builder.query<DailyLog, Pick<DailyLog, "id">>({
+        getDailyLogStats: builder.query<Omit<DailyLog, "mealsList">, Pick<DailyLog, "id">>({
             query: (dailyLog) => ({
                 url: `/daily-log/${dailyLog.id}`,
                 method: "GET",
             }),
+            providesTags: (_result, _error, dailyLog) => {
+                return [{ type: "DailyLog", id: dailyLog.id }];
+            },
+        }),
+
+        getDailyLogMeals: builder.query<Pick<Meal, "id" | "name" | "description" | "createdAt" | "dailyLogId">[], Pick<DailyLog, "id">>({
+            query: (dailyLog) => ({
+                url: `/daily-log/${dailyLog.id}/meals`,
+                method: "GET",
+            }),
             providesTags: (result, _error, dailyLog) => {
-                if (result?.mealsList) {
-                    const mealsTags = result.mealsList.map((meal) => {
+                if (result) {
+                    const mealsTags = result.map((meal) => {
                         return { type: "Meal" as const, id: meal.id };
                     });
 
@@ -95,7 +105,7 @@ export const apiSlice = createApi({
                 }
 
                 return [{ type: "DailyLog", id: dailyLog.id }];
-            },
+            }
         }),
 
         addMeal: builder.mutation<
@@ -116,7 +126,7 @@ export const apiSlice = createApi({
         }),
 
         getMealSummary: builder.query<
-            Pick<Meal, "id" | "carbs" | "fats" | "proteins" | "kcals">,
+            Omit<Meal, "dailyLogId">,
             Pick<Meal, "id">
         >({
             query: (meal) => ({
@@ -167,6 +177,7 @@ export const apiSlice = createApi({
 export const {
     useGetDailyLogsQuery,
     useGetDailyLogStatsQuery,
+    useGetDailyLogMealsQuery,
     useAddDailyLogMutation,
     useDeleteDailyLogMutation,
     useAddMealMutation,
