@@ -36,8 +36,8 @@ export default function MealsList({ dailyLogId }: Props) {
     return (
         <>
             <h2 className="text-xl font-bold">Refeições:</h2>
-            <div className="bg-base-100 shadow-xl rounded-xl p-4">
-                {content}
+            <div className="card bg-base-100 shadow-xl">
+                <div className="card-body">{content}</div>
             </div>
         </>
     );
