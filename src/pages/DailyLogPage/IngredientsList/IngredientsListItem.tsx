@@ -1,3 +1,4 @@
+import { AiFillFire } from "react-icons/ai";
 import type { Ingredient as IngredientType } from "../../../types";
 
 interface Props {
@@ -10,8 +11,8 @@ export default function IngredientsListItem({ ingredient }: Props) {
             <div>
                 <h4 className="text-md font-bold">{ingredient.name}</h4>
                 <div className="flex gap-x-1">
-                    <div className="font-light text-sm">
-                        {ingredient.kcals}kcal
+                    <div className="flex items-center font-light text-sm">
+                        {ingredient.kcals} <AiFillFire />
                     </div>
                     <div className="font-light text-sm">
                         {ingredient.carbs}C
@@ -22,7 +23,7 @@ export default function IngredientsListItem({ ingredient }: Props) {
                     <div className="font-light text-sm">{ingredient.fats}G</div>
                 </div>
             </div>
-            <div className="badge badge-lg badge-info p-4">
+            <div className="badge badge-sm md:badge-md lg:badge-lg badge-info py-4 w-12 lg:w-16">
                 {ingredient.weight}g
             </div>
         </>
