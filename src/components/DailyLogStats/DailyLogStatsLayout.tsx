@@ -2,7 +2,7 @@ import { type DailyLog as DailyLogType } from "../../types";
 import ProgressBar from "./ProgressBar";
 
 interface Props {
-    dailyLog: DailyLogType;
+    dailyLog: Omit<DailyLogType, "mealsList">;
 }
 
 export default function DailyLogStatsLayout({ dailyLog }: Props) {
