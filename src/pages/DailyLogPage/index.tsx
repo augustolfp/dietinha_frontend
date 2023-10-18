@@ -39,7 +39,7 @@ export default function DailyLogPage() {
 
     return (
         <ContentContainer>
-            <div className="relative flex flex-col gap-4">
+            <div className="flex flex-col gap-4">
                 {header}
                 <div className="bg-base-100 p-6 rounded-xl shadow-xl">
                     <DailyLogStats dailyLogId={dailyLogId!} />

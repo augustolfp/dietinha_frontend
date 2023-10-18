@@ -28,7 +28,7 @@ export default function DashboardPage() {
 
     return (
         <ContentContainer>
-            <div className="relative">
+            <div>
                 <h1 className="text-3xl sm:text-5xl font-bold text-base-content mb-2">
                     Olá, usuário!
                 </h1>
@@ -41,7 +41,7 @@ export default function DashboardPage() {
                     <DailyLogForm />
                 </div>
             </div>
-            <div className="relative">
+            <div>
                 <h2 className="text-3xl font-extrabold text-base-content mb-2">
                     Registros
                 </h2>

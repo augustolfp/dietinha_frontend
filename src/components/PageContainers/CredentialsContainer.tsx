@@ -1,4 +1,4 @@
-import CredentialsBlur from "../Backgrounds/CredentialsBlur";
+import CredentialsBlur from "./Backgrounds/CredentialsBlur";
 
 interface Props {
     children?: React.ReactNode;
