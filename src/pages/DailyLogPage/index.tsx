@@ -4,9 +4,6 @@ import { useParams } from "react-router-dom";
 import MealForm from "../../components/MealForm";
 import formatDate from "../../utils/formatDate";
 import MealsList from "./MealsList";
-import MealsListItem from "./MealsList/MealsListItem";
-import IngredientsList from "./IngredientsList";
-import AddIngredientTab from "../../components/AddIngredientTab";
 import DailyLogStats from "../../components/DailyLogStats";
 import BackgroundBlur from "./BackgroundBlur";
 
@@ -22,13 +19,10 @@ export default function DailyLogPage() {
     );
 
     let header;
-    let mealsList;
     if (isLoading) {
         header = <p>Loading...</p>;
-        mealsList = <p>Loading...</p>;
     } else if (error) {
         header = <p className="text-red-600">Error on fetching</p>;
-        mealsList = <p className="text-red-600">Error on fetching</p>;
     } else if (data) {
         const { formattedDate, weekDay } = formatDate(data.date);
         header = (
@@ -40,17 +34,6 @@ export default function DailyLogPage() {
                     </p>
                 </div>
             </div>
-        );
-
-        mealsList = (
-            <MealsList>
-                {data.mealsList.map((meal) => (
-                    <MealsListItem key={meal.id} {...meal}>
-                        <IngredientsList mealId={meal.id} />
-                        <AddIngredientTab mealId={meal.id} />
-                    </MealsListItem>
-                ))}
-            </MealsList>
         );
     }
 
@@ -67,7 +50,7 @@ export default function DailyLogPage() {
                         <MealForm dailyLogId={dailyLogId!} />
                         <h2 className="text-xl font-bold">Refeições:</h2>
                         <div className="bg-base-100 shadow-xl rounded-xl p-4">
-                            {mealsList}
+                            <MealsList dailyLogId={dailyLogId!} />
                         </div>
                     </div>
                 </div>
