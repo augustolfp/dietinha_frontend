@@ -1,16 +1,15 @@
 import { useGetMealSummaryQuery } from "../../../store/api/apiSlice";
 import useUser from "../../../hooks/authHooks/useUser";
+import { type Meal } from "../../../types";
 
-interface Props {
-    mealId: string;
-    mealName: string;
+interface Props extends Meal {
     children?: React.ReactNode;
 }
 
-export default function MealsListItem({ mealId, children, mealName }: Props) {
+export default function MealsListItem({ children, ...meal }: Props) {
     const { accessToken } = useUser();
     const { data, error, isLoading } = useGetMealSummaryQuery(
-        { id: mealId },
+        { id: meal.id },
         { skip: !Boolean(accessToken) }
     );
 
@@ -34,7 +33,7 @@ export default function MealsListItem({ mealId, children, mealName }: Props) {
         <details className="collapse collapse-arrow p-2">
             <summary className="collapse-title bg-[#DCE1FF] rounded-xl">
                 <div className="flex flex-col sm:flex-row sm:justify-between">
-                    <h3 className="font-medium text-neutral">{mealName}</h3>
+                    <h3 className="font-medium text-neutral">{meal.name}</h3>
                     {content}
                 </div>
             </summary>

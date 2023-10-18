@@ -4,6 +4,9 @@ import { useParams } from "react-router-dom";
 import MealForm from "../../components/MealForm";
 import formatDate from "../../utils/formatDate";
 import MealsList from "./MealsList";
+import MealsListItem from "./MealsList/MealsListItem";
+import IngredientsList from "./IngredientsList";
+import AddIngredientTab from "../../components/AddIngredientTab";
 import DailyLogStats from "../../components/DailyLogStats";
 import BackgroundBlur from "./BackgroundBlur";
 
@@ -39,7 +42,16 @@ export default function DailyLogPage() {
             </div>
         );
 
-        mealsList = <MealsList mealsList={data.mealsList} />;
+        mealsList = (
+            <MealsList>
+                {data.mealsList.map((meal) => (
+                    <MealsListItem key={meal.id} {...meal}>
+                        <IngredientsList mealId={meal.id} />
+                        <AddIngredientTab mealId={meal.id} />
+                    </MealsListItem>
+                ))}
+            </MealsList>
+        );
     }
 
     return (
