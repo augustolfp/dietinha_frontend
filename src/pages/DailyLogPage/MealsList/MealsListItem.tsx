@@ -1,5 +1,6 @@
 import { useGetMealSummaryQuery } from "../../../store/api/apiSlice";
 import useUser from "../../../hooks/authHooks/useUser";
+import MealStats from "./MealStats";
 
 interface Props {
     mealId: string;
@@ -22,12 +23,12 @@ export default function MealsListItem({ mealId, children }: Props) {
         content = (
             <div className="flex flex-col sm:flex-row sm:justify-between">
                 <h3 className="font-medium text-neutral">{data.name}</h3>
-                <div className="flex gap-x-3 text-base font-medium text-primary-focus">
-                    <div>{data.kcals}kcal</div>
-                    <div>{data.carbs}C</div>
-                    <div>{data.proteins}P</div>
-                    <div>{data.fats}G</div>
-                </div>
+                <MealStats
+                    kcals={data.kcals}
+                    carbs={data.carbs}
+                    proteins={data.proteins}
+                    fats={data.fats}
+                />
             </div>
         );
     }
