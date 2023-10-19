@@ -37,7 +37,7 @@ export default function MealsList({ dailyLogId }: Props) {
                             ) : (
                                 <div className="flex justify-between items-center">
                                     <h2>Ingredientes</h2>
-                                    <Drawer>
+                                    <Drawer mealId={meal.id}>
                                         <p>Mobile form</p>
                                     </Drawer>
                                 </div>
