@@ -27,6 +27,15 @@ export default function MealsListContent({ mealId, children }: Props) {
                 ></label>
                 <ul className="menu p-4 w-5/6 sm:w-1/2 md:w-full h-[calc(100vh-64px)] mt-[64px] bg-base-200 text-base-content">
                     {/* Sidebar content here */}
+                    <div className="flex justify-between items-center">
+                        <h2>Adicionar Ingrediente</h2>
+                        <label
+                            htmlFor="my-drawer-2"
+                            className="btn btn-ghost btn-md aspect-square drawer-button md:hidden"
+                        >
+                            x
+                        </label>
+                    </div>
                     <li>
                         <a>Sidebar Item 1</a>
                     </li>
