@@ -1,26 +1,25 @@
-import { useGetMealSummaryQuery } from "../../../store/api/apiSlice";
 import useUser from "../../../hooks/authHooks/useUser";
-import MealStats from "./MealStats";
+import { useGetMealSummaryQuery } from "../../../store/api/apiSlice";
+import MealStats from "../../../components/MealStats";
 
 interface Props {
     mealId: string;
-    children?: React.ReactNode;
 }
 
-export default function MealsListItem({ mealId, children }: Props) {
+export default function CollapseMealTitle({ mealId }: Props) {
     const { accessToken } = useUser();
     const { data, error, isLoading } = useGetMealSummaryQuery(
         { id: mealId },
         { skip: !Boolean(accessToken) }
     );
 
-    let content;
+    let mealResume;
     if (isLoading) {
-        content = <p>Loading...</p>;
+        mealResume = <p>Loading...</p>;
     } else if (error) {
-        content = <p className="text-red-600">Error on fetching</p>;
+        mealResume = <p className="text-red-600">Error on fetching</p>;
     } else if (data) {
-        content = (
+        mealResume = (
             <div className="flex flex-col sm:flex-row sm:justify-between">
                 <h3 className="font-medium text-neutral">{data.name}</h3>
                 <MealStats
@@ -34,13 +33,8 @@ export default function MealsListItem({ mealId, children }: Props) {
     }
 
     return (
-        <details className="collapse collapse-arrow">
-            <summary className="collapse-title bg-[#DCE1FF] rounded-xl">
-                {content}
-            </summary>
-            <div className="collapse-content">
-                <div className="h-72">{children}</div>
-            </div>
-        </details>
+        <summary className="collapse-title bg-[#DCE1FF] rounded-xl">
+            {mealResume}
+        </summary>
     );
 }

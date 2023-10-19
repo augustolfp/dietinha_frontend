@@ -1,5 +1,5 @@
 import { AiFillFire } from "react-icons/ai";
-import type { Ingredient as IngredientType } from "../../../types";
+import type { Ingredient as IngredientType } from "../../types";
 
 interface Props {
     ingredient: IngredientType;

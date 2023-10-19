@@ -1,6 +1,6 @@
-import { useGetMealSummaryQuery } from "../../store/api/apiSlice";
-import useUser from "../../hooks/authHooks/useUser";
-import MealStats from "../../pages/DailyLogPage/MealsList/MealStats";
+import { useGetMealSummaryQuery } from "../../../store/api/apiSlice";
+import useUser from "../../../hooks/authHooks/useUser";
+import MealStats from "../../MealStats";
 
 interface Props {
     mealId: string;
