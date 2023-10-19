@@ -1,9 +1,40 @@
+import { useGetMealSummaryQuery } from "../../../store/api/apiSlice";
+import useUser from "../../../hooks/authHooks/useUser";
+import MealStats from "./MealStats";
+
 interface Props {
     mealId: string;
     children?: React.ReactNode;
 }
 
 export default function MealsListContent({ mealId, children }: Props) {
+    const { accessToken } = useUser();
+    const { data, error, isLoading } = useGetMealSummaryQuery(
+        { id: mealId },
+        { skip: !Boolean(accessToken) }
+    );
+
+    let footer;
+    if (isLoading) {
+        footer = <p>Loading...</p>;
+    } else if (error) {
+        footer = <p className="text-red-600">Error on fetching</p>;
+    } else if (data) {
+        footer = (
+            <div className="flex flex-col md:hidden">
+                <h3 className="text-base">
+                    Logando em <strong>{data.name}</strong>
+                </h3>
+                <MealStats
+                    kcals={data.kcals}
+                    carbs={data.carbs}
+                    proteins={data.proteins}
+                    fats={data.fats}
+                />
+            </div>
+        );
+    }
+
     return (
         <div className="drawer md:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -36,12 +67,7 @@ export default function MealsListContent({ mealId, children }: Props) {
                             x
                         </label>
                     </div>
-                    <li>
-                        <a>Sidebar Item 1</a>
-                    </li>
-                    <li>
-                        <a>Sidebar Item 2</a>
-                    </li>
+                    <div>{footer}</div>
                 </ul>
             </div>
         </div>
