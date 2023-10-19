@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAddMealMutation } from "../../store/api/apiSlice";
-import { mealSchema, type MealSchema } from "../../schemas/mealsSchemas";
-import getApiErrorMessage from "../../services/getApiErrorMessage";
+import { useAddMealMutation } from "../../../store/api/apiSlice";
+import { mealSchema, type MealSchema } from "../../../schemas/mealsSchemas";
+import getApiErrorMessage from "../../../services/getApiErrorMessage";
 import { FaArrowRight } from "react-icons/fa";
-import { useMediaQuery } from "../../hooks/useMediaQuery";
+import { useMediaQuery } from "../../../hooks/useMediaQuery";
 
 interface Props {
     dailyLogId: string;
