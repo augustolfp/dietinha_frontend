@@ -1,6 +1,6 @@
 import { useMediaQuery } from "../../hooks/useMediaQuery";
-import AddIngredientTab from "../AddIngredientTab";
-import Drawer from "../Drawer";
+import DesktopInterface from "./DesktopInterface";
+import MobileInterface from "./MobileInterface";
 
 interface Props {
     mealId: string;
@@ -12,18 +12,9 @@ export default function AddIngredientsInterface({ mealId }: Props) {
     return (
         <div>
             {isDesktop ? (
-                <div>
-                    <p>Desktop form</p>
-                    <AddIngredientTab mealId={mealId} />
-                </div>
+                <DesktopInterface mealId={mealId} />
             ) : (
-                <div className="flex justify-between items-center">
-                    <h2>Ingredientes</h2>
-                    <Drawer mealId={mealId}>
-                        <p>Mobile form</p>
-                        <AddIngredientTab mealId={mealId} />
-                    </Drawer>
-                </div>
+                <MobileInterface mealId={mealId} />
             )}
         </div>
     );
