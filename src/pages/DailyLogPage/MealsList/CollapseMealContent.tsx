@@ -1,18 +1,12 @@
-import IngredientsList from "../../../components/IngredientsList";
-import AddIngredientsInterface from "../../../components/AddIngredientsInterface";
-
 interface Props {
-    mealId: string;
+    children?: React.ReactNode;
 }
 
-export default function CollapseMealContent({ mealId }: Props) {
+export default function CollapseMealContent({ children }: Props) {
     return (
         <div className="collapse-content">
             <div className="h-72">
-                <div className="md:flex md: justify-between">
-                    <AddIngredientsInterface mealId={mealId} />
-                    <IngredientsList mealId={mealId} />
-                </div>
+                <div className="md:flex md:justify-between">{children}</div>
             </div>
         </div>
     );

@@ -2,6 +2,8 @@ import useUser from "../../../hooks/authHooks/useUser";
 import { useGetDailyLogMealsQuery } from "../../../store/api/apiSlice";
 import CollapseMealTitle from "./CollapseMealTitle";
 import CollapseMealContent from "./CollapseMealContent";
+import AddIngredientsInterface from "../../../components/AddIngredientsInterface";
+import IngredientsList from "../../../components/IngredientsList";
 
 interface Props {
     dailyLogId: string;
@@ -27,7 +29,10 @@ export default function MealsList({ dailyLogId }: Props) {
                 {data.map((meal) => (
                     <details key={meal.id} className="collapse collapse-arrow">
                         <CollapseMealTitle mealId={meal.id} />
-                        <CollapseMealContent mealId={meal.id} />
+                        <CollapseMealContent>
+                            <AddIngredientsInterface mealId={meal.id} />
+                            <IngredientsList mealId={meal.id} />
+                        </CollapseMealContent>
                     </details>
                 ))}
             </>
