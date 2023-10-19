@@ -3,9 +3,9 @@ import useUser from "../../hooks/authHooks/useUser";
 import { useGetDailyLogStatsQuery } from "../../store/api/apiSlice";
 import { useParams } from "react-router-dom";
 import MealForm from "./MealForm";
-import formatDate from "../../utils/formatDate";
 import MealsList from "./MealsList";
 import DailyLogCard from "./DailyLogCard";
+import DailyLogHeader from "./DailyLogHeader";
 
 export default function DailyLogPage() {
     const { dailyLogId } = useParams();
@@ -24,17 +24,7 @@ export default function DailyLogPage() {
     } else if (error) {
         header = <p className="text-red-600">Error on fetching</p>;
     } else if (data) {
-        const { formattedDate, weekDay } = formatDate(data.date);
-        header = (
-            <div>
-                <div className="lg:flex lg:justify-between">
-                    <h2 className="lg:text-3xl font-bold mb-6">{weekDay}</h2>
-                    <p className="lg:text-3xl font-bold mb-6">
-                        {formattedDate}
-                    </p>
-                </div>
-            </div>
-        );
+        header = <DailyLogHeader date={data.date} />;
     }
 
     return (
