@@ -13,13 +13,15 @@ export default function MobileInterface({ mealId }: Props) {
     return (
         <div>
             <div className="flex justify-between items-center">
-                <h2>Ingredientes</h2>
+                <h2 className="text-base text-base-content font-medium">
+                    Ingredientes
+                </h2>
                 <button
-                    className="btn btn-neutral btn-md aspect-square"
+                    className="btn btn-neutral btn-sm"
                     onClick={() => setIsOpen(true)}
                     disabled={isOpen}
                 >
-                    +
+                    + Ingrediente
                 </button>
             </div>
             {isOpen && (
