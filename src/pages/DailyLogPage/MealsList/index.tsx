@@ -4,6 +4,7 @@ import { useGetDailyLogMealsQuery } from "../../../store/api/apiSlice";
 import MealsListItem from "./MealsListItem";
 import IngredientsList from "../IngredientsList";
 import Drawer from "../../../components/Drawer";
+import AddIngredientTab from "../../../components/AddIngredientTab";
 
 interface Props {
     dailyLogId: string;
@@ -33,12 +34,14 @@ export default function MealsList({ dailyLogId }: Props) {
                             {isDesktop ? (
                                 <div>
                                     <p>Desktop form</p>
+                                    <AddIngredientTab mealId={meal.id} />
                                 </div>
                             ) : (
                                 <div className="flex justify-between items-center">
                                     <h2>Ingredientes</h2>
                                     <Drawer mealId={meal.id}>
                                         <p>Mobile form</p>
+                                        <AddIngredientTab mealId={meal.id} />
                                     </Drawer>
                                 </div>
                             )}
