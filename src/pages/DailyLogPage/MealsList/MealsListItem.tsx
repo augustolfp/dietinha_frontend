@@ -1,13 +1,17 @@
 import { useGetMealSummaryQuery } from "../../../store/api/apiSlice";
 import useUser from "../../../hooks/authHooks/useUser";
 import MealStats from "../../../components/MealStats";
+import { useMediaQuery } from "../../../hooks/useMediaQuery";
+import IngredientsList from "../../../components/IngredientsList";
+import Drawer from "../../../components/Drawer";
+import AddIngredientTab from "../../../components/AddIngredientTab";
 
 interface Props {
     mealId: string;
-    children?: React.ReactNode;
 }
 
-export default function MealsListItem({ mealId, children }: Props) {
+export default function MealsListItem({ mealId }: Props) {
+    const isDesktop = useMediaQuery("(min-width: 768px)");
     const { accessToken } = useUser();
     const { data, error, isLoading } = useGetMealSummaryQuery(
         { id: mealId },
@@ -39,7 +43,25 @@ export default function MealsListItem({ mealId, children }: Props) {
                 {content}
             </summary>
             <div className="collapse-content">
-                <div className="h-72">{children}</div>
+                <div className="h-72">
+                    <div className="md:flex md: justify-between">
+                        {isDesktop ? (
+                            <div>
+                                <p>Desktop form</p>
+                                <AddIngredientTab mealId={mealId} />
+                            </div>
+                        ) : (
+                            <div className="flex justify-between items-center">
+                                <h2>Ingredientes</h2>
+                                <Drawer mealId={mealId}>
+                                    <p>Mobile form</p>
+                                    <AddIngredientTab mealId={mealId} />
+                                </Drawer>
+                            </div>
+                        )}
+                        <IngredientsList mealId={mealId} />
+                    </div>
+                </div>
             </div>
         </details>
     );

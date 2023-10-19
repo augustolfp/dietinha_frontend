@@ -1,17 +1,12 @@
 import useUser from "../../../hooks/authHooks/useUser";
-import { useMediaQuery } from "../../../hooks/useMediaQuery";
 import { useGetDailyLogMealsQuery } from "../../../store/api/apiSlice";
 import MealsListItem from "./MealsListItem";
-import IngredientsList from "../../../components/IngredientsList";
-import Drawer from "../../../components/Drawer";
-import AddIngredientTab from "../../../components/AddIngredientTab";
 
 interface Props {
     dailyLogId: string;
 }
 
 export default function MealsList({ dailyLogId }: Props) {
-    const isDesktop = useMediaQuery("(min-width: 768px)");
     const { accessToken } = useUser();
     const { data, error, isLoading } = useGetDailyLogMealsQuery(
         { id: dailyLogId },
@@ -29,25 +24,7 @@ export default function MealsList({ dailyLogId }: Props) {
         content = (
             <>
                 {data.map((meal) => (
-                    <MealsListItem key={meal.id} mealId={meal.id}>
-                        <div className="md:flex md: justify-between">
-                            {isDesktop ? (
-                                <div>
-                                    <p>Desktop form</p>
-                                    <AddIngredientTab mealId={meal.id} />
-                                </div>
-                            ) : (
-                                <div className="flex justify-between items-center">
-                                    <h2>Ingredientes</h2>
-                                    <Drawer mealId={meal.id}>
-                                        <p>Mobile form</p>
-                                        <AddIngredientTab mealId={meal.id} />
-                                    </Drawer>
-                                </div>
-                            )}
-                            <IngredientsList mealId={meal.id} />
-                        </div>
-                    </MealsListItem>
+                    <MealsListItem key={meal.id} mealId={meal.id} />
                 ))}
             </>
         );
