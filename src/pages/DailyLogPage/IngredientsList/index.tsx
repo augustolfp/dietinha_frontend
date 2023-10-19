@@ -24,7 +24,7 @@ export default function IngredientsList({ mealId }: Props) {
                 {data.map((ingredient) => (
                     <div
                         key={ingredient.id}
-                        className="flex justify-between items-center bg-white p-4"
+                        className="flex justify-between items-center bg-white"
                     >
                         <IngredientsListItem ingredient={ingredient} />
                     </div>

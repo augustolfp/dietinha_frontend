@@ -2,6 +2,7 @@ import useUser from "../../../hooks/authHooks/useUser";
 import { useGetDailyLogMealsQuery } from "../../../store/api/apiSlice";
 import MealsListItem from "./MealsListItem";
 import IngredientsList from "../IngredientsList";
+import MealsListContent from "./MealsListContent";
 
 interface Props {
     dailyLogId: string;
@@ -26,7 +27,9 @@ export default function MealsList({ dailyLogId }: Props) {
             <>
                 {data.map((meal) => (
                     <MealsListItem key={meal.id} mealId={meal.id}>
-                        <IngredientsList mealId={meal.id} />
+                        <MealsListContent mealId={meal.id}>
+                            <IngredientsList mealId={meal.id} />
+                        </MealsListContent>
                     </MealsListItem>
                 ))}
             </>
@@ -36,7 +39,7 @@ export default function MealsList({ dailyLogId }: Props) {
     return (
         <>
             <h2 className="text-xl font-bold">Refeições:</h2>
-            <div className="card bg-base-100 shadow-xl">
+            <div className="card card-compact bg-base-100 shadow-xl">
                 <div className="card-body">{content}</div>
             </div>
         </>
