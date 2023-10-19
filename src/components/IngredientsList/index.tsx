@@ -1,5 +1,5 @@
-import { useGetIngredientsQuery } from "../../../store/api/apiSlice";
-import useUser from "../../../hooks/authHooks/useUser";
+import { useGetIngredientsQuery } from "../../store/api/apiSlice";
+import useUser from "../../hooks/authHooks/useUser";
 import IngredientsListItem from "./IngredientsListItem";
 
 interface Props {

@@ -2,7 +2,7 @@ import useUser from "../../../hooks/authHooks/useUser";
 import { useMediaQuery } from "../../../hooks/useMediaQuery";
 import { useGetDailyLogMealsQuery } from "../../../store/api/apiSlice";
 import MealsListItem from "./MealsListItem";
-import IngredientsList from "../IngredientsList";
+import IngredientsList from "../../../components/IngredientsList";
 import Drawer from "../../../components/Drawer";
 import AddIngredientTab from "../../../components/AddIngredientTab";
 
