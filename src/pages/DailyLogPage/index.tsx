@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import MealForm from "./MealForm";
 import formatDate from "../../utils/formatDate";
 import MealsList from "./MealsList";
-import DailyLogStats from "../../components/DailyLogStats";
+import DailyLogCard from "./DailyLogCard";
 
 export default function DailyLogPage() {
     const { dailyLogId } = useParams();
@@ -41,11 +41,7 @@ export default function DailyLogPage() {
         <ContentContainer>
             <div className="flex flex-col gap-4">
                 {header}
-                <div className="card bg-base-100 shadow-xl">
-                    <div className="card-body">
-                        <DailyLogStats dailyLogId={dailyLogId!} />
-                    </div>
-                </div>
+                <DailyLogCard dailyLogId={dailyLogId!} />
                 <MealForm dailyLogId={dailyLogId!} />
                 <MealsList dailyLogId={dailyLogId!} />
             </div>
