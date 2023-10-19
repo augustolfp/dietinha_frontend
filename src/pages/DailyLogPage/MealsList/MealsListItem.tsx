@@ -38,7 +38,9 @@ export default function MealsListItem({ mealId, children }: Props) {
             <summary className="collapse-title bg-[#DCE1FF] rounded-xl">
                 {content}
             </summary>
-            <div className="collapse-content">{children}</div>
+            <div className="collapse-content">
+                <div className="h-72">{children}</div>
+            </div>
         </details>
     );
 }
