@@ -1,4 +1,4 @@
-import AddIngredientTab from "../AddIngredientTab";
+import AddIngredientTab from "../../AddIngredientTab";
 
 interface Props {
     mealId: string;

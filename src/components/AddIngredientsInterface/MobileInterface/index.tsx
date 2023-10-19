@@ -1,5 +1,5 @@
-import Drawer from "../Drawer";
-import AddIngredientTab from "../AddIngredientTab";
+import Drawer from "../../Drawer";
+import AddIngredientTab from "../../AddIngredientTab";
 
 interface Props {
     mealId: string;
