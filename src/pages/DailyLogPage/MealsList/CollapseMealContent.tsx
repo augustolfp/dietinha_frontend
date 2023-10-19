@@ -7,7 +7,7 @@ interface Props {
     mealId: string;
 }
 
-export default function CollapseContent({ mealId }: Props) {
+export default function CollapseMealContent({ mealId }: Props) {
     const isDesktop = useMediaQuery("(min-width: 768px)");
 
     return (

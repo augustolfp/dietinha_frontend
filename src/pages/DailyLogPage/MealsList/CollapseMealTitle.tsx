@@ -6,7 +6,7 @@ interface Props {
     mealId: string;
 }
 
-export default function CollapseTitle({ mealId }: Props) {
+export default function CollapseMealTitle({ mealId }: Props) {
     const { accessToken } = useUser();
     const { data, error, isLoading } = useGetMealSummaryQuery(
         { id: mealId },
