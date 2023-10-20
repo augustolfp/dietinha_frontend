@@ -1,9 +1,9 @@
-import AddIngredientTab from "../../AddIngredientTab";
+import AddIngredientsForm from "../../AddIngredientsForm";
 
 interface Props {
     mealId: string;
 }
 
 export default function DesktopInterface({ mealId }: Props) {
-    return <AddIngredientTab mealId={mealId} />;
+    return <AddIngredientsForm mealId={mealId} />;
 }

@@ -5,7 +5,7 @@ interface Props {
     mealId: string;
 }
 
-export default function AddIngredientTab({ mealId }: Props) {
+export default function AddIngredientsForm({ mealId }: Props) {
     const [toggle, setToggle] = useState(true);
 
     const handleToggle = () => {

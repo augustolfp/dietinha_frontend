@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Drawer from "./Drawer";
-import AddIngredientTab from "../../AddIngredientTab";
+import AddIngredientsForm from "../../AddIngredientsForm";
 import Header from "./Header";
 import Footer from "./Footer";
 
@@ -29,7 +29,7 @@ export default function MobileInterface({ mealId }: Props) {
                 <Drawer onClose={() => setIsOpen(false)}>
                     <div className="flex flex-col gap-4">
                         <Header onClose={() => setIsOpen(false)} />
-                        <AddIngredientTab mealId={mealId} />
+                        <AddIngredientsForm mealId={mealId} />
                     </div>
                     <Footer mealId={mealId} />
                 </Drawer>
