@@ -1,6 +1,6 @@
 import { useState } from "react";
-import SearchTable from "../SearchTable";
-import IngredientForm from "../IngredientForm";
+import AddCustomIngredientForm from "./AddCustomIngredientForm";
+import AddIngredientFromTableForm from "./AddIngredientFromTableForm";
 interface Props {
     mealId: string;
 }
@@ -34,9 +34,9 @@ export default function AddIngredientTab({ mealId }: Props) {
             </div>
             <div className="py-3">
                 {toggle ? (
-                    <SearchTable mealId={mealId} />
+                    <AddIngredientFromTableForm mealId={mealId} />
                 ) : (
-                    <IngredientForm mealId={mealId} />
+                    <AddCustomIngredientForm mealId={mealId} />
                 )}
             </div>
         </div>

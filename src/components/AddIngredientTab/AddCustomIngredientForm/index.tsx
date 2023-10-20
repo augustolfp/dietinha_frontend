@@ -1,18 +1,17 @@
-import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAddIngredientMutation } from "../../store/api/apiSlice";
+import { useAddIngredientMutation } from "../../../store/api/apiSlice";
 import {
     ingredientSchema,
     type IngredientSchema,
-} from "../../schemas/ingredientsSchemas";
-import getApiErrorMessage from "../../services/getApiErrorMessage";
+} from "../../../schemas/ingredientsSchemas";
+import getApiErrorMessage from "../../../services/getApiErrorMessage";
 
 interface Props {
     mealId: string;
 }
 
-export default function IngredientForm({ mealId }: Props) {
+export default function AddCustomIngredientForm({ mealId }: Props) {
     const [addIngredient] = useAddIngredientMutation();
 
     const {

@@ -1,15 +1,15 @@
 import { AiOutlineSearch } from "react-icons/ai";
 import { useState } from "react";
 import { DebounceInput } from "react-debounce-input";
-import useUser from "../../hooks/authHooks/useUser";
-import { useSearchTableQuery } from "../../store/api/apiSlice";
-import SearchResultList from "../SearchResultList";
+import useUser from "../../../hooks/authHooks/useUser";
+import { useSearchTableQuery } from "../../../store/api/apiSlice";
+import SearchResultList from "../../SearchResultList";
 
 interface Props {
     mealId: string;
 }
 
-export default function SearchTable({ mealId }: Props) {
+export default function AddIngredientFromTableForm({ mealId }: Props) {
     const [searchTerm, setSearchTerm] = useState("");
     const { accessToken } = useUser();
     const { data, error, isLoading } = useSearchTableQuery(
