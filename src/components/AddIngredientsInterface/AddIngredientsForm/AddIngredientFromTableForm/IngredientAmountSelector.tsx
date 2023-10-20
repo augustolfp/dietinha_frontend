@@ -7,7 +7,10 @@ interface Props {
     mealId: string;
 }
 
-export default function AddIngredientFromTable({ resultItem, mealId }: Props) {
+export default function IngredientAmountSelector({
+    resultItem,
+    mealId,
+}: Props) {
     const [addIngredient, { isLoading }] = useAddIngredientMutation();
     const [ingredientWeight, setIngredientWeight] = useState(
         resultItem.baseQty

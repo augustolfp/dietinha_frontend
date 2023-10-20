@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { type TableItem } from "../../../../types";
 import SearchResultListItem from "./SearchResultListItem";
-import AddIngredientFromTable from "./AddIngredientFromTable";
+import IngredientAmountSelector from "./IngredientAmountSelector";
 
 interface Props {
     results: TableItem[];
@@ -32,7 +32,7 @@ export default function SearchResultList({ results, mealId }: Props) {
 
         if (selectedResult) {
             return (
-                <AddIngredientFromTable
+                <IngredientAmountSelector
                     resultItem={selectedResult}
                     mealId={mealId}
                 />
