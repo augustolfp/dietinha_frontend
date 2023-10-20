@@ -14,25 +14,27 @@ export default function AddIngredientTab({ mealId }: Props) {
 
     return (
         <div>
-            <div className="tabs tabs-boxed">
+            <div className="tabs">
                 <a
                     onClick={handleToggle}
-                    className={`tab ${toggle ? "tab-active" : ""}`}
+                    className={`tab tab-bordered tab-sm w-1/2 ${
+                        toggle ? "tab-active" : ""
+                    }`}
                 >
                     Pesquise na tabela
                 </a>
                 <a
                     onClick={handleToggle}
-                    className={`tab ${!toggle ? "tab-active" : ""}`}
+                    className={`tab tab-bordered tab-sm w-1/2 ${
+                        !toggle ? "tab-active" : ""
+                    }`}
                 >
                     Crie um ingrediente
                 </a>
             </div>
-            <div className="bg-white p-4">
+            <div className="py-3">
                 {toggle ? (
-                    <div className="">
-                        <SearchTable mealId={mealId} />
-                    </div>
+                    <SearchTable mealId={mealId} />
                 ) : (
                     <IngredientForm mealId={mealId} />
                 )}

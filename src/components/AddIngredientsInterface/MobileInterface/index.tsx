@@ -27,7 +27,7 @@ export default function MobileInterface({ mealId }: Props) {
             </div>
             {isOpen && (
                 <Drawer onClose={() => setIsOpen(false)}>
-                    <div>
+                    <div className="flex flex-col gap-4">
                         <Header onClose={() => setIsOpen(false)} />
                         <AddIngredientTab mealId={mealId} />
                     </div>

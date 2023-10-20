@@ -21,7 +21,7 @@ export default function Footer({ mealId }: Props) {
     } else if (data) {
         footer = (
             <>
-                <h3 className="font-medium text-neutral">
+                <h3 className="font-normal text-neutral">
                     Logando em <strong>{data.name}</strong>
                 </h3>
                 <MealStats
