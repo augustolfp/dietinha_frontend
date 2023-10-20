@@ -42,7 +42,7 @@ export default function SearchResultList({ results, mealId }: Props) {
     const resultForm = addResultForm();
 
     return (
-        <div>
+        <div className="bg-base-100 p-4 rounded-xl">
             {selectedResultId && <>{resultForm}</>}
             {content}
         </div>
