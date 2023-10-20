@@ -3,23 +3,15 @@ interface Props {
     children?: React.ReactNode;
 }
 
-export default function Drawer({ children, onClose: onClick }: Props) {
+export default function Drawer({ children, onClose }: Props) {
     return (
-        <div className="fixed top-[64px] h-[calc(100vh-64px)] left-0 flex w-full z-10">
-            <div className="w-10/12 h-full bg-base-200 flex flex-col justify-between">
-                <div>
-                    <div className="flex justify-between">
-                        <h2>Adicionar Ingrediente</h2>
-                        <button className="btn btn-ghost" onClick={onClick}>
-                            x
-                        </button>
-                    </div>
-                    {children}
-                </div>
+        <div className="fixed top-[64px] h-[calc(100vh-64px)] left-0 flex w-full z-30">
+            <div className="w-11/12 sm:w-8/12 h-full bg-base-200 flex flex-col justify-between px-3 py-2">
+                {children}
             </div>
             <div
-                onClick={onClick}
-                className="w-1/6 h-full bg-black opacity-50"
+                onClick={onClose}
+                className="w-1/12 sm:w-4/12 h-full bg-black opacity-50"
             ></div>
         </div>
     );

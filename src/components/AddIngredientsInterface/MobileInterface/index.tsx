@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Drawer from "./Drawer";
 import AddIngredientTab from "../../AddIngredientTab";
+import Header from "./Header";
 import Footer from "./Footer";
 
 interface Props {
@@ -13,18 +14,23 @@ export default function MobileInterface({ mealId }: Props) {
     return (
         <div>
             <div className="flex justify-between items-center">
-                <h2>Ingredientes</h2>
+                <h2 className="text-base text-base-content font-medium">
+                    Ingredientes
+                </h2>
                 <button
-                    className="btn btn-neutral btn-md aspect-square"
+                    className="btn btn-neutral btn-sm"
                     onClick={() => setIsOpen(true)}
                     disabled={isOpen}
                 >
-                    +
+                    + Ingrediente
                 </button>
             </div>
             {isOpen && (
                 <Drawer onClose={() => setIsOpen(false)}>
-                    <AddIngredientTab mealId={mealId} />
+                    <div className="flex flex-col gap-4">
+                        <Header onClose={() => setIsOpen(false)} />
+                        <AddIngredientTab mealId={mealId} />
+                    </div>
                     <Footer mealId={mealId} />
                 </Drawer>
             )}
