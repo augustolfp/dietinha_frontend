@@ -2,7 +2,9 @@ import { useState } from "react";
 import useUser from "../../../../hooks/authHooks/useUser";
 import { useSearchTableQuery } from "../../../../store/api/apiSlice";
 import SearchResultList from "./SearchResultList";
+import SearchResultListItem from "./SearchResultListItem";
 import SearchBar from "./SearchBar";
+import SelectedIngredientHandler from "./SelectedIngredientHandler";
 
 interface Props {
     mealId: string;
@@ -23,9 +25,32 @@ export default function AddIngredientFromTableForm({ mealId }: Props) {
     } else if (error) {
         content = <p className="text-red-600">Error on fetching</p>;
     } else if (data) {
-        content = (
-            <SearchResultList results={data.tacoResults} mealId={mealId} />
+        content = data.tacoResults.map((resultItem) => (
+            <SearchResultListItem
+                key={resultItem.id}
+                selectedIngId={selectedIngId}
+                setSelectedIngId={setSelectedIngId}
+                resultItem={resultItem}
+            />
+        ));
+    }
+
+    let selectionHandler;
+    if (!isLoading && data && selectedIngId) {
+        const selectedIng = data.tacoResults.find(
+            (ing) => ing.id === selectedIngId
         );
+
+        if (selectedIng) {
+            selectionHandler = (
+                <SelectedIngredientHandler
+                    resultItem={selectedIng}
+                    mealId={mealId}
+                />
+            );
+        }
+    } else {
+        selectionHandler = <p>Loading...</p>;
     }
 
     return (
@@ -34,7 +59,12 @@ export default function AddIngredientFromTableForm({ mealId }: Props) {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
-            {searchTerm.length >= 3 && <div>{content}</div>}
+            <SearchResultList>
+                {searchTerm.length >= 3 && !selectedIngId && (
+                    <div>{content}</div>
+                )}
+            </SearchResultList>
+            <div>{selectedIngId && <>{selectionHandler}</>}</div>
         </div>
     );
 }

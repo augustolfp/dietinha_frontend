@@ -2,16 +2,25 @@ import { type TableItem } from "../../../../types";
 
 interface Props {
     resultItem: TableItem;
-    isSelected: boolean;
+    selectedIngId: null | string;
+    setSelectedIngId: (id: string) => void;
 }
 
 export default function SearchResultListItem({
     resultItem,
-    isSelected,
+    selectedIngId,
+    setSelectedIngId,
 }: Props) {
     return (
         <>
-            <div className={`${isSelected ? "font-bold text-blue-700" : ""}`}>
+            <div
+                onClick={() => setSelectedIngId(resultItem.id)}
+                className={`${
+                    resultItem.id === selectedIngId
+                        ? "font-bold text-blue-700"
+                        : ""
+                }`}
+            >
                 {resultItem.description}
             </div>
         </>

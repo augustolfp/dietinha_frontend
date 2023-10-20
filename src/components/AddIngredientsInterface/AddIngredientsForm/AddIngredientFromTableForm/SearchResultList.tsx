@@ -1,50 +1,7 @@
-import { useState } from "react";
-import { type TableItem } from "../../../../types";
-import SearchResultListItem from "./SearchResultListItem";
-import SelectedIngredientHandler from "./SelectedIngredientHandler";
-
 interface Props {
-    results: TableItem[];
-    mealId: string;
+    children?: React.ReactNode;
 }
 
-export default function SearchResultList({ results, mealId }: Props) {
-    const [selectedResultId, setSelectedResultId] = useState("");
-
-    const content = results.map((resultItem) => {
-        return (
-            <div
-                onClick={() => setSelectedResultId(resultItem.id)}
-                key={resultItem.id}
-            >
-                <SearchResultListItem
-                    resultItem={resultItem}
-                    isSelected={selectedResultId === resultItem.id}
-                />
-            </div>
-        );
-    });
-
-    const addResultForm = () => {
-        const selectedResult = results.find(
-            (result) => result.id === selectedResultId
-        );
-
-        if (selectedResult) {
-            return (
-                <SelectedIngredientHandler
-                    resultItem={selectedResult}
-                    mealId={mealId}
-                />
-            );
-        }
-    };
-    const resultForm = addResultForm();
-
-    return (
-        <div className="bg-base-100 p-4 rounded-xl">
-            {selectedResultId && <>{resultForm}</>}
-            {content}
-        </div>
-    );
+export default function SearchResultList({ children }: Props) {
+    return <div className="bg-base-100 p-4 rounded-xl">{children}</div>;
 }
