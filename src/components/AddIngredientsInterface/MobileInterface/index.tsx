@@ -27,8 +27,10 @@ export default function MobileInterface({ mealId }: Props) {
             </div>
             {isOpen && (
                 <Drawer onClose={() => setIsOpen(false)}>
-                    <Header onClose={() => setIsOpen(false)} />
-                    <AddIngredientTab mealId={mealId} />
+                    <div>
+                        <Header onClose={() => setIsOpen(false)} />
+                        <AddIngredientTab mealId={mealId} />
+                    </div>
                     <Footer mealId={mealId} />
                 </Drawer>
             )}

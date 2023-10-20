@@ -34,5 +34,5 @@ export default function Footer({ mealId }: Props) {
         );
     }
 
-    return <div>{footer}</div>;
+    return <div className="bg-base-100 p-4 rounded-xl">{footer}</div>;
 }
