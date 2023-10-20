@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Drawer from "./Drawer";
 import AddIngredientTab from "../../AddIngredientTab";
+import Header from "./Header";
 import Footer from "./Footer";
 
 interface Props {
@@ -26,6 +27,7 @@ export default function MobileInterface({ mealId }: Props) {
             </div>
             {isOpen && (
                 <Drawer onClose={() => setIsOpen(false)}>
+                    <Header onClose={() => setIsOpen(false)} />
                     <AddIngredientTab mealId={mealId} />
                     <Footer mealId={mealId} />
                 </Drawer>
