@@ -1,9 +1,7 @@
-import AddIngredientsForm from "../AddIngredientsForm";
-
 interface Props {
-    mealId: string;
+    children?: React.ReactNode;
 }
 
-export default function DesktopInterface({ mealId }: Props) {
-    return <AddIngredientsForm mealId={mealId} />;
+export default function DesktopInterface({ children }: Props) {
+    return <div>{children}</div>;
 }
