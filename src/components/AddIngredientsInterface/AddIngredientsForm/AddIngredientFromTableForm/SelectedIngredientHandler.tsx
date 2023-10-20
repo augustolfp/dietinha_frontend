@@ -7,7 +7,7 @@ interface Props {
     mealId: string;
 }
 
-export default function IngredientAmountSelector({
+export default function SelectedIngredientHandler({
     resultItem,
     mealId,
 }: Props) {

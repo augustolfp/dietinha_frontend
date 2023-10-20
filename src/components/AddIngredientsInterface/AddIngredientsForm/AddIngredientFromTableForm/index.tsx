@@ -10,6 +10,7 @@ interface Props {
 
 export default function AddIngredientFromTableForm({ mealId }: Props) {
     const [searchTerm, setSearchTerm] = useState("");
+    const [selectedIngId, setSelectedIngId] = useState<null | string>(null);
     const { accessToken } = useUser();
     const { data, error, isLoading } = useSearchTableQuery(
         { description: searchTerm },
