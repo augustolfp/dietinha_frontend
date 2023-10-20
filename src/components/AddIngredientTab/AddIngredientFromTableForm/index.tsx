@@ -3,7 +3,7 @@ import { useState } from "react";
 import { DebounceInput } from "react-debounce-input";
 import useUser from "../../../hooks/authHooks/useUser";
 import { useSearchTableQuery } from "../../../store/api/apiSlice";
-import SearchResultList from "../../SearchResultList";
+import SearchResultList from "./SearchResultList";
 
 interface Props {
     mealId: string;

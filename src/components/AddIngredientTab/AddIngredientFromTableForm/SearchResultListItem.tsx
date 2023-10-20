@@ -1,4 +1,4 @@
-import { type TableItem } from "../../types";
+import { type TableItem } from "../../../types";
 
 interface Props {
     resultItem: TableItem;

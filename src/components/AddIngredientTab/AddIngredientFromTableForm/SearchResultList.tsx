@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { type TableItem } from "../../types";
-import SearchResultListItem from "../SearchResultListItem";
-import AddIngredientFromTable from "../AddIngredientFromTable";
+import { type TableItem } from "../../../types";
+import SearchResultListItem from "./SearchResultListItem";
+import AddIngredientFromTable from "./AddIngredientFromTable";
 
 interface Props {
     results: TableItem[];
