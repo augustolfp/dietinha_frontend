@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Drawer from "./Drawer";
-import AddIngredientsForm from "../../AddIngredientsForm";
+import AddIngredientsForm from "../AddIngredientsForm";
 import Header from "./Header";
 import Footer from "./Footer";
 

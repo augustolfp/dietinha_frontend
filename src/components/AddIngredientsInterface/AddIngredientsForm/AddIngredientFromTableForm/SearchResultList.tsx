@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { type TableItem } from "../../../types";
+import { type TableItem } from "../../../../types";
 import SearchResultListItem from "./SearchResultListItem";
 import AddIngredientFromTable from "./AddIngredientFromTable";
 

@@ -1,4 +1,4 @@
-import AddIngredientsForm from "../../AddIngredientsForm";
+import AddIngredientsForm from "../AddIngredientsForm";
 
 interface Props {
     mealId: string;

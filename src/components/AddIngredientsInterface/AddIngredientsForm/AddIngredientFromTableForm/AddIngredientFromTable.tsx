@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { type TableItem } from "../../../types";
-import { useAddIngredientMutation } from "../../../store/api/apiSlice";
+import { type TableItem } from "../../../../types";
+import { useAddIngredientMutation } from "../../../../store/api/apiSlice";
 
 interface Props {
     resultItem: TableItem;
