@@ -1,31 +1,26 @@
 import { useState } from "react";
-import useUser from "../../../../hooks/authHooks/useUser";
-import { useSearchTableQuery } from "../../../../store/api/apiSlice";
 import SearchResultList from "./SearchResultList";
 import SearchResultListItem from "./SearchResultListItem";
 import SearchBar from "./SearchBar";
 import SelectedIngredientHandler from "./SelectedIngredientHandler";
+import useSearch from "../../../../hooks/useSearch";
 
 interface Props {
     mealId: string;
 }
 
 export default function AddIngredientFromTableForm({ mealId }: Props) {
-    const [searchTerm, setSearchTerm] = useState("");
+    const [searchTerm, setSearchTerm] = useState<string>("");
     const [selectedIngId, setSelectedIngId] = useState<null | string>(null);
-    const { accessToken } = useUser();
-    const { data, error, isLoading } = useSearchTableQuery(
-        { description: searchTerm },
-        { skip: !Boolean(accessToken) || searchTerm.length < 3 }
-    );
+    const { result, isError, isFetching } = useSearch(searchTerm);
 
     let content;
-    if (isLoading) {
+    if (isFetching) {
         content = <p>Loading...</p>;
-    } else if (error) {
+    } else if (isError) {
         content = <p className="text-red-600">Error on fetching</p>;
-    } else if (data) {
-        content = data.tacoResults.map((resultItem) => (
+    } else if (result) {
+        content = result.map((resultItem) => (
             <SearchResultListItem
                 key={resultItem.id}
                 selectedIngId={selectedIngId}
@@ -36,10 +31,8 @@ export default function AddIngredientFromTableForm({ mealId }: Props) {
     }
 
     let selectionHandler;
-    if (!isLoading && data && selectedIngId) {
-        const selectedIng = data.tacoResults.find(
-            (ing) => ing.id === selectedIngId
-        );
+    if (!isFetching && result && selectedIngId) {
+        const selectedIng = result.find((ing) => ing.id === selectedIngId);
 
         if (selectedIng) {
             selectionHandler = (
