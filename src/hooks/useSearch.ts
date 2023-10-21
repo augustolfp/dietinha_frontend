@@ -32,5 +32,5 @@ export default function useSearch(term: string) {
         }
     }
 
-    return {result, isError, isFetching, setSelectedIngredient, selectedIngredient}
+    return {result, isError, isSearching: isFetching, setSelectedIngredient, selectedIngredient}
 }

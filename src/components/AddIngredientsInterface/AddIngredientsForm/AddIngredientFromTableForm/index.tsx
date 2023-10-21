@@ -14,13 +14,13 @@ export default function AddIngredientFromTableForm({ mealId }: Props) {
     const {
         result,
         isError,
-        isFetching,
+        isSearching,
         setSelectedIngredient,
         selectedIngredient,
     } = useSearch(searchTerm);
 
     let content;
-    if (isFetching) {
+    if (isSearching) {
         content = <p>Loading...</p>;
     } else if (isError) {
         content = <p className="text-red-600">Error on fetching</p>;
