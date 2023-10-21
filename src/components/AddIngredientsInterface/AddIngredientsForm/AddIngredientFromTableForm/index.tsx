@@ -4,6 +4,7 @@ import SearchResultListItem from "./SearchResultListItem";
 import SearchBar from "./SearchBar";
 import SelectedIngredientHandler from "./SelectedIngredientHandler";
 import useSearch from "../../../../hooks/useSearch";
+import useAddIngredientFromTable from "../../../../hooks/useAddIngredientFromTable";
 
 interface Props {
     mealId: string;
@@ -18,6 +19,8 @@ export default function AddIngredientFromTableForm({ mealId }: Props) {
         setSelectedIngredient,
         selectedIngredient,
     } = useSearch(searchTerm);
+
+    const { ...props } = useAddIngredientFromTable(selectedIngredient, mealId);
 
     let content;
     if (isSearching) {
@@ -37,12 +40,7 @@ export default function AddIngredientFromTableForm({ mealId }: Props) {
 
     let selectionHandler;
     if (selectedIngredient) {
-        selectionHandler = (
-            <SelectedIngredientHandler
-                resultItem={selectedIngredient}
-                mealId={mealId}
-            />
-        );
+        selectionHandler = <SelectedIngredientHandler {...props} />;
     } else {
         selectionHandler = <p>Loading...</p>;
     }

@@ -1,26 +1,20 @@
-import { type TableItem } from "../../../../types";
-import useAddIngredientFromTable from "../../../../hooks/useAddIngredientFromTable";
+import { type Ingredient } from "../../../../types";
 
 interface Props {
-    resultItem: TableItem;
-    mealId: string;
+    calculatedIngredient: Omit<Ingredient, "id">;
+    changeIngredientWeight: (weight: number) => void;
+    addIngredient: () => void;
+    isAddingIngredient: boolean;
+    isEnabled: boolean;
 }
 
 export default function SelectedIngredientHandler({
-    resultItem,
-    mealId,
+    calculatedIngredient,
+    changeIngredientWeight,
+    addIngredient,
+    isAddingIngredient,
+    isEnabled,
 }: Props) {
-    const {
-        calculatedIngredient,
-        changeIngredientWeight,
-        addIngredient,
-        isAddingIngredient,
-    } = useAddIngredientFromTable(resultItem, mealId);
-
-    const handleAddIngredient = () => {
-        addIngredient();
-    };
-
     return (
         <div className="grid grid-cols-2 border-solid border-2 border-black p-4 gap-4">
             <div className="flex gap-x-1">
@@ -50,8 +44,8 @@ export default function SelectedIngredientHandler({
                 g
             </div>
             <button
-                disabled={isAddingIngredient}
-                onClick={handleAddIngredient}
+                disabled={isAddingIngredient || !isEnabled}
+                onClick={() => addIngredient()}
                 className="btn btn-primary col-span-2"
             >
                 Adicionar

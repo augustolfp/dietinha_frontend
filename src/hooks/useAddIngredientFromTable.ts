@@ -2,20 +2,30 @@ import { useState } from "react";
 import { useAddIngredientMutation } from "../store/api/apiSlice";
 import { type TableItem } from "../types";
 
-export default function useAddIngredientFromTable(baseIngredient: TableItem, mealId: string) {
+export default function useAddIngredientFromTable(baseIngredient: TableItem | null, mealId: string) {
+    const isEnabled = Boolean(baseIngredient)
     const [addIngredient, { isLoading, isUninitialized, isError, isSuccess, reset }] = useAddIngredientMutation();
-    const [ingredientWeight, setIngredientWeight] = useState(
-        baseIngredient.baseQty
+    const [ingredientWeight, setIngredientWeight] = useState<number>(
+        baseIngredient?.baseQty ?? 100
     );
 
-    const kcals = (baseIngredient.kcals / baseIngredient.baseQty) * ingredientWeight;
-    const carbs = (baseIngredient.carbs / baseIngredient.baseQty) * ingredientWeight;
-    const proteins =
-        (baseIngredient.proteins / baseIngredient.baseQty) * ingredientWeight;
-    const fats = (baseIngredient.fats / baseIngredient.baseQty) * ingredientWeight;
+    let name = "-"
+    let kcals = 0
+    let carbs = 0
+    let proteins = 0
+    let fats = 0
+
+    if(baseIngredient) {
+        name = baseIngredient.description
+        kcals = (baseIngredient.kcals / baseIngredient.baseQty) * ingredientWeight;
+        carbs = (baseIngredient.carbs / baseIngredient.baseQty) * ingredientWeight;
+        proteins =
+            (baseIngredient.proteins / baseIngredient.baseQty) * ingredientWeight;
+        fats = (baseIngredient.fats / baseIngredient.baseQty) * ingredientWeight;
+    }
 
     const calculatedIngredient = {
-        name: baseIngredient.description,
+        name: name,
         weight: ingredientWeight,
         mealId,
         kcals,
@@ -29,10 +39,12 @@ export default function useAddIngredientFromTable(baseIngredient: TableItem, mea
     }
 
     const addSelectedIngredient = () => {
-        addIngredient(calculatedIngredient)
+        if (isEnabled) {
+            addIngredient(calculatedIngredient)
+        }
     }
 
     return {
-        calculatedIngredient, changeIngredientWeight, addIngredient: addSelectedIngredient, isAddingIngredient: isLoading
+        calculatedIngredient, changeIngredientWeight, addIngredient: addSelectedIngredient, isAddingIngredient: isLoading, isEnabled
     }
 }
