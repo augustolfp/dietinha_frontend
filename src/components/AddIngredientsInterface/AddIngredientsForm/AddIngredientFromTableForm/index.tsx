@@ -38,21 +38,16 @@ export default function AddIngredientFromTableForm({ mealId }: Props) {
         ));
     }
 
-    let selectionHandler;
-    if (selectedIngredient) {
-        selectionHandler = <SelectedIngredientHandler {...props} />;
-    } else {
-        selectionHandler = <p>Loading...</p>;
-    }
-
     return (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col">
             <SearchBar
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <SearchResultList>{content}</SearchResultList>
-            <div>{selectedIngredient && <>{selectionHandler}</>}</div>
+            <SelectedIngredientHandler {...props} />
+            <SearchResultList visible={result && !selectedIngredient}>
+                {content}
+            </SearchResultList>
         </div>
     );
 }
