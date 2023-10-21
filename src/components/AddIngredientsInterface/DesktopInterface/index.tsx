@@ -1,9 +1,7 @@
-import AddIngredientTab from "../../AddIngredientTab";
-
 interface Props {
-    mealId: string;
+    children?: React.ReactNode;
 }
 
-export default function DesktopInterface({ mealId }: Props) {
-    return <AddIngredientTab mealId={mealId} />;
+export default function DesktopInterface({ children }: Props) {
+    return <div>{children}</div>;
 }

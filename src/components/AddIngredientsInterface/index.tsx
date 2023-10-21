@@ -1,6 +1,7 @@
 import { useMediaQuery } from "../../hooks/useMediaQuery";
 import DesktopInterface from "./DesktopInterface";
 import MobileInterface from "./MobileInterface";
+import AddIngredientsForm from "./AddIngredientsForm";
 
 interface Props {
     mealId: string;
@@ -12,9 +13,13 @@ export default function AddIngredientsInterface({ mealId }: Props) {
     return (
         <div>
             {isDesktop ? (
-                <DesktopInterface mealId={mealId} />
+                <DesktopInterface>
+                    <AddIngredientsForm mealId={mealId} />
+                </DesktopInterface>
             ) : (
-                <MobileInterface mealId={mealId} />
+                <MobileInterface mealId={mealId}>
+                    <AddIngredientsForm mealId={mealId} />
+                </MobileInterface>
             )}
         </div>
     );

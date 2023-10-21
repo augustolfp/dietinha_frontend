@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { type TableItem } from "../../types";
-import { useAddIngredientMutation } from "../../store/api/apiSlice";
+import { type TableItem } from "../../../../types";
+import { useAddIngredientMutation } from "../../../../store/api/apiSlice";
 
 interface Props {
     resultItem: TableItem;
     mealId: string;
 }
 
-export default function AddIngredientFromTable({ resultItem, mealId }: Props) {
+export default function SelectedIngredientHandler({
+    resultItem,
+    mealId,
+}: Props) {
     const [addIngredient, { isLoading }] = useAddIngredientMutation();
     const [ingredientWeight, setIngredientWeight] = useState(
         resultItem.baseQty

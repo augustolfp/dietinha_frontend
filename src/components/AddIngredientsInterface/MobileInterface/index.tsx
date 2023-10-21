@@ -1,14 +1,14 @@
 import { useState } from "react";
 import Drawer from "./Drawer";
-import AddIngredientTab from "../../AddIngredientTab";
 import Header from "./Header";
 import Footer from "./Footer";
 
 interface Props {
     mealId: string;
+    children?: React.ReactNode;
 }
 
-export default function MobileInterface({ mealId }: Props) {
+export default function MobileInterface({ mealId, children }: Props) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -29,7 +29,7 @@ export default function MobileInterface({ mealId }: Props) {
                 <Drawer onClose={() => setIsOpen(false)}>
                     <div className="flex flex-col gap-4">
                         <Header onClose={() => setIsOpen(false)} />
-                        <AddIngredientTab mealId={mealId} />
+                        {children}
                     </div>
                     <Footer mealId={mealId} />
                 </Drawer>
