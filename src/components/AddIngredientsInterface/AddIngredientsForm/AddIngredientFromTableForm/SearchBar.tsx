@@ -34,9 +34,10 @@ export default function SearchBar({ value, onChange, children }: Props) {
     }, [showResults]);
 
     return (
-        <div ref={ref} onClick={() => setShowResults(true)}>
+        <div ref={ref}>
             <div className="join w-full">
                 <DebounceInput
+                    onFocus={() => setShowResults(true)}
                     type="text"
                     minLength={3}
                     debounceTimeout={300}
@@ -49,7 +50,9 @@ export default function SearchBar({ value, onChange, children }: Props) {
                     <AiOutlineSearch size={18} />
                 </div>
             </div>
-            {showResults && <div>{children}</div>}
+            {showResults && (
+                <div onClick={() => setShowResults(false)}>{children}</div>
+            )}
         </div>
     );
 }
