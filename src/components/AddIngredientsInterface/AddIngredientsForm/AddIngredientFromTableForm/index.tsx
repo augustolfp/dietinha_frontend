@@ -43,11 +43,10 @@ export default function AddIngredientFromTableForm({ mealId }: Props) {
             <SearchBar
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-            />
+            >
+                <SearchResultList visible={true}>{content}</SearchResultList>
+            </SearchBar>
             <SelectedIngredientHandler {...props} />
-            <SearchResultList visible={result && !selectedIngredient}>
-                {content}
-            </SearchResultList>
         </div>
     );
 }

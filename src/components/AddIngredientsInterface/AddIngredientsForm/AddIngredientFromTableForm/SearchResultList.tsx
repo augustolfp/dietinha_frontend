@@ -5,7 +5,7 @@ interface Props {
 
 export default function SearchResultList({ visible, children }: Props) {
     if (visible) {
-        return <div className="bg-base-100 p-4 rounded-xl">{children}</div>;
+        return <div className="p-4 rounded-xl bg-pink-300">{children}</div>;
     }
     return <></>;
 }
