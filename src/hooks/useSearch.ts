@@ -4,6 +4,8 @@ import { useSearchTableQuery } from "../store/api/apiSlice";
 import { type TableItem } from "../types";
 
 export default function useSearch(term: string) {
+    const [selectedIngId, setSelectedIngId] = useState<null | string>(null);
+
     const {accessToken} = useUser()
 
     const { data, isError, isFetching } = useSearchTableQuery(
@@ -18,5 +20,17 @@ export default function useSearch(term: string) {
         result = data.tacoResults
     }
 
-    return {result, isError, isFetching}
+    const setSelectedIngredient = (id: string) => {
+        setSelectedIngId(id)
+    }
+
+    let selectedIngredient: TableItem | null = null
+    if(!isFetching && result && selectedIngId) {
+        const findIng = result.find(ing => ing.id === selectedIngId)
+        if(findIng) {
+            selectedIngredient = findIng
+        }
+    }
+
+    return {result, isError, isFetching, setSelectedIngredient, selectedIngredient}
 }

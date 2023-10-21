@@ -11,8 +11,13 @@ interface Props {
 
 export default function AddIngredientFromTableForm({ mealId }: Props) {
     const [searchTerm, setSearchTerm] = useState<string>("");
-    const [selectedIngId, setSelectedIngId] = useState<null | string>(null);
-    const { result, isError, isFetching } = useSearch(searchTerm);
+    const {
+        result,
+        isError,
+        isFetching,
+        setSelectedIngredient,
+        selectedIngredient,
+    } = useSearch(searchTerm);
 
     let content;
     if (isFetching) {
@@ -23,25 +28,21 @@ export default function AddIngredientFromTableForm({ mealId }: Props) {
         content = result.map((resultItem) => (
             <SearchResultListItem
                 key={resultItem.id}
-                selectedIngId={selectedIngId}
-                setSelectedIngId={setSelectedIngId}
+                selectedIngId={selectedIngredient?.id ?? null}
+                setSelectedIngId={setSelectedIngredient}
                 resultItem={resultItem}
             />
         ));
     }
 
     let selectionHandler;
-    if (!isFetching && result && selectedIngId) {
-        const selectedIng = result.find((ing) => ing.id === selectedIngId);
-
-        if (selectedIng) {
-            selectionHandler = (
-                <SelectedIngredientHandler
-                    resultItem={selectedIng}
-                    mealId={mealId}
-                />
-            );
-        }
+    if (selectedIngredient) {
+        selectionHandler = (
+            <SelectedIngredientHandler
+                resultItem={selectedIngredient}
+                mealId={mealId}
+            />
+        );
     } else {
         selectionHandler = <p>Loading...</p>;
     }
@@ -52,12 +53,8 @@ export default function AddIngredientFromTableForm({ mealId }: Props) {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <SearchResultList>
-                {searchTerm.length >= 3 && !selectedIngId && (
-                    <div>{content}</div>
-                )}
-            </SearchResultList>
-            <div>{selectedIngId && <>{selectionHandler}</>}</div>
+            <SearchResultList>{content}</SearchResultList>
+            <div>{selectedIngredient && <>{selectionHandler}</>}</div>
         </div>
     );
 }
