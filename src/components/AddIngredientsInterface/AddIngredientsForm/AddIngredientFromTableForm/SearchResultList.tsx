@@ -1,7 +1,11 @@
 interface Props {
+    visible: boolean;
     children?: React.ReactNode;
 }
 
-export default function SearchResultList({ children }: Props) {
-    return <div className="bg-base-100 p-4 rounded-xl">{children}</div>;
+export default function SearchResultList({ visible, children }: Props) {
+    if (visible) {
+        return <div className="p-4 rounded-xl bg-pink-300">{children}</div>;
+    }
+    return <></>;
 }

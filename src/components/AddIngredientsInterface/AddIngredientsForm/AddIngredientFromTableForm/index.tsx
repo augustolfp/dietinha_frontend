@@ -1,70 +1,52 @@
 import { useState } from "react";
-import useUser from "../../../../hooks/authHooks/useUser";
-import { useSearchTableQuery } from "../../../../store/api/apiSlice";
 import SearchResultList from "./SearchResultList";
 import SearchResultListItem from "./SearchResultListItem";
 import SearchBar from "./SearchBar";
 import SelectedIngredientHandler from "./SelectedIngredientHandler";
+import useSearch from "../../../../hooks/useSearch";
+import useAddIngredientFromTable from "../../../../hooks/useAddIngredientFromTable";
 
 interface Props {
     mealId: string;
 }
 
 export default function AddIngredientFromTableForm({ mealId }: Props) {
-    const [searchTerm, setSearchTerm] = useState("");
-    const [selectedIngId, setSelectedIngId] = useState<null | string>(null);
-    const { accessToken } = useUser();
-    const { data, error, isLoading } = useSearchTableQuery(
-        { description: searchTerm },
-        { skip: !Boolean(accessToken) || searchTerm.length < 3 }
-    );
+    const [searchTerm, setSearchTerm] = useState<string>("");
+    const {
+        result,
+        isError,
+        isSearching,
+        setSelectedIngredient,
+        selectedIngredient,
+    } = useSearch(searchTerm);
+
+    const { ...props } = useAddIngredientFromTable(selectedIngredient, mealId);
 
     let content;
-    if (isLoading) {
+    if (isSearching) {
         content = <p>Loading...</p>;
-    } else if (error) {
+    } else if (isError) {
         content = <p className="text-red-600">Error on fetching</p>;
-    } else if (data) {
-        content = data.tacoResults.map((resultItem) => (
+    } else if (result) {
+        content = result.map((resultItem) => (
             <SearchResultListItem
                 key={resultItem.id}
-                selectedIngId={selectedIngId}
-                setSelectedIngId={setSelectedIngId}
+                selectedIngId={selectedIngredient?.id ?? null}
+                setSelectedIngId={setSelectedIngredient}
                 resultItem={resultItem}
             />
         ));
     }
 
-    let selectionHandler;
-    if (!isLoading && data && selectedIngId) {
-        const selectedIng = data.tacoResults.find(
-            (ing) => ing.id === selectedIngId
-        );
-
-        if (selectedIng) {
-            selectionHandler = (
-                <SelectedIngredientHandler
-                    resultItem={selectedIng}
-                    mealId={mealId}
-                />
-            );
-        }
-    } else {
-        selectionHandler = <p>Loading...</p>;
-    }
-
     return (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col">
             <SearchBar
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <SearchResultList>
-                {searchTerm.length >= 3 && !selectedIngId && (
-                    <div>{content}</div>
-                )}
-            </SearchResultList>
-            <div>{selectedIngId && <>{selectionHandler}</>}</div>
+            >
+                <SearchResultList visible={true}>{content}</SearchResultList>
+            </SearchBar>
+            <SelectedIngredientHandler {...props} />
         </div>
     );
 }
